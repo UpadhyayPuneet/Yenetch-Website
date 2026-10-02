@@ -31,6 +31,8 @@ namespace Yenetch.Models
         /// <summary>Offers (all of them; use Offers.Active to get the ones running now).</summary>
         public List<Offer> Offers { get; set; }
         public List<Author> Authors { get; set; }
+        /// <summary>The "What do you need?" choices on /pricing (Admin &gt; Website content &gt; Pricing goals).</summary>
+        public List<Goal> Goals { get; set; }
     }
 
     public class Company
@@ -86,6 +88,8 @@ namespace Yenetch.Models
         public List<string> Keywords { get; set; }
         public string Timeline { get; set; }
         public string Pricing { get; set; }
+        /// <summary>Services the plan builder suggests next when this one is in a plan (empty: the defaults in App_Data/seed/pairs.json).</summary>
+        public List<string> PairsWith { get; set; }
         public string Url { get { return "/services/" + Slug; } }
     }
 
@@ -341,6 +345,15 @@ namespace Yenetch.Models
     }
 
     /// <summary>An extra for the custom plan builder, priced per unit (pages, posts, hours, users...).</summary>
+    /// <summary>A customer goal on /pricing, such as More leads, and the services that serve it.</summary>
+    public class Goal
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string Hint { get; set; }
+        public List<string> Services { get; set; }
+    }
+
     public class Addon
     {
         public string Id { get; set; }

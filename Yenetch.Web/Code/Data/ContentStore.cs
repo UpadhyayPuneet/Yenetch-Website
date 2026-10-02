@@ -309,7 +309,7 @@ namespace Yenetch.Data
                 if (Settings.Get("content.seeded") == null) Seed();
                 if (Settings.Get("landing.seeded") == null) SeedLanding();
                 // v11: example plans, builder extras, an offer and the editorial author, added once to every site.
-                foreach (var k in new[] { "plans", "addons", "offers", "authors" })
+                foreach (var k in new[] { "plans", "addons", "offers", "authors", "goals" })
                     if (Settings.Get(k + ".seeded") == null) SeedFile(k);
                 _seeded = true;
             }

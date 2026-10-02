@@ -863,6 +863,10 @@
   <ItemGroup>
     <Compile Include="Code\Data\HtmlSanitizer.cs" />
   </ItemGroup>
+  <ItemGroup>
+    <Content Include="App_Data\seed\goals.json" />
+    <Content Include="App_Data\seed\pairs.json" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />

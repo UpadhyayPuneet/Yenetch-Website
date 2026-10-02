@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Globalization;
 using System.Linq;
@@ -99,6 +99,44 @@ namespace Yenetch.Data
         public static Addon Addon(string id) { return Addons.FirstOrDefault(a => string.Equals(a.Id, id, StringComparison.OrdinalIgnoreCase)); }
 
         /// <summary>Services that have plans, in the order of the service list.</summary>
+        /// <summary>The "What do you need?" choices, keeping only services that have plans (and choices left with at least one).</summary>
+        public static List<Goal> Goals
+        {
+            get
+            {
+                var with = new HashSet<string>(ServicesWithPlans.Select(s => s.Slug), StringComparer.OrdinalIgnoreCase);
+                return (SiteContent.Current.Goals ?? new List<Goal>()).Where(g => g != null && !string.IsNullOrWhiteSpace(g.Name))
+                    .Select(g => new Goal { Id = string.IsNullOrEmpty(g.Id) ? BlogPost.Slugify(g.Name) : g.Id, Name = g.Name, Hint = g.Hint, Services = (g.Services ?? new List<string>()).Where(with.Contains).Distinct().ToList() })
+                    .Where(g => g.Services.Count > 0).ToList();
+            }
+        }
+
+        private static Dictionary<string, List<string>> _defaultPairs;
+        /// <summary>Services suggested next when a service is in a plan: its "Suggest with" list, else the defaults in App_Data/seed/pairs.json.</summary>
+        public static List<string> PairsFor(Service s)
+        {
+            if (s == null) return new List<string>();
+            if (s.PairsWith != null && s.PairsWith.Count > 0) return s.PairsWith.Where(x => x != s.Slug).ToList();
+            if (_defaultPairs == null)
+            {
+                try { _defaultPairs = new JavaScriptSerializer().Deserialize<Dictionary<string, List<string>>>(System.IO.File.ReadAllText(Util.AppPath("App_Data/seed/pairs.json"))); }
+                catch { _defaultPairs = new Dictionary<string, List<string>>(); }
+            }
+            List<string> list;
+            return _defaultPairs.TryGetValue(s.Slug ?? "", out list) && list != null ? list : new List<string>();
+        }
+
+        /// <summary>"3 plans · from ₹15,000/month" for a collapsed service on /pricing.</summary>
+        public static string Teaser(string service)
+        {
+            var plans = PlansFor(service);
+            if (plans.Count == 0) return "";
+            var label = plans.Count == 1 ? "1 plan" : plans.Count + " plans";
+            if (!ShowPrices) return label;
+            var low = plans.OrderBy(p => p.Price).First();
+            return label + " · from <b data-inr=\"" + low.Price.ToString(CultureInfo.InvariantCulture) + "\">" + Fx.Format(low.Price, Fx.Base) + "</b>" + BillingLabel(low.Billing);
+        }
+
         public static List<Service> ServicesWithPlans
         {
             get { var withPlans = new HashSet<string>(Plans.Select(p => p.Service ?? ""), StringComparer.OrdinalIgnoreCase); return SiteContent.Current.Services.Where(s => withPlans.Contains(s.Slug)).ToList(); }
@@ -247,6 +285,9 @@ namespace Yenetch.Data
                  + (BillingLabel(billing).Length > 0 ? "<small>" + BillingLabel(billing) + "</small>" : "") + "</span>";
         }
 
+        /// <summary>How many plan features show before "more included".</summary>
+        public const int CardFeatures = 4;
+
         /// <summary>Plan cards for one service (service pages and /pricing).</summary>
         public static string PlanCards(string service, bool onServicePage = false)
         {
@@ -265,9 +306,17 @@ namespace Yenetch.Data
                 if (p.MinMonths > 1 && p.IsMonthly) sb.Append("<p class=\"plan__setup\">Minimum ").Append(p.MinMonths).Append(" months</p>");
                 if (p.Features != null && p.Features.Count > 0)
                 {
+                    // The first few points keep cards short; the rest open on request.
+                    var feats = p.Features.Where(f => !string.IsNullOrWhiteSpace(f)).ToList();
                     sb.Append("<ul class=\"plan__list\">");
-                    foreach (var f in p.Features.Take(6)) sb.Append("<li>").Append(H(f)).Append("</li>");
+                    foreach (var f in feats.Take(CardFeatures)) sb.Append("<li>").Append(H(f)).Append("</li>");
                     sb.Append("</ul>");
+                    if (feats.Count > CardFeatures)
+                    {
+                        sb.Append("<details class=\"plan__more\"><summary>").Append(feats.Count - CardFeatures).Append(" more included</summary><ul class=\"plan__list\">");
+                        foreach (var f in feats.Skip(CardFeatures)) sb.Append("<li>").Append(H(f)).Append("</li>");
+                        sb.Append("</ul></details>");
+                    }
                 }
                 if (!string.IsNullOrEmpty(p.Timeline)) sb.Append("<p class=\"plan__time\">").Append(H(p.Timeline)).Append("</p>");
                 sb.Append("<div class=\"plan__cta\">");
@@ -287,6 +336,8 @@ namespace Yenetch.Data
             {
                 show,
                 tax = new { name = TaxName, pct = TaxPct },
+                goals = Goals.Select(g => new { id = g.Id, name = g.Name, services = g.Services }),
+                services = ServicesWithPlans.Select(s => new { slug = s.Slug, name = s.Name, pairs = PairsFor(s) }),
                 plans = Plans.Select(p => new { id = p.Id, service = p.Service, serviceName = (services.FirstOrDefault(s => s.Slug == p.Service) ?? new Service()).Name, name = p.Name, price = show ? p.Price : 0, billing = p.Billing ?? "one-time", setup = show ? p.SetupFee : 0, from = p.IsFrom, popular = p.Popular }),
                 addons = Addons.Select(a => new { id = a.Id, service = a.Service, group = string.IsNullOrEmpty(a.Group) ? "Extras" : a.Group, name = a.Name, description = a.Description, price = show ? a.Price : 0, billing = a.IsMonthly ? "monthly" : "one-time", unit = a.Unit, min = Math.Max(1, a.Min), max = a.Max })
             };

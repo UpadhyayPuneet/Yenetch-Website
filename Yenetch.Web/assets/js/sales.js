@@ -245,6 +245,95 @@
     }); }, 9000);
   }
 
+  /* ================================================================ "What do you need?" (/pricing) */
+  // Goal chips and search narrow the folded service list to what fits; services in the plan always stay visible.
+  function initFinder(cartServices) {
+    var f = $("[data-finder]"), rows = $$(".psvc[data-svc]");
+    if (!f || !rows.length) return null;
+    f.hidden = false;
+    var chips = $$("[data-goal]", f), search = $("[data-psearch]", f), count = $("[data-pcount]", f), clear = $("[data-pclear]", f);
+    var groups = $$("[data-pgroup]"), more = $("[data-pmore]"), showAll = $("[data-pshowall]");
+    var showEverything = false, forced = {}, t = null;
+    var params = new URLSearchParams(location.search);
+    var start = (params.get("need") || store("yn_need") || "").split(",");
+    chips.forEach(function (c) { c.setAttribute("aria-pressed", start.indexOf(c.getAttribute("data-goal")) >= 0 ? "true" : "false"); });
+
+    function picked() { return chips.filter(function (c) { return c.getAttribute("aria-pressed") === "true"; }); }
+    function goalServices() {
+      var out = [];
+      picked().forEach(function (c) { c.getAttribute("data-services").split(" ").forEach(function (x) { if (x && out.indexOf(x) < 0) out.push(x); }); });
+      return out;
+    }
+    function remember() {
+      var ids = picked().map(function (c) { return c.getAttribute("data-goal"); }).join(",");
+      store("yn_need", ids || null);
+      try { var u = new URL(location.href); if (ids) u.searchParams.set("need", ids); else u.searchParams.delete("need"); history.replaceState(history.state, "", u.pathname + u.search + u.hash); } catch (e) { }
+    }
+    function apply(openMatches) {
+      var set = goalServices(), terms = (search.value || "").toLowerCase().split(/\s+/).filter(Boolean), cart = cartServices();
+      var filtering = set.length > 0 || terms.length > 0, matches = [], hiddenCount = 0;
+      rows.forEach(function (r) {
+        var slug = r.getAttribute("data-svc"), inCart = cart.indexOf(slug) >= 0, words = r.getAttribute("data-find") || "";
+        var match = (!set.length || set.indexOf(slug) >= 0) && terms.every(function (w) { return words.indexOf(w) >= 0; });
+        var show = !filtering || match || inCart || forced[slug] || showEverything;
+        r.hidden = !show;
+        if (!show) hiddenCount++;
+        if (filtering && match) matches.push(r);
+        r.classList.toggle("is-match", filtering && match);
+        var badge = $("[data-picked]", r); if (badge) badge.hidden = !inCart;
+      });
+      groups.forEach(function (g) { g.hidden = !$$(".psvc", g).some(function (r) { return !r.hidden; }); });
+      count.textContent = !filtering ? rows.length + " services. Pick what you need to shorten the list."
+        : matches.length ? matches.length + (matches.length === 1 ? " service fits" : " services fit") + "." : "No service matches. Try another word, or ask us.";
+      clear.hidden = !filtering;
+      more.hidden = !filtering || (!hiddenCount && !showEverything);
+      showAll.textContent = showEverything ? "Show only what fits" : "Show all " + rows.length + " services";
+      if (openMatches && matches.length) {
+        // Open a short list right away; for a longer one, open the first and leave the rest as one-line rows.
+        matches.forEach(function (r, i) { if (matches.length <= 2 || i === 0) r.open = true; });
+      }
+    }
+
+    chips.forEach(function (c) {
+      c.addEventListener("click", function () {
+        var on = c.getAttribute("aria-pressed") !== "true";
+        c.setAttribute("aria-pressed", on ? "true" : "false");
+        showEverything = false; remember(); apply(on);
+        if (on) track("pricing_goal", c.getAttribute("data-goal"));
+        D.dispatchEvent(new CustomEvent("yn:goals"));
+      });
+    });
+    search.addEventListener("input", function () {
+      clearTimeout(t);
+      t = setTimeout(function () { showEverything = false; apply(search.value.trim().length > 1); }, 180);
+    });
+    search.addEventListener("keydown", function (e) { if (e.key === "Escape") { search.value = ""; apply(false); } });
+    clear.addEventListener("click", function () {
+      chips.forEach(function (c) { c.setAttribute("aria-pressed", "false"); });
+      search.value = ""; showEverything = false; remember(); apply(false);
+      D.dispatchEvent(new CustomEvent("yn:goals"));
+    });
+    showAll.addEventListener("click", function () { showEverything = !showEverything; apply(false); });
+
+    // Links to one service (#plans-seo, "See plans" in the builder) open it even when a filter hides it.
+    function reveal(slug, scroll) {
+      var r = $('.psvc[data-svc="' + slug + '"]');
+      if (!r) return;
+      forced[slug] = true; r.open = true; apply(false);
+      if (scroll) r.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+    D.addEventListener("click", function (e) {
+      var a = e.target.closest("[data-open-svc]");
+      if (!a) return;
+      e.preventDefault(); reveal(a.getAttribute("data-open-svc"), true);
+    });
+    function fromHash() { var m = /^#plans-(.+)$/.exec(location.hash); if (m) reveal(decodeURIComponent(m[1]), true); }
+    W.addEventListener("hashchange", fromHash);
+    apply(picked().length > 0);
+    fromHash();
+    return { update: function () { apply(false); }, goalServices: goalServices };
+  }
+
   /* ================================================================ plan builder (/pricing) */
   function initBuilder(root) {
     var dataEl = $("#builder-data", root), cat;
@@ -263,6 +352,13 @@
     var codeForm = $("[data-pb-code]", root), last = null, timer = null, seq = 0;
 
     function save() { store("yn_plan", JSON.stringify(state)); }
+    function cartServices() {
+      var out = [];
+      state.items.forEach(function (i) { var p = i.kind === "plan" ? plans[i.id] : null; if (p && p.service && out.indexOf(p.service) < 0) out.push(p.service); });
+      return out;
+    }
+    var finder = initFinder(cartServices);
+    D.addEventListener("yn:goals", function () { renderSuggest(); });
     function has(kind, id) { return state.items.some(function (i) { return i.kind === kind && i.id === id; }); }
     function addPlan(id, quiet) {
       var p = plans[id]; if (!p) return;
@@ -293,24 +389,91 @@
       setQty(q.getAttribute("data-kind"), q.getAttribute("data-pb-qty"), v);
     });
 
-    // Extras grouped by heading.
-    var groups = {};
-    cat.addons.forEach(function (a) { (groups[a.group] = groups[a.group] || []).push(a); });
-    var extrasHtml = Object.keys(groups).map(function (g) {
-      return '<div class="pb__group"><h3>' + esc(g) + '</h3><div class="pb__addons">' + groups[g].map(function (a) {
-        return '<div class="pb__addon" data-addon-row="' + esc(a.id) + '"><div><b>' + esc(a.name) + "</b>" + (a.description ? "<p>" + esc(a.description) + "</p>" : "") +
-          (cat.show && a.price ? '<span class="pb__unit"><span data-inr="' + a.price + '">₹' + a.price.toLocaleString("en-IN") + "</span> per " + esc(a.unit || "unit") + (a.billing === "monthly" ? " / month" : "") + "</span>" : "") + "</div>" +
-          '<div class="pb__addon-ctl"><input class="field field--sm" type="number" min="' + (a.min || 1) + '"' + (a.max ? ' max="' + a.max + '"' : "") + ' aria-label="Quantity of ' + esc(a.name) + '" data-pb-qty="' + esc(a.id) + '" data-kind="addon" hidden>' +
-          '<button type="button" class="btn btn--line btn--sm" data-pb-addon="' + esc(a.id) + '" aria-pressed="false">Add</button></div></div>';
-      }).join("") + "</div></div>";
-    }).join("");
-    $("[data-pb-extras]", root).innerHTML = extrasHtml ? '<h3 class="pb__extras-title">Extras</h3>' + extrasHtml : "";
+    // Extras: the ones for the services in the plan (and general ones) show; the rest wait under "More extras".
+    var extrasKey = null, extrasEl = $("[data-pb-extras]", root);
+    function extrasGroups(list) {
+      var groups = {}, order = [];
+      list.forEach(function (a) { if (!groups[a.group]) { groups[a.group] = []; order.push(a.group); } groups[a.group].push(a); });
+      return order.map(function (g) {
+        return '<div class="pb__group"><h3>' + esc(g) + '</h3><div class="pb__addons">' + groups[g].map(function (a) {
+          return '<div class="pb__addon" data-addon-row="' + esc(a.id) + '"><div><b>' + esc(a.name) + "</b>" + (a.description ? "<p>" + esc(a.description) + "</p>" : "") +
+            (cat.show && a.price ? '<span class="pb__unit"><span data-inr="' + a.price + '">₹' + a.price.toLocaleString("en-IN") + "</span> per " + esc(a.unit || "unit") + (a.billing === "monthly" ? " / month" : "") + "</span>" : "") + "</div>" +
+            '<div class="pb__addon-ctl"><input class="field field--sm" type="number" min="' + (a.min || 1) + '"' + (a.max ? ' max="' + a.max + '"' : "") + ' aria-label="Quantity of ' + esc(a.name) + '" data-pb-qty="' + esc(a.id) + '" data-kind="addon" hidden>' +
+            '<button type="button" class="btn btn--line btn--sm" data-pb-addon="' + esc(a.id) + '" aria-pressed="false">Add</button></div></div>';
+        }).join("") + "</div></div>";
+      }).join("");
+    }
+    function renderExtras() {
+      var svcs = cartServices(), near = [], rest = [];
+      cat.addons.forEach(function (a) {
+        var fits = has("addon", a.id) || (svcs.length > 0 && (!a.service || svcs.indexOf(a.service) >= 0));
+        (fits ? near : rest).push(a);
+      });
+      var key = near.map(function (a) { return a.id; }).join(",");
+      if (key === extrasKey) return;
+      extrasKey = key;
+      var wasOpen = !!$(".pb__morex[open]", extrasEl);
+      var html = near.length ? '<h3 class="pb__extras-title">Extras for your plan</h3>' + extrasGroups(near) : "";
+      if (rest.length) html += '<details class="pb__morex"' + (wasOpen ? " open" : "") + "><summary>" + (near.length ? "More extras" : "Browse extras") + " <span>(" + rest.length + ")</span></summary>" + extrasGroups(rest) + "</details>";
+      extrasEl.innerHTML = html;
+      paint();
+    }
+
+    // Suggestions: plans that go well with what is in the plan, or that fit the goals picked at the top.
+    var svcInfo = {}, suggestEl = $("[data-pb-suggest]", root);
+    (cat.services || []).forEach(function (x) { svcInfo[x.slug] = x; });
+    function shortName(n) { return String(n || "").split(" (")[0]; }
+    function bestPlan(slug) {
+      var list = cat.plans.filter(function (p) { return p.service === slug; });
+      return list.filter(function (p) { return p.popular; })[0] || list[0];
+    }
+    function renderSuggest() {
+      if (!suggestEl) return;
+      var inCart = cartServices(), seen = {}, out = [], title;
+      inCart.forEach(function (x) { seen[x] = true; });
+      if (inCart.length) {
+        title = "Often added with your plan";
+        inCart.forEach(function (c) {
+          ((svcInfo[c] || {}).pairs || []).forEach(function (x) { if (!seen[x] && svcInfo[x] && bestPlan(x)) { seen[x] = true; out.push({ slug: x, why: "Goes well with " + shortName(svcInfo[c].name) }); } });
+        });
+      } else if (finder && finder.goalServices().length) {
+        title = "Recommended for what you need";
+        finder.goalServices().forEach(function (x) { if (!seen[x] && svcInfo[x] && bestPlan(x)) { seen[x] = true; out.push({ slug: x, why: "" }); } });
+      }
+      out = out.slice(0, 3);
+      suggestEl.hidden = !out.length;
+      if (!out.length) { suggestEl.innerHTML = ""; return; }
+      var per = { monthly: "/month", yearly: "/year", hourly: "/hour" };
+      suggestEl.innerHTML = '<h3 class="pb__extras-title">' + esc(title) + '</h3><div class="pb__suggs">' + out.map(function (o) {
+        var p = bestPlan(o.slug);
+        return '<div class="pb__sugg"><div class="pb__sugg-text">' + (o.why ? "<small>" + esc(o.why) + "</small>" : "") + "<b>" + esc(shortName(svcInfo[o.slug].name)) + " · " + esc(p.name) + "</b>" +
+          (cat.show && p.price ? '<span class="pb__unit">' + (p.from ? "From " : "") + '<span data-inr="' + p.price + '">₹' + p.price.toLocaleString("en-IN") + "</span>" + (per[p.billing] || "") + "</span>" : "") +
+          '</div><div class="pb__sugg-ctl"><button type="button" class="btn btn--line btn--sm" data-add-plan="' + esc(p.id) + '" aria-pressed="false">Add</button>' +
+          '<a class="pb__sugg-more" href="#plans-' + esc(o.slug) + '" data-open-svc="' + esc(o.slug) + '">Compare plans</a></div></div>';
+      }).join("") + "</div>";
+      paint();
+    }
+
+    // A small bar with the plan total while the visitor browses services further up.
+    var bar = $("[data-pb-bar]"), barText = $("[data-pb-bar-text]"), builderInView = false;
+    if (bar && W.IntersectionObserver) {
+      new IntersectionObserver(function (en) { builderInView = en[0].isIntersecting; updateBar(); }, { rootMargin: "0px 0px -30% 0px" }).observe($("#builder") || root);
+    }
+    function updateBar() {
+      if (!bar) return;
+      var n = state.items.length;
+      bar.hidden = !n || builderInView;
+      if (!n) return;
+      barText.innerHTML = "<b>" + n + (n === 1 ? " item" : " items") + "</b> in your plan" + (last && last.show && last.dueNow ? " · " + esc(last.dueNow) + " first payment" : "");
+    }
 
     function syncButtons() {
+      renderExtras(); renderSuggest();
+      if (finder) finder.update();
       $$("[data-add-plan]").forEach(function (b) {
         var on = has("plan", b.getAttribute("data-add-plan"));
         b.setAttribute("aria-pressed", on ? "true" : "false");
-        b.textContent = on ? "Added ✓" : "Add to my plan";
+        b.textContent = on ? "Added ✓" : b.closest(".pb__sugg") ? "Add" : "Add to my plan";
         var card = b.closest(".plan"); if (card) card.classList.toggle("is-picked", on);
       });
       $$("[data-pb-addon]", root).forEach(function (b) {
@@ -324,6 +487,7 @@
 
     function render(q) {
       last = q;
+      updateBar();
       if (!state.items.length) { lines.innerHTML = '<li class="pb__none">Nothing added yet.</li>'; totals.innerHTML = ""; offerEl.hidden = true; return; }
       var per = { monthly: "/mo", yearly: "/yr" };
       lines.innerHTML = q.lines.map(function (l) {

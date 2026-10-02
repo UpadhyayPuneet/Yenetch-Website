@@ -1,0 +1,11 @@
+[
+ {"id": "leads", "name": "More leads & sales", "hint": "Ads, funnels and tracking", "services": ["performance-marketing", "lead-generation", "media-buying", "seo"]},
+ {"id": "google", "name": "Rank on Google", "hint": "SEO and content", "services": ["seo", "content-marketing", "web-development"]},
+ {"id": "website", "name": "A new or better website", "hint": "Design, build and care", "services": ["web-development", "ui-ux", "ecommerce-development", "maintenance"]},
+ {"id": "store", "name": "Sell online", "hint": "Store, payments and ads", "services": ["ecommerce-development", "performance-marketing", "seo"]},
+ {"id": "social", "name": "Grow on social media", "hint": "Content, creators and reviews", "services": ["social-media-marketing", "content-marketing", "influencer-marketing", "brand-orm"]},
+ {"id": "software", "name": "An app or software", "hint": "Mobile, web and custom", "services": ["mobile-apps", "custom-software", "ui-ux", "crm-erp"]},
+ {"id": "automate", "name": "Automate with AI & CRM", "hint": "Save hours every week", "services": ["ai-solutions", "crm-erp", "custom-software"]},
+ {"id": "it", "name": "Cloud, hosting & IT", "hint": "Servers, uptime and support", "services": ["cloud-devops", "it-infrastructure", "maintenance"]},
+ {"id": "team", "name": "Hire a team", "hint": "Developers or marketers", "services": ["dedicated-teams", "staff-augmentation", "marketing-team"]}
+]

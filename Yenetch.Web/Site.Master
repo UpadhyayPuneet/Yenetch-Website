@@ -22,7 +22,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&display=swap" />
-    <link rel="stylesheet" href="/assets/css/site.css?v=11" />
+    <link rel="stylesheet" href="/assets/css/site.css?v=12" />
     <asp:PlaceHolder runat="server"><script type="application/ld+json"><%= Yenetch.Data.Site.OrganizationLd %></script></asp:PlaceHolder>
     <asp:ContentPlaceHolder ID="HeadContent" runat="server" />
     <asp:PlaceHolder runat="server"><%= Yenetch.Data.Tracking.Head(Request.Url.AbsolutePath) %></asp:PlaceHolder>
@@ -124,14 +124,14 @@
   <button class="dock__item" type="button" data-dock="contact" aria-haspopup="dialog" aria-controls="csheet" aria-expanded="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3.5" y="5" width="17" height="14" rx="3.2"/><circle cx="9" cy="10.8" r="2.1"/><path d="M5.9 16.2c.6-1.5 1.7-2.3 3.1-2.3s2.5.8 3.1 2.3M14.6 10h3.4M14.6 13.4h2.4"/></svg><span>Contact</span></button>
 </nav>
     <script src="/api/site-data?v=<%= Yenetch.Data.SiteDataScript.Version %>" defer></script>
-    <script src="/assets/js/site.js?v=11" defer></script>
-    <script src="/assets/js/finder.js?v=11" defer></script>
-    <script src="/assets/js/yenbot.js?v=11" defer></script>
-    <script src="/assets/js/consent.js?v=11" defer></script>
-    <script src="/assets/js/dock.js?v=11" defer></script>
-    <script src="/assets/js/apply.js?v=11" defer></script>
-    <script src="/assets/js/growth.js?v=11" defer></script>
-    <script src="/assets/js/sales.js?v=11" defer></script>
+    <script src="/assets/js/site.js?v=12" defer></script>
+    <script src="/assets/js/finder.js?v=12" defer></script>
+    <script src="/assets/js/yenbot.js?v=12" defer></script>
+    <script src="/assets/js/consent.js?v=12" defer></script>
+    <script src="/assets/js/dock.js?v=12" defer></script>
+    <script src="/assets/js/apply.js?v=12" defer></script>
+    <script src="/assets/js/growth.js?v=12" defer></script>
+    <script src="/assets/js/sales.js?v=12" defer></script>
     <asp:ContentPlaceHolder ID="Scripts" runat="server" />
     <%= Yenetch.Data.Tracking.BodyEnd(Request.Url.AbsolutePath) %>
 </body>

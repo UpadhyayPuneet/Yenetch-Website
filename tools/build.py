@@ -23,7 +23,7 @@ from sitegen import dock  # noqa: E402
 ROOT, WEB, D, C = ui.ROOT, ui.WEB, ui.D, ui.C
 esc, safe = bind.esc, ui.safe
 FONTS = "https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
-VER = "11"
+VER = "12"
 
 # (class, route, nav key, title, description, template)
 STATIC = [

@@ -40,7 +40,7 @@ def home():
 {logos_marquee()}
 
 <section class="sec"><div class="wrap">
-  <p class="statement" data-words>Marketing that brings demand. Software that turns demand into revenue. Products that work from day one. Planned and measured by one team.</p>
+  <p class="statement" data-find>Marketing that brings demand. Software that turns demand into revenue. Products that work from day one. Planned and measured by one team.</p>
 </div></section>
 
 <section class="sec" style="padding-top:0" id="practices"><div class="wrap">
@@ -1026,6 +1026,11 @@ PRICING_FAQ = [
 ]
 
 
+GOALS_SEED = json.loads((WEB / "App_Data/seed/goals.json").read_text(encoding="utf-8"))
+PAIRS_SEED = json.loads((WEB / "App_Data/seed/pairs.json").read_text(encoding="utf-8"))
+CARD_FEATURES = 4  # as Pricing.CardFeatures
+
+
 def _plan_cards_preview(slug, on_service=False):
     """Plan cards for the static preview (the live site renders them from the database: Pricing.PlanCards)."""
     plans = [p for p in PLANS_SEED if p["service"] == slug]
@@ -1034,7 +1039,10 @@ def _plan_cards_preview(slug, on_service=False):
     per = {"monthly": "/month", "yearly": "/year", "hourly": "/hour"}
     out = '<div class="plans" data-plans>'
     for p in plans:
-        feats = "".join(f"<li>{esc(f)}</li>" for f in p.get("features", [])[:6])
+        feats = p.get("features", [])
+        shown = "".join(f"<li>{esc(f)}</li>" for f in feats[:CARD_FEATURES])
+        more = (f'<details class="plan__more"><summary>{len(feats) - CARD_FEATURES} more included</summary><ul class="plan__list">'
+                + "".join(f"<li>{esc(f)}</li>" for f in feats[CARD_FEATURES:]) + "</ul></details>") if len(feats) > CARD_FEATURES else ""
         frm = "<small>From</small> " if p.get("priceType") == "From" else ""
         setup = f'<p class="plan__setup">+ <span data-inr="{p["setupFee"]}">₹{p["setupFee"]:,}</span> one-time set-up</p>' if p.get("setupFee") else ""
         cls = "btn--blue" if p.get("popular") else "btn--line"
@@ -1044,8 +1052,44 @@ def _plan_cards_preview(slug, on_service=False):
         out += (f'<article class="plan{" plan--popular" if p.get("popular") else ""}" data-plan="{p["id"]}">{flag}'
                 f'<h3>{esc(p["name"])}</h3><p class="plan__tag">{esc(p.get("tagline", ""))}</p>'
                 f'<span class="plan__price">{frm}<b data-inr="{p["price"]}">₹{p["price"]:,}</b><small>{per.get(p["billing"], "")}</small></span>{setup}'
-                f'<ul class="plan__list">{feats}</ul><p class="plan__time">{esc(p.get("timeline", ""))}</p><div class="plan__cta">{btn}</div></article>')
+                f'<ul class="plan__list">{shown}</ul>{more}<p class="plan__time">{esc(p.get("timeline", ""))}</p><div class="plan__cta">{btn}</div></article>')
     return out + "</div>"
+
+
+def _finder_preview(svcs):
+    """Pricing.Finder for the static preview."""
+    have = {s["slug"] for s in svcs}
+    chips = ""
+    for g in GOALS_SEED:
+        ss = [x for x in g["services"] if x in have]
+        if ss:
+            chips += (f'<button type="button" class="gchip" aria-pressed="false" data-goal="{g["id"]}" data-services="{" ".join(ss)}"><b>{esc(g["name"])}</b>'
+                      + (f'<small>{esc(g["hint"])}</small>' if g.get("hint") else "") + "</button>")
+    return ('<div class="pfind" data-finder hidden><div class="pfind__head"><h2>What do you need help with?</h2><p>Pick one or more. We show only the plans that fit.</p></div>'
+            f'<div class="pfind__chips" role="group" aria-label="Your goals">{chips}</div>'
+            '<div class="pfind__bar"><label class="sr-only" for="psearch">Search services</label><input class="field field--sm pfind__search" id="psearch" type="search" placeholder="Or search: SEO, app, CRM, hosting…" autocomplete="off" data-psearch>'
+            '<p class="pfind__count" data-pcount aria-live="polite"></p><button type="button" class="pfind__clear" data-pclear hidden>Clear</button></div></div>')
+
+
+def _sections_preview(svcs):
+    """Pricing.Sections for the static preview: folded service rows grouped by area."""
+    per = {"monthly": "/month", "yearly": "/year", "hourly": "/hour"}
+    out = ""
+    for pillar in D["pillars"]:
+        rows = ""
+        for s in (x for x in svcs if x["pillar"] == pillar["id"]):
+            plans = [p for p in PLANS_SEED if p["service"] == s["slug"]]
+            low = min(plans, key=lambda p: p["price"])
+            teaser = f'{len(plans)} plan{"s" if len(plans) != 1 else ""} · from <b data-inr="{low["price"]}">₹{low["price"]:,}</b>{per.get(low["billing"], "")}'
+            words = esc(" ".join([s["name"], s["summary"]] + s.get("keywords", [])).lower())
+            rows += (f'<details class="psvc" id="plans-{s["slug"]}" data-svc="{s["slug"]}" data-find="{words}">'
+                     f'<summary class="psvc__sum"><span class="psvc__name"><h3>{esc(s["name"])}</h3><span class="psvc__picked" data-picked hidden>In your plan</span></span>'
+                     f'<span class="psvc__meta">{teaser}</span><span class="psvc__chev" aria-hidden="true"></span></summary>'
+                     f'<div class="psvc__body"><div class="psvc__head"><p>{esc(s["summary"])}</p><a class="more" href="{L("/services/" + s["slug"])}">About this service</a></div>'
+                     f'{_plan_cards_preview(s["slug"])}</div></details>')
+        if rows:
+            out += f'<div class="pgroup" data-pgroup><h2 class="ppillar">{esc(pillar["name"])}</h2>{rows}</div>'
+    return out + '<p class="pmore" data-pmore hidden><button type="button" class="btn btn--line btn--sm" data-pshowall></button></p>'
 
 
 def currency_switch():
@@ -1070,16 +1114,17 @@ def pricing_page():
     note = _x("Yenetch.Data.Pricing.Note", "Prices are estimates before GST. Your final quote is confirmed after a short call about your goals and scope.")
     if bind.MODE == "aspx":
         sections = "<%= Yenetch.Web.Pricing.Sections() %>"
-        tabs = "<%= Yenetch.Web.Pricing.Tabs() %>"
+        tabs = "<%= Yenetch.Web.Pricing.Finder() %>"
         builder_data = '<script type="application/json" id="builder-data"><%= Yenetch.Data.Pricing.BuilderJson() %></script>'
         preview_note = "<%= Yenetch.Web.Pricing.PreviewNote() %>"
         ld = "<%= Yenetch.Data.Pricing.CatalogLd() %>"
     else:
         svcs = [s for s in D["services"] if any(p["service"] == s["slug"] for p in PLANS_SEED)]
-        tabs = '<nav class="ptabs" aria-label="Services">' + "".join(f'<a href="#plans-{s["slug"]}">{esc(s["name"].split(" (")[0])}</a>' for s in svcs) + "</nav>"
-        sections = "".join(f'<section class="psvc" id="plans-{s["slug"]}"><div class="psvc__head"><h2>{esc(s["name"])}</h2><p>{esc(s["summary"])}</p>'
-                           f'<a class="more" href="{L("/services/" + s["slug"])}">About this service</a></div>{_plan_cards_preview(s["slug"])}</section>' for s in svcs)
+        tabs = _finder_preview(svcs)
+        sections = _sections_preview(svcs)
         data = {"show": True, "tax": {"name": "GST", "pct": 18},
+                "goals": [{"id": g["id"], "name": g["name"], "services": [x for x in g["services"] if x in {v["slug"] for v in svcs}]} for g in GOALS_SEED],
+                "services": [{"slug": v["slug"], "name": v["name"], "pairs": PAIRS_SEED.get(v["slug"], [])} for v in svcs],
                 "plans": [{"id": p["id"], "service": p["service"], "serviceName": SVC[p["service"]]["name"], "name": p["name"], "price": p["price"], "billing": p["billing"],
                            "setup": p.get("setupFee", 0), "from": p.get("priceType") == "From", "popular": p.get("popular", False)} for p in PLANS_SEED],
                 "addons": [{"id": a["id"], "service": a.get("service"), "group": a.get("group") or "Extras", "name": a["name"], "description": a.get("description", ""),
@@ -1090,7 +1135,7 @@ def pricing_page():
     done = (f'<div class="cform__done" data-pb-done hidden>{icon("check")}<h2>Your quote is on its way.</h2>'
             f'<p data-pb-done-text>We have emailed your estimate. A specialist will call you within one working day.</p><a class="btn btn--line" href="{L("/book")}">Book a call now</a></div>')
     return f"""
-<section class="phero"><div class="wrap">
+<section class="phero phero--compact"><div class="wrap">
   {crumbs([("Home", "/"), ("Pricing", None)])}
   <span class="kicker">Pricing &amp; plans</span>
   <h1>{heading}</h1>
@@ -1102,12 +1147,14 @@ def pricing_page():
   {tabs}
   <div class="psvcs">{sections}</div>
 </div></section>
+<div class="pbar" data-pb-bar hidden><span class="pbar__text" data-pb-bar-text></span><a class="btn btn--blue btn--sm" href="#builder" data-pb-bar-go>View my plan</a></div>
 <section class="sec paper" id="builder"><div class="wrap">
   <div class="head fx-up"><span class="kicker">Plan builder</span><h2>Build your custom plan.</h2><p>Add plans from any service above, then the extras you need. Your estimate updates as you go.</p></div>
   <div class="pb" data-builder>
     {builder_data}
     <div class="pb__main">
-      <div class="pb__empty" data-pb-empty><p>Your plan is empty. Choose <b>Add to my plan</b> on any plan above, or start with an extra below.</p></div>
+      <div class="pb__empty" data-pb-empty><p>Your plan is empty. Pick what you need above, open a service and choose <b>Add to my plan</b>.</p></div>
+      <div class="pb__suggest" data-pb-suggest hidden></div>
       <div class="pb__extras" data-pb-extras></div>
     </div>
     <aside class="pb__side"><div class="pb__card" data-pb-summary aria-live="polite">
