@@ -64,9 +64,9 @@
         <section class="card" id="send">
             <div class="card__head"><h2>Send by email</h2><% if (P.SentOn.HasValue) { %><span class="muted small">Sent <%: Ago(P.SentOn) %></span><% } %></div>
             <div class="rcpt-fields" data-suggest="<%: SuggestJson %>">
-                <label class="label" for="to">To</label><input class="field" id="to" name="to" data-recipients autocomplete="off" value="<%: To %>" />
-                <label class="label" for="ccs">CC</label><input class="field" id="ccs" name="ccs" data-recipients autocomplete="off" value="<%: Cc %>" />
-                <label class="label" for="bcc">BCC</label><input class="field" id="bcc" name="bcc" data-recipients autocomplete="off" value="<%: Bcc %>" />
+                <label class="label" for="to">To</label><input class="field" id="to" name="to" data-recipients autocomplete="off" value="<%: SendTo %>" />
+                <label class="label" for="ccs">CC</label><input class="field" id="ccs" name="ccs" data-recipients autocomplete="off" value="<%: SendCc %>" />
+                <label class="label" for="bcc">BCC</label><input class="field" id="bcc" name="bcc" data-recipients autocomplete="off" value="<%: SendBcc %>" />
             </div>
             <p class="fld__help">Type a name or address; team members, the client and people you emailed before are suggested. Press Enter or comma to add.</p>
             <label class="label" for="subject">Subject</label><input class="field" id="subject" name="subject" maxlength="200" value="<%: "Proposal " + P.Number + ": " + P.Title %>" />
@@ -93,7 +93,7 @@
         </section>
         <section class="card">
             <div class="card__head"><h2>History</h2></div>
-            <ul class="timeline pe-history"><% foreach (var ev in Events) { %>
+            <ul class="timeline pe-history"><% foreach (var ev in History) { %>
                 <li><b><%: Label(ev.Str("Kind")) %></b> <span class="muted small"><%: When(ev.DateN("CreatedOn")) %><%= ev.Str("UserName") != null ? " · " + H(ev.Str("UserName")) : "" %></span>
                     <% if (!string.IsNullOrEmpty(ev.Str("Detail")) && ev.Str("Kind") != "edited" && ev.Str("Kind") != "created") { %><div class="small" style="white-space:pre-line;color:var(--ink-2)"><%: ev.Str("Detail") %></div><% } %></li>
             <% } %></ul>

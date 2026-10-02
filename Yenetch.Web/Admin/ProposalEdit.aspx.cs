@@ -15,8 +15,8 @@ namespace Yenetch.Web.Admin
         public override string Section { get { return "proposals"; } }
 
         protected Proposal P;
-        protected List<Row> Events = new List<Row>();
-        protected string Err, ItemsJson, CatalogOptions, SuggestJson, DefaultPortal, DefaultMessage, To, Cc, Bcc;
+        protected List<Row> History = new List<Row>();
+        protected string Err, ItemsJson, CatalogOptions, SuggestJson, DefaultPortal, DefaultMessage, SendTo, SendCc, SendBcc;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -36,11 +36,11 @@ namespace Yenetch.Web.Admin
             if (IsPostBack) { Handle(); if (Response.IsRequestBeingRedirected) return; }
             Page.Title = P.Id == 0 ? "New proposal" : P.Number;
             ItemsJson = ItemsJson ?? new JavaScriptSerializer().Serialize(P.Items.Select(i => new { name = i.Name, description = i.Description, qty = i.Qty, unit = i.Unit, price = i.Price, billing = i.Billing ?? "one-time" }));
-            if (P.Id > 0) Events = Proposals.Events(P.Id);
+            if (P.Id > 0) History = Proposals.Events(P.Id);
             CatalogOptions = Catalog();
             SuggestJson = new JavaScriptSerializer().Serialize(Proposals.Suggestions(P).Select(s => new { email = s.Key, label = s.Value }));
             DefaultPortal = Settings.Get("integrations.portalUrl");
-            To = To ?? P.ClientEmail;
+            SendTo = SendTo ?? P.ClientEmail;
             DefaultMessage = DefaultMessage ?? "Hi " + ((P.ClientName ?? "").Split(' ')[0]) + ",\n\nThank you for your time. Here is our proposal for " + P.Title + ". You can read it, accept it online and pay securely from the link below.\n\nHappy to answer any questions.\n\n" + Me.Name;
         }
 
@@ -74,7 +74,7 @@ namespace Yenetch.Web.Admin
             {
                 string e1, e2, e3;
                 var to = Proposals.ParseAddresses(f["to"], out e1); var cc = Proposals.ParseAddresses(f["ccs"], out e2); var bcc = Proposals.ParseAddresses(f["bcc"], out e3);
-                To = f["to"]; Cc = f["ccs"]; Bcc = f["bcc"]; DefaultMessage = f["message"];
+                SendTo = f["to"]; SendCc = f["ccs"]; SendBcc = f["bcc"]; DefaultMessage = f["message"];
                 var bad = e1 ?? e2 ?? e3;
                 if (bad != null) { Err = bad; return; }
                 var error = Proposals.Send(saved, to, cc, bcc, f["subject"], f["message"], Me);
