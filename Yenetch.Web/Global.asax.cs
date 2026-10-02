@@ -19,6 +19,13 @@ namespace Yenetch.Web
             if (Request.IsSecureConnection) Response.AppendHeader("Strict-Transport-Security", "max-age=31536000");
         }
 
+        /// <summary>Do not tell the world which server software runs the site.</summary>
+        protected void Application_PreSendRequestHeaders(object sender, EventArgs e)
+        {
+            try { Response.Headers.Remove("Server"); Response.Headers.Remove("X-AspNet-Version"); Response.Headers.Remove("X-AspNetMvc-Version"); }
+            catch (PlatformNotSupportedException) { /* classic pipeline */ }
+        }
+
         /// <summary>Clean, SEO-friendly URLs: /digital-marketing, /services/seo, /products/ecomm, /case-studies/cabyaari-crm, /blog/{slug}. /sitemap.xml is served by Handlers/SitemapHandler (see Web.config).</summary>
         public static void RegisterRoutes(RouteCollection r)
         {
@@ -29,6 +36,12 @@ namespace Yenetch.Web
             r.Add("api-slots", new Route("api/slots", new HandlerRoute<Yenetch.Web.Handlers.SlotsHandler>()));
             r.Add("api-book", new Route("api/book", new HandlerRoute<Yenetch.Web.Handlers.BookHandler>()));
             r.Add("api-audit", new Route("api/audit", new HandlerRoute<Yenetch.Web.Handlers.AuditHandler>()));
+            r.Add("api-site-data", new Route("api/site-data", new HandlerRoute<Yenetch.Web.Handlers.SiteDataHandler>()));
+            r.Add("api-geo", new Route("api/geo", new HandlerRoute<Yenetch.Web.Handlers.GeoHandler>()));
+            r.Add("api-quote", new Route("api/quote", new HandlerRoute<Yenetch.Web.Handlers.QuoteHandler>()));
+            r.Add("api-chat", new Route("api/chat", new HandlerRoute<Yenetch.Web.Handlers.ChatHandler>()));
+            r.Add("api-proposal", new Route("api/proposal", new HandlerRoute<Yenetch.Web.Handlers.ProposalHandler>()));
+            r.Add("api-razorpay", new Route("api/razorpay", new HandlerRoute<Yenetch.Web.Handlers.RazorpayWebhookHandler>()));
             r.Add("review-link", new Route("r/{token}", new HandlerRoute<Yenetch.Web.Handlers.ReviewLinkHandler>()));
             r.MapPageRoute("home", "", "~/Default.aspx");
             r.MapPageRoute("marketing", "digital-marketing", "~/DigitalMarketing.aspx");
@@ -53,6 +66,9 @@ namespace Yenetch.Web
             r.MapPageRoute("book", "book", "~/Book.aspx");
             r.MapPageRoute("book-cancel", "book/cancel", "~/BookCancel.aspx");
             r.MapPageRoute("audit", "website-audit", "~/WebsiteAudit.aspx");
+            r.MapPageRoute("pricing", "pricing", "~/Pricing.aspx");
+            r.MapPageRoute("blog-author", "blog/author/{author}", "~/Author.aspx");
+            r.MapPageRoute("proposal", "proposal/{token}", "~/Proposal.aspx");
 
             // Admin: CRM, analytics and newsletter (sign-in required, see Web.config).
             r.MapPageRoute("admin", "admin", "~/Admin/Default.aspx");
@@ -90,6 +106,12 @@ namespace Yenetch.Web
             r.MapPageRoute("admin-tracking", "admin/tracking", "~/Admin/Tracking.aspx");
             r.MapPageRoute("admin-robots", "admin/robots", "~/Admin/Robots.aspx");
             r.MapPageRoute("admin-security", "admin/security", "~/Admin/Security.aspx");
+            r.MapPageRoute("admin-ai", "admin/ai", "~/Admin/AiAdmin.aspx");
+            r.MapPageRoute("admin-pricing", "admin/pricing", "~/Admin/PricingAdmin.aspx");
+            r.MapPageRoute("admin-integrations", "admin/integrations", "~/Admin/Integrations.aspx");
+            r.MapPageRoute("admin-scoring", "admin/scoring", "~/Admin/Scoring.aspx");
+            r.MapPageRoute("admin-proposals", "admin/proposals", "~/Admin/ProposalList.aspx");
+            r.MapPageRoute("admin-proposal", "admin/proposals/{id}", "~/Admin/ProposalEdit.aspx");
             r.Add("admin-backup", new Route("admin/backup", new HandlerRoute<Yenetch.Web.Admin.BackupDownload>()));
 
             // Landing pages managed in Admin > Content > Landing pages. Must stay last: it matches any single-segment path.

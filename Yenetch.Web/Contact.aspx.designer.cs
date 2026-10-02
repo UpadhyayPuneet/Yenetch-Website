@@ -26,6 +26,9 @@ namespace Yenetch.Web
         /// <summary>Attachment control.</summary>
         protected global::System.Web.UI.WebControls.FileUpload Attachment;
 
+        /// <summary>FormError control.</summary>
+        protected global::System.Web.UI.WebControls.Literal FormError;
+
         /// <summary>SendButton control.</summary>
         protected global::System.Web.UI.WebControls.Button SendButton;
 

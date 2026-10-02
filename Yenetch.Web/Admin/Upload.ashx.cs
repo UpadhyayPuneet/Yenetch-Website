@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.IO;
 using System.Linq;
 using System.Web;
@@ -43,9 +43,30 @@ namespace Yenetch.Web.Admin
             var folder = "uploads/" + (ctx.Request.QueryString["to"] == "content" ? "content" : "blog") + "/" + Util.TodayIst.ToString("yyyy-MM");
             var fileName = name + "-" + Util.NewId().Substring(0, 6) + ext;
             Directory.CreateDirectory(Util.AppPath(folder));
-            file.SaveAs(Path.Combine(Util.AppPath(folder), fileName));
+            var path = Path.Combine(Util.AppPath(folder), fileName);
+            file.SaveAs(path);
+
+            // Smaller, faster copies (see Data/Images.cs): resized JPG/PNG made here, WebP made by the admin's browser.
+            Yenetch.Data.Images.Optimise(path);
+            if (ext == ".jpg" || ext == ".png")
+            {
+                foreach (var w in Yenetch.Data.Images.Widths)
+                    SaveWebp(ctx.Request.Files["webp" + w], Yenetch.Data.Images.Variant(path, w, ".webp"));
+                SaveWebp(ctx.Request.Files["webpFull"], Path.ChangeExtension(path, ".webp"));
+            }
 
             ctx.Response.Write(new JavaScriptSerializer().Serialize(new { url = "/" + folder + "/" + fileName }));
+        }
+
+        /// <summary>Saves a WebP copy sent by the browser, only if it really is a WebP file of a sensible size.</summary>
+        private static void SaveWebp(HttpPostedFile f, string target)
+        {
+            if (f == null || f.ContentLength < 12 || f.ContentLength > MaxBytes) return;
+            var head = new byte[12];
+            f.InputStream.Read(head, 0, head.Length);
+            f.InputStream.Position = 0;
+            if (Sniff(head) != ".webp") return;
+            f.SaveAs(target);
         }
 
         private static string Sniff(byte[] b)

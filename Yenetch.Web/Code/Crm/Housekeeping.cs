@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Configuration;
 using System.Threading;
 
@@ -31,6 +31,15 @@ namespace Yenetch.Crm
                 Db.Exec("DELETE FROM WebSessions WHERE StartedOn < @cutoff", new { cutoff });
                 Db.Exec("DELETE FROM WebVisitors WHERE LastSeen < @cutoff AND LeadId IS NULL", new { cutoff });
                 Db.Exec("DELETE FROM GeoCache WHERE CachedOn < @old", new { old = DateTime.UtcNow.AddDays(-30) });
+                Db.Exec("DELETE FROM AiChats WHERE LastOn < @cutoff AND LeadId IS NULL", new { cutoff });
+            }
+            catch (Exception ex) { Mailer.Log("housekeeping", ex); }
+            // Fresh exchange rates, and lead scores that count the latest visits and quiet periods.
+            try { Yenetch.Data.Fx.Refresh(); } catch (Exception ex) { Mailer.Log("currency rates", ex); }
+            try
+            {
+                LeadScoring.RecalcOpen();
+                Proposals.ExpireOld();
             }
             catch (Exception ex) { Mailer.Log("housekeeping", ex); }
         }

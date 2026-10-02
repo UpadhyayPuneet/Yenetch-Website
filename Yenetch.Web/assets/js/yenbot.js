@@ -12,14 +12,22 @@
   var EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/;
   var PHONE = /^\+?[\d\s\-()]{8,16}$/;
 
-  var S = { open: false, started: false, stage: "chat", lead: {}, topic: null, answered: 0, asked: false, last: null };
+  var S = { open: false, started: false, stage: "chat", lead: {}, topic: null, answered: 0, asked: false, last: null, history: [], chatKey: null };
+  /* AI answers (when switched on in Admin > AI assistant): typed questions go to /api/chat; menu buttons stay instant.
+     If the AI is off or cannot answer, the built-in answers below are used. */
+  function aiOn() { return !!(window.YENETCH_CONFIG && window.YENETCH_CONFIG.chat) && !document.body.classList.contains("is-preview"); }
+  function chatKey() {
+    if (!S.chatKey) { var a = new Uint8Array(16); (window.crypto || window.msCrypto).getRandomValues(a); S.chatKey = Array.prototype.map.call(a, function (b) { return ("0" + b.toString(16)).slice(-2); }).join(""); }
+    return S.chatKey;
+  }
+  function remember(role, text) { if (text) { S.history.push({ role: role, text: String(text).slice(0, 1500) }); if (S.history.length > 30) S.history = S.history.slice(-30); } }
   var ui = {};
 
   function data() { return Yenetch.data(); }
   /* Phone, email and WhatsApp come from the site data (edited in the admin); the values here are only a fallback. */
   function company() {
-    var c = (window.YENETCH_DATA && window.YENETCH_DATA.company) || {};
-    return { phone: c.phone || "+91 95873 65247", email: c.email || "hello@yenetch.com", whatsapp: c.whatsapp || "https://wa.me/919587365247" };
+    var c = data().company || {};
+    return { phone: c.phone || "", email: c.email || "", whatsapp: c.whatsapp || "" };
   }
   function norm(t) { return (" " + t.toLowerCase().replace(/[^a-z0-9.+@\s&-]/g, " ").replace(/\s+/g, " ") + " "); }
   function h(tag, cls, text) { var n = document.createElement(tag); if (cls) n.className = cls; if (text != null) n.textContent = text; return n; }
@@ -51,25 +59,26 @@
     ui.box.querySelector("form").addEventListener("submit", function (e) {
       e.preventDefault();
       var v = ui.input.value.trim(); if (!v) return;
-      ui.input.value = ""; send(v);
+      ui.input.value = ""; send(v, false);
     });
     document.addEventListener("keydown", function (e) { if (e.key === "Escape" && S.open) close(); });
   }
 
   function scroll() { ui.log.scrollTop = ui.log.scrollHeight; }
   function me(text) { ui.log.appendChild(h("div", "yb-msg yb-msg--me", text)); scroll(); }
-  function chips(list) {
+  function chips(list, viaAi) {
     ui.chips.innerHTML = "";
     (list || []).forEach(function (c) {
       var b = h("button", "yb-chip", c); b.type = "button";
-      b.addEventListener("click", function () { send(c); });
+      b.addEventListener("click", function () { send(c, !viaAi); });
       ui.chips.appendChild(b);
     });
   }
 
   // Queue bot output with a short typing pause so replies feel conversational.
   var queue = Promise.resolve();
-  function bot(items, nextChips) {
+  function bot(items, nextChips, viaAi) {
+    items.forEach(function (it) { if (typeof it === "string") remember("assistant", it); });
     queue = queue.then(function () {
       return new Promise(function (done) {
         chips([]);
@@ -77,7 +86,7 @@
         setTimeout(function () {
           t.remove();
           items.forEach(function (it) { ui.log.appendChild(typeof it === "string" ? h("div", "yb-msg yb-msg--bot", it) : it); });
-          chips(nextChips); scroll(); done();
+          chips(nextChips, viaAi); scroll(); done();
         }, 420 + Math.min(900, (typeof items[0] === "string" ? items[0].length : 60) * 6));
       });
     });
@@ -123,7 +132,11 @@
   var MENU = ["Grow leads & sales", "Build a website or app", "Explore products", "See client results", "Hire developers", "Talk to an expert"];
 
   function greet() {
-    bot(["Hi, I'm the Yenetch assistant. I can explain our services and products, show results we've delivered for clients, or connect you with a specialist.", "What brings you here today?"], MENU);
+    var offer = (data().offers || []).filter(function (o) { return o.chat; })[0];
+    var lines = ["Hi, I'm the Yenetch assistant. I can explain our services, plans and prices, show results we've delivered for clients, or connect you with a specialist."];
+    if (offer) lines.push("Running now: " + offer.title + (offer.endsLabel ? " (ends " + offer.endsLabel + ")" : "") + ".");
+    lines.push("What brings you here today?");
+    bot(lines, MENU);
   }
 
   function answerService(s) {
@@ -225,7 +238,7 @@
     var payload = {
       name: S.lead.name, contact: S.lead.contact, need: S.lead.need || "",
       topic: S.topic || "", context: S.lead.context || null,
-      page: location.pathname, source: "chatbot", at: new Date().toISOString()
+      page: location.pathname, source: "chatbot", at: new Date().toISOString(), chat: S.chatKey || undefined
     };
     var first = S.lead.name.split(" ")[0];
     var ok = "Thanks, " + first + ". A specialist will reach you at " + S.lead.contact + " within one working day (Mon to Sat, 10am to 7pm IST).";
@@ -241,10 +254,38 @@
   }
 
   /* ---------- router ---------- */
-  function send(text) {
+  function askAi(text, t) {
+    var typing = h("div", "yb-typing"); typing.innerHTML = "<i></i><i></i><i></i>";
+    queue = queue.then(function () { chips([]); ui.log.appendChild(typing); scroll(); });
+    var history = S.history.slice(-14);
+    fetch(window.YENETCH_CONFIG.chat, { method: "POST", headers: { "Content-Type": "application/json" }, credentials: "same-origin",
+      body: JSON.stringify({ key: chatKey(), messages: history, page: location.pathname, currency: (window.Yenetch && Yenetch.currency) ? Yenetch.currency() : "INR" }) })
+      .then(function (r) { return r.json(); })
+      .then(function (j) {
+        queue = queue.then(function () { typing.remove(); });
+        if (!j || j.fallback || !j.reply) { route(text, t); return; }
+        var items = [j.reply];
+        if (j.links && j.links.length) {
+          var box = h("div", "yb-links");
+          j.links.forEach(function (l) { var a = h("a", "more", l.label); a.href = Yenetch.url(l.url); box.appendChild(a); });
+          items.push(box);
+        }
+        S.answered++;
+        bot(items, (j.chips && j.chips.length ? j.chips : ["Talk to an expert"]).slice(0, 4), true);
+        if (j.lead && !S.asked) { S.asked = true; bot(["I can have a specialist send you a tailored plan and estimate. Shall I set that up?"], ["Yes, please", "Not now"]); }
+      })
+      .catch(function () { queue = queue.then(function () { typing.remove(); }); route(text, t); });
+  }
+  function send(text, fromButton) {
     me(text);
+    remember("user", text);
     var t = norm(text);
     if (S.stage !== "chat") { leadStep(text, t); return; }
+    // Typed questions (and the AI's own suggestions) go to the AI; yes/no and lead buttons stay local.
+    if (!fromButton && aiOn() && !/^ ?(yes|yes please|sure|not now|no thanks|maybe later|talk to an expert|book a call) ?$/.test(t)) { askAi(text, t); return; }
+    route(text, t);
+  }
+  function route(text, t) {
 
     // Chip shortcuts first
     var d = data();
@@ -302,7 +343,7 @@
     S.open = true; ui.box.hidden = false; ui.launch.hidden = true;
     if (window.Yenetch && Yenetch.track) Yenetch.track("chat_open", typeof firstMessage === "string" ? firstMessage : "");
     if (!S.started) { S.started = true; if (!silent && !firstMessage) greet(); }
-    if (typeof firstMessage === "string" && firstMessage) send(firstMessage);
+    if (typeof firstMessage === "string" && firstMessage) send(firstMessage, true);
     setTimeout(function () { ui.input.focus({ preventScroll: true }); }, 50);
   }
   function close() { S.open = false; ui.box.hidden = true; ui.launch.hidden = false; ui.launch.focus(); }

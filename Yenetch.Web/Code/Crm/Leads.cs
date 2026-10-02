@@ -13,7 +13,7 @@ namespace Yenetch.Crm
         public static readonly string[] Statuses = { "New", "Contacted", "Qualified", "Proposal", "Negotiation", "Won", "Lost", "Junk" };
         public static readonly string[] OpenStatuses = { "New", "Contacted", "Qualified", "Proposal", "Negotiation" };
         public static readonly string[] Types = { "Marketing", "Development", "Talent", "Product", "General" };
-        public static readonly string[] Sources = { "Contact form", "Chatbot", "Solution finder", "Booking", "Website audit", "Landing page", "Manual", "Phone", "WhatsApp", "Email", "Referral", "Event", "Other" };
+        public static readonly string[] Sources = { "Contact form", "Chatbot", "Solution finder", "Booking", "Website audit", "Plan builder", "Landing page", "Manual", "Phone", "WhatsApp", "Email", "Referral", "Event", "Other" };
         public static readonly string[] Priorities = { "Hot", "Warm", "Cold" };
         public static readonly string[] ActivityKinds = { "Note", "Call", "Email", "WhatsApp", "Meeting" };
         public static readonly string[] Roles = { "Admin", "Manager", "Sales" };
@@ -45,6 +45,9 @@ namespace Yenetch.Crm
         public string VisitorId { get; set; }
         public string Page { get; set; }
         public string ContextJson { get; set; }
+        /// <summary>Lead score 0-100 (see LeadScoring) and the reasons behind it.</summary>
+        public int? Score { get; set; }
+        public string ScoreJson { get; set; }
 
         public bool IsOpen { get { return Lists.OpenStatuses.Contains(Status); } }
         public bool IsOverdue { get { return IsOpen && NextFollowUp.HasValue && NextFollowUp.Value < DateTime.UtcNow; } }
@@ -59,7 +62,8 @@ namespace Yenetch.Crm
                 Phone = r.Str("Phone"), Company = r.Str("Company"), City = r.Str("City"), Need = r.Str("Need"), Interest = r.Str("Interest"),
                 LeadType = r.Str("LeadType"), Source = r.Str("Source"), Channel = r.Str("Channel"), Status = r.Str("Status"), Priority = r.Str("Priority"),
                 EstValue = r.DecN("EstValue"), AssignedTo = r.IntN("AssignedTo"), AssignedName = r.Str("AssignedName"), NextFollowUp = r.DateN("NextFollowUp"),
-                LostReason = r.Str("LostReason"), Tags = r.Str("Tags"), VisitorId = r.Str("VisitorId"), Page = r.Str("Page"), ContextJson = r.Str("ContextJson")
+                LostReason = r.Str("LostReason"), Tags = r.Str("Tags"), VisitorId = r.Str("VisitorId"), Page = r.Str("Page"), ContextJson = r.Str("ContextJson"),
+                Score = r.IntN("Score"), ScoreJson = r.Str("ScoreJson")
             };
         }
     }
@@ -110,7 +114,7 @@ namespace Yenetch.Crm
         {
             { "created", "l.CreatedOn" }, { "name", "l.Name" }, { "status", "l.Status" }, { "type", "l.LeadType" }, { "source", "l.Source" },
             { "priority", "CASE l.Priority WHEN 'Hot' THEN 0 WHEN 'Warm' THEN 1 ELSE 2 END" }, { "value", "l.EstValue" },
-            { "followup", "CASE WHEN l.NextFollowUp IS NULL THEN 1 ELSE 0 END, l.NextFollowUp" }, { "owner", "u.Name" }, { "updated", "l.UpdatedOn" }
+            { "followup", "CASE WHEN l.NextFollowUp IS NULL THEN 1 ELSE 0 END, l.NextFollowUp" }, { "owner", "u.Name" }, { "updated", "l.UpdatedOn" }, { "score", "COALESCE(l.Score,-1)" }
         };
 
         // ---- Create ------------------------------------------------------------------------------------------
@@ -188,6 +192,15 @@ namespace Yenetch.Crm
         }
 
         public static int Insert(Lead l, int? userId)
+        {
+            var id = InsertRow(l, userId);
+            l.Id = id;
+            LeadScoring.Recalc(id);
+            Webhooks.Fire("lead.created", new { leadId = id, l.Name, l.Email, l.Phone, l.Company, l.City, l.Need, l.Interest, type = l.LeadType, l.Source, l.Channel, l.Status, l.EstValue, l.Page });
+            return id;
+        }
+
+        private static int InsertRow(Lead l, int? userId)
         {
             var now = DateTime.UtcNow;
             return Db.Insert(@"INSERT INTO CrmLeads (CreatedOn, UpdatedOn, Name, Email, Phone, Company, City, Need, Interest, LeadType, Source, Channel, Status, Priority,
@@ -283,6 +296,9 @@ namespace Yenetch.Crm
                     { "LostReason", Blank(l.LostReason) }, { "Tags", Blank(l.Tags) }
                 });
             if (old == null) return;
+            // A priority set by hand stays; automatic priority from the lead score no longer changes it.
+            if (old.Priority != l.Priority) Db.Exec("UPDATE CrmLeads SET PriorityLocked = 1 WHERE Id = @id", new { id = l.Id });
+            if (old.Status != l.Status || old.EstValue != l.EstValue || old.Email != l.Email || old.Phone != l.Phone) LeadScoring.Recalc(l.Id);
             if (old.Status != l.Status) AddActivity(l.Id, userId, "Status", old.Status + " → " + l.Status + (l.Status == "Lost" && !string.IsNullOrEmpty(l.LostReason) ? " (" + l.LostReason + ")" : ""), null);
             if (old.AssignedTo != l.AssignedTo) LogAssignment(l.Id, l.AssignedTo, userId);
         }
@@ -299,6 +315,7 @@ namespace Yenetch.Crm
             if (old == null || old.Status == status || !Lists.Statuses.Contains(status)) return;
             Db.Exec("UPDATE CrmLeads SET Status = @status, UpdatedOn = @now WHERE Id = @id", new { status, now = DateTime.UtcNow, id = leadId });
             AddActivity(leadId, byUser, "Status", old.Status + " → " + status, null);
+            LeadScoring.Recalc(leadId);
             if (status == "Won") { old.Status = status; Reviews.OnWon(old); }
         }
 

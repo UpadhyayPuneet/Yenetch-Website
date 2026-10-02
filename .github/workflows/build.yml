@@ -1,0 +1,15 @@
+# Compiles the website on Windows (.NET Framework 4.8, MSBuild) on every push, so a change that does not build is caught before it is deployed.
+name: Build
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  build:
+    runs-on: windows-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: microsoft/setup-msbuild@v2
+      - name: Build solution
+        run: msbuild Yenetch.sln /p:Configuration=Release /p:Platform="Any CPU" /m /verbosity:minimal

@@ -22,6 +22,7 @@
         <div class="cform__row"><label for="au-phone">Phone (optional)</label><input class="field" id="au-phone" name="phone" type="tel" maxlength="40" autocomplete="tel"></div>
       </div>
       <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+      <div data-captcha></div>
       <p class="apl__error" role="alert" hidden data-au-error></p>
       <div class="au__go"><button class="btn btn--blue" type="submit" data-au-btn>Audit my website</button><span class="cform__note">Free. Your report is also emailed to you. See our <a href="/privacy">privacy policy</a>.</span></div>
     </form>

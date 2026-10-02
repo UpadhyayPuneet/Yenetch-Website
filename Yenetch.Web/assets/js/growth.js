@@ -140,6 +140,17 @@
         .catch(function () { busy.hidden = true; btn.disabled = false; fail("We could not reach the audit service. Check your connection and try again."); });
     });
 
+    // Arriving from the audit popup (?url=&email=): fill the form and start straight away.
+    try {
+      var qs = new URLSearchParams(location.search), qu = qs.get("url"), qe = qs.get("email");
+      if (qu) {
+        form.elements.url.value = qu.slice(0, 300);
+        if (qe) form.elements.email.value = qe.slice(0, 160);
+        root.scrollIntoView({ block: "start" });
+        if (qe) setTimeout(function () { if (form.requestSubmit) form.requestSubmit(); else form.dispatchEvent(new Event("submit", { cancelable: true })); }, 300);
+      }
+    } catch (e) { }
+
     function grade(s) { return s >= 85 ? "good" : s >= 60 ? "ok" : "poor"; }
     function gaugeSvg(score) {
       var c = 2 * Math.PI * 52, off = c * (1 - score / 100);

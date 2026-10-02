@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Globalization;
 using System.Web;
 using System.Web.Caching;
@@ -16,6 +16,7 @@ namespace Yenetch.Web.Handlers
             ctx.Response.ContentType = "application/json";
             ctx.Response.Cache.SetCacheability(HttpCacheability.NoCache);
             if (ctx.Request.HttpMethod != "POST") { ctx.Response.StatusCode = 405; return; }
+            if (!Guard.SameOrigin(ctx.Request)) { ctx.Response.StatusCode = 403; return; }
             var f = ctx.Request.Unvalidated.Form; // free text such as a cover note may contain "<"; every value is HTML-encoded on output
 
             // Honeypot: people never fill "website"; bots do.
@@ -27,6 +28,7 @@ namespace Yenetch.Web.Handlers
             var count = (ctx.Cache[key] as int?) ?? 0;
             if (count >= 5) { Fail(ctx, 429, "Too many applications from this connection. Please try again later."); return; }
             ctx.Cache.Insert(key, count + 1, null, DateTime.UtcNow.AddHours(1), Cache.NoSlidingExpiration);
+            if (!Guard.CaptchaPassed(Guard.TokenFrom(f), ctx.Request)) { Fail(ctx, 422, "Please confirm you are not a robot and try again."); return; }
 
             var a = new JobApplication
             {

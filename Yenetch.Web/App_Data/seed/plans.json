@@ -1,0 +1,743 @@
+[
+ {
+  "id": "performance-marketing-starter",
+  "service": "performance-marketing",
+  "name": "Starter",
+  "tagline": "One ad platform, managed properly",
+  "priceType": "Fixed",
+  "price": 15000,
+  "billing": "monthly",
+  "setupFee": 5000,
+  "minMonths": 3,
+  "features": [
+   "Google or Meta Ads (one platform)",
+   "Up to ₹1 lakh monthly ad spend",
+   "Conversion tracking & GA4 setup",
+   "2 ad creatives a month",
+   "Monthly performance report"
+  ],
+  "timeline": "Live in 7 days",
+  "popular": false
+ },
+ {
+  "id": "performance-marketing-growth",
+  "service": "performance-marketing",
+  "name": "Growth",
+  "tagline": "Google + Meta, tuned to cost per lead",
+  "priceType": "Fixed",
+  "price": 30000,
+  "billing": "monthly",
+  "setupFee": 10000,
+  "minMonths": 3,
+  "features": [
+   "Google and Meta Ads",
+   "Up to ₹5 lakh monthly ad spend",
+   "Retargeting & lookalike audiences",
+   "6 ad creatives a month",
+   "Landing page A/B tests",
+   "Fortnightly calls & live dashboard"
+  ],
+  "timeline": "Live in 7 days",
+  "popular": true
+ },
+ {
+  "id": "performance-marketing-scale",
+  "service": "performance-marketing",
+  "name": "Scale",
+  "tagline": "Multi-channel for bigger budgets",
+  "priceType": "From",
+  "price": 60000,
+  "billing": "monthly",
+  "setupFee": 0,
+  "minMonths": 3,
+  "features": [
+   "Google, Meta, LinkedIn & YouTube",
+   "Ad spend above ₹5 lakh a month",
+   "Dedicated campaign manager",
+   "12 ad creatives a month",
+   "Offline conversion & CRM sync",
+   "Weekly reporting"
+  ],
+  "timeline": "Live in 10 days",
+  "popular": false
+ },
+ {
+  "id": "seo-local",
+  "service": "seo",
+  "name": "Local SEO",
+  "tagline": "Get found on Google Maps",
+  "priceType": "Fixed",
+  "price": 12000,
+  "billing": "monthly",
+  "setupFee": 0,
+  "minMonths": 3,
+  "features": [
+   "Google Business Profile optimisation",
+   "Local citations & listings",
+   "Review strategy",
+   "10 keywords tracked",
+   "Monthly report"
+  ],
+  "timeline": "Results in 8–12 weeks",
+  "popular": false
+ },
+ {
+  "id": "seo-growth",
+  "service": "seo",
+  "name": "Growth SEO",
+  "tagline": "Rank for the searches that sell",
+  "priceType": "Fixed",
+  "price": 25000,
+  "billing": "monthly",
+  "setupFee": 0,
+  "minMonths": 6,
+  "features": [
+   "Technical SEO audit & fixes",
+   "30 keywords tracked",
+   "4 SEO blog posts a month",
+   "On-page optimisation",
+   "Quality backlinks",
+   "Monthly strategy call"
+  ],
+  "timeline": "Results in 3–4 months",
+  "popular": true
+ },
+ {
+  "id": "seo-audit",
+  "service": "seo",
+  "name": "SEO Audit & Fix",
+  "tagline": "One-time health check and repair",
+  "priceType": "Fixed",
+  "price": 20000,
+  "billing": "one-time",
+  "setupFee": 0,
+  "minMonths": 0,
+  "features": [
+   "Full technical audit",
+   "Keyword & competitor research",
+   "Fix list in priority order",
+   "Fixes done on up to 25 pages"
+  ],
+  "timeline": "2 weeks",
+  "popular": false
+ },
+ {
+  "id": "social-media-marketing-starter",
+  "service": "social-media-marketing",
+  "name": "Starter",
+  "tagline": "Consistent presence on two platforms",
+  "priceType": "Fixed",
+  "price": 15000,
+  "billing": "monthly",
+  "setupFee": 0,
+  "minMonths": 3,
+  "features": [
+   "Instagram + Facebook",
+   "12 posts a month",
+   "Content calendar",
+   "Community replies (weekdays)",
+   "Monthly report"
+  ],
+  "timeline": "Starts in 1 week",
+  "popular": false
+ },
+ {
+  "id": "social-media-marketing-growth",
+  "service": "social-media-marketing",
+  "name": "Growth",
+  "tagline": "Posts, reels and a growing community",
+  "priceType": "Fixed",
+  "price": 30000,
+  "billing": "monthly",
+  "setupFee": 0,
+  "minMonths": 3,
+  "features": [
+   "Up to 3 platforms",
+   "16 posts + 4 reels a month",
+   "Stories & trend content",
+   "Community management",
+   "Influencer outreach (2 a month)",
+   "Monthly report & call"
+  ],
+  "timeline": "Starts in 1 week",
+  "popular": true
+ },
+ {
+  "id": "lead-generation-funnel",
+  "service": "lead-generation",
+  "name": "Funnel Build",
+  "tagline": "Landing page, tracking and CRM in one go",
+  "priceType": "Fixed",
+  "price": 40000,
+  "billing": "one-time",
+  "setupFee": 0,
+  "minMonths": 0,
+  "features": [
+   "High-converting landing page",
+   "Lead form with WhatsApp alerts",
+   "CRM & tracking setup",
+   "Thank-you & follow-up emails",
+   "Launch campaign setup"
+  ],
+  "timeline": "2–3 weeks",
+  "popular": true
+ },
+ {
+  "id": "lead-generation-managed",
+  "service": "lead-generation",
+  "name": "Managed Leads",
+  "tagline": "Funnel optimisation every month",
+  "priceType": "Fixed",
+  "price": 25000,
+  "billing": "monthly",
+  "setupFee": 0,
+  "minMonths": 3,
+  "features": [
+   "Monthly A/B tests",
+   "Lead quality scoring",
+   "Weekly lead reports",
+   "Ad + funnel optimisation"
+  ],
+  "timeline": "Ongoing",
+  "popular": false
+ },
+ {
+  "id": "brand-orm-orm",
+  "service": "brand-orm",
+  "name": "Reputation Management",
+  "tagline": "Reviews and listings under control",
+  "priceType": "Fixed",
+  "price": 15000,
+  "billing": "monthly",
+  "setupFee": 0,
+  "minMonths": 3,
+  "features": [
+   "Review monitoring & replies",
+   "Review generation campaigns",
+   "Listings on 30+ directories",
+   "Negative review handling",
+   "Monthly report"
+  ],
+  "timeline": "Starts in 1 week",
+  "popular": false
+ },
+ {
+  "id": "brand-orm-identity",
+  "service": "brand-orm",
+  "name": "Brand Identity",
+  "tagline": "Logo, colours and brand guide",
+  "priceType": "From",
+  "price": 50000,
+  "billing": "one-time",
+  "setupFee": 0,
+  "minMonths": 0,
+  "features": [
+   "Logo with 3 concepts",
+   "Colour palette & typography",
+   "Brand guide (PDF)",
+   "Social media kit",
+   "Business card & letterhead"
+  ],
+  "timeline": "3–4 weeks",
+  "popular": false
+ },
+ {
+  "id": "content-marketing-blog",
+  "service": "content-marketing",
+  "name": "Content Retainer",
+  "tagline": "Articles that rank and convert",
+  "priceType": "Fixed",
+  "price": 20000,
+  "billing": "monthly",
+  "setupFee": 0,
+  "minMonths": 3,
+  "features": [
+   "4 long-form articles a month",
+   "Keyword research",
+   "On-page SEO",
+   "Images & formatting",
+   "Publishing on your site"
+  ],
+  "timeline": "Ongoing",
+  "popular": false
+ },
+ {
+  "id": "content-marketing-shoot",
+  "service": "content-marketing",
+  "name": "Photo & Video Shoot",
+  "tagline": "A day of professional content",
+  "priceType": "From",
+  "price": 35000,
+  "billing": "one-time",
+  "setupFee": 0,
+  "minMonths": 0,
+  "features": [
+   "Half-day or full-day shoot",
+   "Product or office photos",
+   "3 short videos",
+   "Editing & colour grading"
+  ],
+  "timeline": "1–2 weeks",
+  "popular": false
+ },
+ {
+  "id": "influencer-marketing-campaign",
+  "service": "influencer-marketing",
+  "name": "Influencer Campaign",
+  "tagline": "Creators that match your audience",
+  "priceType": "From",
+  "price": 50000,
+  "billing": "one-time",
+  "setupFee": 0,
+  "minMonths": 0,
+  "features": [
+   "Creator shortlist & outreach",
+   "Briefs & approvals",
+   "Up to 10 micro-creators",
+   "Tracking & report"
+  ],
+  "timeline": "3–4 weeks",
+  "popular": false
+ },
+ {
+  "id": "media-buying-event",
+  "service": "media-buying",
+  "name": "Event Media Package",
+  "tagline": "Media for one event or launch",
+  "priceType": "From",
+  "price": 75000,
+  "billing": "one-time",
+  "setupFee": 0,
+  "minMonths": 0,
+  "features": [
+   "Media plan",
+   "Booking & negotiation",
+   "Creative adaptation",
+   "Post-campaign report"
+  ],
+  "timeline": "2–3 weeks",
+  "popular": false
+ },
+ {
+  "id": "web-development-starter",
+  "service": "web-development",
+  "name": "Business Website",
+  "tagline": "A fast, professional website",
+  "priceType": "Fixed",
+  "price": 40000,
+  "billing": "one-time",
+  "setupFee": 0,
+  "minMonths": 0,
+  "features": [
+   "Up to 8 pages",
+   "Mobile-first design",
+   "Contact form & WhatsApp button",
+   "Basic SEO & Google Analytics",
+   "1 month of support"
+  ],
+  "timeline": "3–4 weeks",
+  "popular": false
+ },
+ {
+  "id": "web-development-growth",
+  "service": "web-development",
+  "name": "Growth Website",
+  "tagline": "Website built to bring in leads",
+  "priceType": "Fixed",
+  "price": 90000,
+  "billing": "one-time",
+  "setupFee": 0,
+  "minMonths": 0,
+  "features": [
+   "Up to 20 pages",
+   "Custom design",
+   "Blog & CMS",
+   "Lead forms connected to CRM",
+   "Speed & SEO optimised",
+   "3 months of support"
+  ],
+  "timeline": "5–7 weeks",
+  "popular": true
+ },
+ {
+  "id": "web-development-custom",
+  "service": "web-development",
+  "name": "Custom Web Platform",
+  "tagline": "Portals, dashboards and web apps",
+  "priceType": "From",
+  "price": 200000,
+  "billing": "one-time",
+  "setupFee": 0,
+  "minMonths": 0,
+  "features": [
+   "Custom features & integrations",
+   "User accounts & roles",
+   "Admin panel",
+   "Cloud hosting setup",
+   "6 months of support"
+  ],
+  "timeline": "8–12 weeks",
+  "popular": false
+ },
+ {
+  "id": "custom-software-mvp",
+  "service": "custom-software",
+  "name": "MVP",
+  "tagline": "Your first release, fast",
+  "priceType": "From",
+  "price": 300000,
+  "billing": "one-time",
+  "setupFee": 0,
+  "minMonths": 0,
+  "features": [
+   "Discovery & scope",
+   "UI/UX design",
+   "Core features",
+   "Admin panel",
+   "Cloud deployment",
+   "3 months of support"
+  ],
+  "timeline": "8–12 weeks",
+  "popular": true
+ },
+ {
+  "id": "custom-software-team",
+  "service": "custom-software",
+  "name": "Product Team",
+  "tagline": "Ongoing development each month",
+  "priceType": "From",
+  "price": 250000,
+  "billing": "monthly",
+  "setupFee": 0,
+  "minMonths": 3,
+  "features": [
+   "2 developers + QA",
+   "Project manager",
+   "Fortnightly releases",
+   "Code & infrastructure ownership"
+  ],
+  "timeline": "Starts in 2 weeks",
+  "popular": false
+ },
+ {
+  "id": "mobile-apps-app",
+  "service": "mobile-apps",
+  "name": "Mobile App",
+  "tagline": "Android and iOS from one codebase",
+  "priceType": "From",
+  "price": 350000,
+  "billing": "one-time",
+  "setupFee": 0,
+  "minMonths": 0,
+  "features": [
+   "Flutter app for Android & iOS",
+   "UI/UX design",
+   "Admin panel & API",
+   "Store publishing",
+   "3 months of support"
+  ],
+  "timeline": "10–14 weeks",
+  "popular": true
+ },
+ {
+  "id": "crm-erp-crm",
+  "service": "crm-erp",
+  "name": "CRM",
+  "tagline": "Leads, follow-ups and reports in one place",
+  "priceType": "From",
+  "price": 250000,
+  "billing": "one-time",
+  "setupFee": 0,
+  "minMonths": 0,
+  "features": [
+   "Lead & pipeline management",
+   "Follow-ups & reminders",
+   "WhatsApp & email integration",
+   "Reports & dashboards",
+   "User roles"
+  ],
+  "timeline": "8–10 weeks",
+  "popular": false
+ },
+ {
+  "id": "crm-erp-module",
+  "service": "crm-erp",
+  "name": "Extra Module",
+  "tagline": "Add billing, inventory or HR",
+  "priceType": "From",
+  "price": 100000,
+  "billing": "one-time",
+  "setupFee": 0,
+  "minMonths": 0,
+  "features": [
+   "One business module",
+   "Integration with your CRM",
+   "Training"
+  ],
+  "timeline": "4–6 weeks",
+  "popular": false
+ },
+ {
+  "id": "ecommerce-development-ecomm",
+  "service": "ecommerce-development",
+  "name": "Yenetch Ecomm",
+  "tagline": "Our online store platform",
+  "priceType": "Fixed",
+  "price": 1499,
+  "billing": "monthly",
+  "setupFee": 0,
+  "minMonths": 0,
+  "features": [
+   "0% transaction fee",
+   "Mobile-first admin",
+   "Razorpay & PayPal",
+   "Managed hosting & SSL"
+  ],
+  "timeline": "Live in 7 days",
+  "popular": true
+ },
+ {
+  "id": "ecommerce-development-custom",
+  "service": "ecommerce-development",
+  "name": "Custom Store",
+  "tagline": "A store built around your catalogue",
+  "priceType": "From",
+  "price": 150000,
+  "billing": "one-time",
+  "setupFee": 0,
+  "minMonths": 0,
+  "features": [
+   "Custom design",
+   "Catalogue & variants",
+   "Payments & shipping",
+   "Marketing integrations",
+   "3 months of support"
+  ],
+  "timeline": "6–8 weeks",
+  "popular": false
+ },
+ {
+  "id": "ui-ux-sprint",
+  "service": "ui-ux",
+  "name": "Design Sprint",
+  "tagline": "One flow, researched and designed",
+  "priceType": "Fixed",
+  "price": 60000,
+  "billing": "one-time",
+  "setupFee": 0,
+  "minMonths": 0,
+  "features": [
+   "User research",
+   "Wireframes",
+   "High-fidelity designs",
+   "Clickable prototype"
+  ],
+  "timeline": "2 weeks",
+  "popular": false
+ },
+ {
+  "id": "ui-ux-product",
+  "service": "ui-ux",
+  "name": "Product Design",
+  "tagline": "Complete app or website design",
+  "priceType": "From",
+  "price": 150000,
+  "billing": "one-time",
+  "setupFee": 0,
+  "minMonths": 0,
+  "features": [
+   "Design system",
+   "All screens",
+   "Prototype",
+   "Developer handover"
+  ],
+  "timeline": "4–6 weeks",
+  "popular": true
+ },
+ {
+  "id": "ai-solutions-pilot",
+  "service": "ai-solutions",
+  "name": "AI Pilot",
+  "tagline": "Prove the value in weeks",
+  "priceType": "From",
+  "price": 150000,
+  "billing": "one-time",
+  "setupFee": 0,
+  "minMonths": 0,
+  "features": [
+   "Use-case workshop",
+   "Working prototype",
+   "Accuracy report",
+   "Rollout plan"
+  ],
+  "timeline": "4–6 weeks",
+  "popular": true
+ },
+ {
+  "id": "cloud-devops-hosting",
+  "service": "cloud-devops",
+  "name": "Managed Hosting",
+  "tagline": "Your app hosted, secured and watched",
+  "priceType": "Fixed",
+  "price": 8000,
+  "billing": "monthly",
+  "setupFee": 0,
+  "minMonths": 3,
+  "features": [
+   "Cloud server setup",
+   "SSL & backups",
+   "Uptime monitoring",
+   "Security updates",
+   "Monthly report"
+  ],
+  "timeline": "Live in 3 days",
+  "popular": true
+ },
+ {
+  "id": "cloud-devops-migration",
+  "service": "cloud-devops",
+  "name": "Cloud Migration",
+  "tagline": "Move to AWS, Azure or Google Cloud",
+  "priceType": "From",
+  "price": 100000,
+  "billing": "one-time",
+  "setupFee": 0,
+  "minMonths": 0,
+  "features": [
+   "Assessment & plan",
+   "Migration with no data loss",
+   "CI/CD pipeline",
+   "Cost optimisation"
+  ],
+  "timeline": "3–6 weeks",
+  "popular": false
+ },
+ {
+  "id": "maintenance-basic",
+  "service": "maintenance",
+  "name": "Care Plan",
+  "tagline": "Updates, fixes and backups",
+  "priceType": "Fixed",
+  "price": 10000,
+  "billing": "monthly",
+  "setupFee": 0,
+  "minMonths": 0,
+  "features": [
+   "Up to 8 hours of changes",
+   "Security updates",
+   "Daily backups",
+   "Uptime monitoring"
+  ],
+  "timeline": "Starts in 2 days",
+  "popular": true
+ },
+ {
+  "id": "maintenance-amc",
+  "service": "maintenance",
+  "name": "Annual Maintenance",
+  "tagline": "A year of support at a fixed price",
+  "priceType": "From",
+  "price": 100000,
+  "billing": "yearly",
+  "setupFee": 0,
+  "minMonths": 0,
+  "features": [
+   "Up to 100 hours a year",
+   "Priority response",
+   "Quarterly health check"
+  ],
+  "timeline": "Starts in 2 days",
+  "popular": false
+ },
+ {
+  "id": "dedicated-teams-pod",
+  "service": "dedicated-teams",
+  "name": "Dedicated Pod",
+  "tagline": "A full-time team for your product",
+  "priceType": "From",
+  "price": 400000,
+  "billing": "monthly",
+  "setupFee": 0,
+  "minMonths": 3,
+  "features": [
+   "3–5 specialists",
+   "Project manager",
+   "Daily stand-ups",
+   "Replace anyone within 2 weeks"
+  ],
+  "timeline": "Starts in 2–3 weeks",
+  "popular": true
+ },
+ {
+  "id": "staff-augmentation-dev",
+  "service": "staff-augmentation",
+  "name": "Developer",
+  "tagline": "A full-time developer on your team",
+  "priceType": "From",
+  "price": 120000,
+  "billing": "monthly",
+  "setupFee": 0,
+  "minMonths": 3,
+  "features": [
+   "Vetted mid-level developer",
+   "Works your hours & tools",
+   "Replacement guarantee"
+  ],
+  "timeline": "Starts in 1–2 weeks",
+  "popular": true
+ },
+ {
+  "id": "staff-augmentation-hourly",
+  "service": "staff-augmentation",
+  "name": "Hourly Expert",
+  "tagline": "Specialists for variable work",
+  "priceType": "From",
+  "price": 1500,
+  "billing": "hourly",
+  "setupFee": 0,
+  "minMonths": 0,
+  "features": [
+   "Senior specialist",
+   "Minimum 20 hours",
+   "Weekly timesheets"
+  ],
+  "timeline": "Starts in 1 week",
+  "popular": false
+ },
+ {
+  "id": "marketing-team-team",
+  "service": "marketing-team",
+  "name": "Marketing Team",
+  "tagline": "Your own marketing department",
+  "priceType": "From",
+  "price": 150000,
+  "billing": "monthly",
+  "setupFee": 0,
+  "minMonths": 3,
+  "features": [
+   "Strategist + designer + ads specialist",
+   "Content & social",
+   "Monthly plan & review"
+  ],
+  "timeline": "Starts in 2 weeks",
+  "popular": true
+ },
+ {
+  "id": "it-infrastructure-rental",
+  "service": "it-infrastructure",
+  "name": "Laptop & Desktop Rental",
+  "tagline": "Equipment with maintenance",
+  "priceType": "From",
+  "price": 2500,
+  "billing": "monthly",
+  "setupFee": 0,
+  "minMonths": 3,
+  "features": [
+   "Per device",
+   "Maintenance included",
+   "Replacement in 48 hours"
+  ],
+  "timeline": "Delivery in 3–5 days",
+  "popular": false
+ }
+]

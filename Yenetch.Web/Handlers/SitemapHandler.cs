@@ -22,13 +22,14 @@ namespace Yenetch.Web.Handlers
                 U("/", "1.0"), U("/digital-marketing", "0.9"), U("/software-development", "0.9"), U("/talent-resourcing", "0.9"),
                 U("/services", "0.8"), U("/products", "0.8"), U("/case-studies", "0.8"), U("/about", "0.7"),
                 U("/careers", "0.6"), U("/blog", "0.7"), U("/contact", "0.7"), U("/solution-finder", "0.6"),
-                U("/website-audit", "0.8"), U("/book", "0.6"),
+                U("/website-audit", "0.8"), U("/book", "0.6"), U("/pricing", "0.8"),
                 U("/privacy", "0.2"), U("/terms", "0.2")
             };
             urls.AddRange(data.Services.Select(s => U(s.Url, "0.8")));
             urls.AddRange(data.Products.Select(p => U(p.Url, "0.7")));
             urls.AddRange(data.CaseStudies.Select(c => U(c.PageUrl, "0.6")));
             urls.AddRange(SiteContent.LandingPages.Select(l => U(l.Url, "0.8")));
+            urls.AddRange(Authors.All.Select(a => U(a.Url, "0.5")));
             urls.AddRange(BlogStore.Repository.Latest(1000).Select(b => Tuple.Create(b.Url, "0.6", b.PublishedOn.ToString("yyyy-MM-dd"))));
 
             var sb = new StringBuilder("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n<urlset xmlns=\"http://www.sitemaps.org/schemas/sitemap/0.9\">\n");

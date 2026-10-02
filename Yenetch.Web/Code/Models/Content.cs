@@ -24,6 +24,13 @@ namespace Yenetch.Models
         public Team Team { get; set; }
         public List<Industry> Industries { get; set; }
         public Careers Careers { get; set; }
+        /// <summary>Price plans per service (Admin &gt; Website content &gt; Plans &amp; prices). Prices are in INR.</summary>
+        public List<Plan> Plans { get; set; }
+        /// <summary>Extras that can be added to a custom plan, with a quantity.</summary>
+        public List<Addon> Addons { get; set; }
+        /// <summary>Offers (all of them; use Offers.Active to get the ones running now).</summary>
+        public List<Offer> Offers { get; set; }
+        public List<Author> Authors { get; set; }
     }
 
     public class Company
@@ -77,6 +84,8 @@ namespace Yenetch.Models
         public string Visual { get; set; }
         public List<string> Includes { get; set; }
         public List<string> Keywords { get; set; }
+        public string Timeline { get; set; }
+        public string Pricing { get; set; }
         public string Url { get { return "/services/" + Slug; } }
     }
 
@@ -307,5 +316,90 @@ namespace Yenetch.Models
         public string CtaText { get; set; }
         public string Topic { get; set; }
         public string Url { get { return "/" + Slug; } }
+    }
+
+    /// <summary>A price plan for a service, such as SEO Starter. Price is in INR; the website converts it for visitors abroad.</summary>
+    public class Plan
+    {
+        public string Id { get; set; }
+        public string Service { get; set; }
+        public string Name { get; set; }
+        public string Tagline { get; set; }
+        /// <summary>Fixed or From (a starting price).</summary>
+        public string PriceType { get; set; }
+        public decimal Price { get; set; }
+        /// <summary>one-time, monthly, yearly or hourly.</summary>
+        public string Billing { get; set; }
+        /// <summary>One-time set-up fee added to a monthly plan (0 for none).</summary>
+        public decimal SetupFee { get; set; }
+        public int MinMonths { get; set; }
+        public List<string> Features { get; set; }
+        public string Timeline { get; set; }
+        public bool Popular { get; set; }
+        public bool IsMonthly { get { return Billing == "monthly" || Billing == "yearly"; } }
+        public bool IsFrom { get { return string.Equals(PriceType, "From", StringComparison.OrdinalIgnoreCase); } }
+    }
+
+    /// <summary>An extra for the custom plan builder, priced per unit (pages, posts, hours, users...).</summary>
+    public class Addon
+    {
+        public string Id { get; set; }
+        public string Name { get; set; }
+        public string Service { get; set; }
+        public string Group { get; set; }
+        public string Description { get; set; }
+        public decimal Price { get; set; }
+        /// <summary>one-time or monthly.</summary>
+        public string Billing { get; set; }
+        /// <summary>What one unit is, for example page, post, hour or user.</summary>
+        public string Unit { get; set; }
+        public int Min { get; set; }
+        public int Max { get; set; }
+        public bool IsMonthly { get { return Billing == "monthly"; } }
+    }
+
+    /// <summary>A time-limited offer shown on chosen pages and services, in the plan builder and by the chatbot.</summary>
+    public class Offer
+    {
+        public string Id { get; set; }
+        public string Title { get; set; }
+        public string Text { get; set; }
+        public string Badge { get; set; }
+        /// <summary>percent, amount (INR) or none (an offer with no discount, such as a free audit).</summary>
+        public string DiscountType { get; set; }
+        public decimal DiscountValue { get; set; }
+        /// <summary>Coupon code the visitor types. Empty: the discount applies by itself.</summary>
+        public string Code { get; set; }
+        public string Starts { get; set; }
+        public string Ends { get; set; }
+        /// <summary>Page addresses where the banner shows: /, /pricing, /services/* or * for every page.</summary>
+        public List<string> Pages { get; set; }
+        /// <summary>Services it applies to (empty: every service).</summary>
+        public List<string> Services { get; set; }
+        public decimal MinOrder { get; set; }
+        public bool ShowBanner { get; set; }
+        public bool ShowPopup { get; set; }
+        public bool ShowInChat { get; set; }
+        public string CtaText { get; set; }
+        public string CtaUrl { get; set; }
+    }
+
+    /// <summary>A blog author with a profile page at /blog/author/{slug}.</summary>
+    public class Author
+    {
+        public string Slug { get; set; }
+        public string Name { get; set; }
+        public string Role { get; set; }
+        public string Bio { get; set; }
+        public List<string> About { get; set; }
+        public string Photo { get; set; }
+        public List<string> Expertise { get; set; }
+        public string Linkedin { get; set; }
+        public string Twitter { get; set; }
+        public string Website { get; set; }
+        public bool IsTeam { get; set; }
+        public string Url { get { return "/blog/author/" + Slug; } }
+        public bool HasPhoto { get { return !string.IsNullOrEmpty(Photo); } }
+        public string Initial { get { return string.IsNullOrEmpty(Name) ? "Y" : Name.Substring(0, 1).ToUpperInvariant(); } }
     }
 }

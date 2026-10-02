@@ -53,6 +53,7 @@
 
 <section class="sec" id="pricing"><div class="wrap">
   <div class="head fx-up"><span class="kicker">Pricing and engagement</span><h2>Pay for outcomes you can plan around.</h2><p>Every engagement starts with a free consultation and a written proposal with scope, timeline and fees.</p></div>
+  <%= Yenetch.Web.Pricing.ServicePlans(Svc.Slug) %>
   <div class="pricing">
     <div class="models models--auto"><asp:Repeater runat="server" ItemType="Yenetch.Models.ProcessStep" DataSource='<%# Copy.Engagement %>'><ItemTemplate><div class="model fx-up"><h3><%#: Item.Name %></h3><p><%#: Item.Text %></p></div></ItemTemplate></asp:Repeater></div>
     <aside class="ideal fx-up"><h3>A good fit if you are</h3><ul class="checks"><asp:Repeater runat="server" ItemType="System.String" DataSource='<%# Copy.IdealFor %>'><ItemTemplate><li><%#: Item %></li></ItemTemplate></asp:Repeater></ul>

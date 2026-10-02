@@ -198,7 +198,8 @@ namespace Yenetch.Crm
             // One block per line keeps the HTML view readable.
             html = Regex.Replace(html, @"\s*(</(p|h2|h3|ul|ol|li|blockquote|figure)>)\s*", "$1\n", RegexOptions.IgnoreCase);
             html = Regex.Replace(html, @"\n{2,}", "\n");
-            return html.Trim();
+            // Last, a strict allow-list: only known tags, attributes and safe links survive.
+            return Yenetch.Data.HtmlSanitizer.Clean(html).Trim();
         }
 
         /// <summary>A URL-safe slug, at most 90 characters.</summary>

@@ -19,6 +19,14 @@ namespace Yenetch.Web
         protected void SendButton_Click(object sender, EventArgs e)
         {
             if (!IsValid) return;
+            // Spam protection: a hidden field bots fill, a limit per visitor, and the CAPTCHA when switched on.
+            if (!string.IsNullOrEmpty(Request.Unvalidated.Form["website"])) { FormFields.Visible = false; ThankYou.Visible = true; return; }
+            if (!Yenetch.Crm.Guard.Allow(Request, "contact", 10, TimeSpan.FromHours(1)) || !Yenetch.Crm.Guard.CaptchaPassed(Yenetch.Crm.Guard.TokenFrom(Request.Unvalidated.Form), Request))
+            {
+                FormError.Text = "<p class=\"apl__error\" role=\"alert\">We could not send this. Please confirm you are not a robot, or call or WhatsApp us.</p>";
+                FormError.Visible = true;
+                return;
+            }
             try
             {
                 Yenetch.Crm.Db.EnsureSchema();

@@ -1,4 +1,4 @@
-# Yenetch website (v10)
+# Yenetch website (v11)
 
 Visual Studio solution with an ASP.NET Web Forms **Web Application** project (.NET Framework 4.8), a generator that renders every page from one set of templates, and a static preview.
 
@@ -113,6 +113,73 @@ All of these live in the admin and need no extra services. Admin-only pages are 
 - **Backups** (Security & backups): every night at 2 AM IST the site saves every table and uploaded file to a zip in `App_Data/backups` (newest 14 kept). Download one any time. Keep your host's SQL Server backups on as well.
 
 **Timers need the site awake.** Daily summary, backups, automatic emails and newsletter sending run inside the site. On IIS set the app pool **Idle Time-out** to 0 and **Start Mode** to AlwaysRunning (in Plesk ask GenX if you cannot change it). Otherwise they run on the first visit after the scheduled time.
+
+## Sales tools (v11)
+
+Everything below is managed in the admin. The database tables are added automatically on first run (App_Data/sql/sales.*.sql).
+
+### Before going live: checklist
+1. **Prices are examples.** Check every plan in **Website content > Plans & prices** and **Plan builder extras**, then switch on **Pricing & popups > Show prices to visitors**. Until then visitors see "Price on request" (signed-in staff see a preview).
+2. **AI assistant:** add an Anthropic API key in **AI assistant** (and set a monthly spend limit in the Anthropic console).
+3. **Payments:** add Razorpay keys and the webhook in **Integrations** (test keys first).
+4. **Spam protection:** add Cloudflare Turnstile keys in **Security & backups > Spam protection**.
+5. **Privacy policy:** add a line about the AI chat (questions are processed by Anthropic and kept for quality review), the CAPTCHA provider, and that prices may be shown in your currency based on your country.
+6. Change **AdminSetupKey** in Web.config (this repository is public).
+
+### Pricing, plans and the plan builder (/pricing)
+- **Plans** (Website content > Plans & prices): per service, a name, price in rupees, Fixed or From, one-time / monthly / yearly / hourly, optional set-up fee and minimum months, features, timeline, "most popular". Plans show on **/pricing** and on each **service page**.
+- **Extras** (Website content > Plan builder extras): items with a quantity (extra pages, blog posts, developer hours…).
+- **Plan builder:** visitors add plans and extras, type an offer code, and see an instant estimate (first payment, then monthly, with the tax note). "Get my quote" emails them the estimate, alerts the team, and creates or updates a **lead** (source: Plan builder) with the quote attached. All prices are recalculated on the server.
+- **Currency:** prices are stored in INR. Visitors see their currency (from Cloudflare's country header or the location cache, else their browser language) and can switch. Rates come free and daily from open.er-api.com (backup: frankfurter.app); fix any rate by hand in **Pricing & popups**. Foreign prices are rounded to tidy figures (199, 1,249) unless you turn that off.
+- **Turning a quote into a proposal:** open the lead and click **Make proposal** next to the quote.
+
+### Offers and popups
+- **Offers** (Website content > Offers): headline, details, badge, discount (percent, amount, or none), optional coupon code, start and end dates, the pages they show on (`/`, `/pricing`, `/services/*`, `*`) and services they apply to. Each can show as a **banner**, a once-per-visitor **popup**, and in the **chatbot**. Codeless offers apply automatically in the plan builder; the best one wins. Offers outside their dates disappear on their own.
+- **Free website audit popup** (Pricing & popups): on exit intent (desktop), after a delay, or after scrolling; at most once every N days; never on excluded pages; waits until the cookie choice is made. It hands the visitor to /website-audit with the audit already running.
+
+### AI assistant
+- Admin > **AI assistant**: add one or more Anthropic API keys (stored encrypted). They are tried top to bottom; a key that is rate limited, out of credit, rejected or busy **rests** automatically and the next key answers. With no working key the chat uses its built-in answers, so visitors always get a reply.
+- The assistant answers only about Yenetch, using Website content, plans, prices (only when public), offers, products, case studies and FAQs. It does not invent prices, and when someone wants a quote or call it hands over to the chat's lead form. Extra instructions, a per-visitor limit and a daily cap are on the same page, with recent conversations (linked to the lead they became).
+- Model: Claude Opus 5.5 by default (Sonnet 5.5 and Haiku 4.5 are cheaper options per key). The site calls the Messages API directly over HTTPS; the official C# SDK needs a newer .NET than this site runs on.
+
+### Lead scoring
+- Every lead gets a **score from 0 to 100**: contact quality (company email, phone), how it came in (booking, plan builder, referral…), budget, website behaviour (pages, visits, time, pricing and case-study views), proposal opened/accepted, and minus points when it goes quiet. Won = 100, Lost/Junk = 0.
+- **Lead scoring** page: points per signal, Hot/Warm thresholds, automatic priority (a priority set by hand is kept). The lead list has a sortable **Score** column; each lead shows why it scored what it did. Scores update on every change and nightly.
+
+### Proposals and payments
+- **Proposals** (Sales menu): create from a lead (**Create proposal**) or a plan-builder quote. Lines from your plans and extras (converted to the proposal's currency) or typed by hand; discount, tax (GST), deposit due on acceptance, validity, terms and an optional client portal link.
+- **Send by email** with **To, CC and BCC**; addresses are suggested as you type (the client, your team, and people you emailed before). Replies go to the sender.
+- The client opens a private link (**/proposal/…**, not indexed), can **download a PDF** (print), **accept** with their typed name or decline with a reason. You get an email when they first open it, accept or decline; the sidebar counts proposals that were opened but not answered. Accepting moves the lead to **Won**.
+- **Razorpay:** with keys in **Integrations**, a payment link is created when the client accepts (or by you, for any amount), shown on the proposal and in the confirmation email. Payment is confirmed by the Razorpay webhook (`/api/razorpay`, event `payment_link.paid`) and by Razorpay's signed return from checkout; the client gets a receipt. Payments received another way can be recorded by hand.
+
+### Integrations (billing / project app)
+- **Client portal address** with `{email}`, `{name}`, `{company}`, `{proposal}`, `{lead}`: shown to clients after they accept and in receipts, so billing, tasks and progress are tracked in your other app.
+- **Webhooks:** JSON POSTs to your app for `lead.created`, `quote.created`, `proposal.sent`, `proposal.viewed`, `proposal.accepted`, `proposal.declined` and `payment.received`, signed with `X-Yenetch-Signature: sha256=<HMAC-SHA256 of the body with your secret>`. A log of the last calls and a test button are on the page.
+- WhatsApp Business API: a placeholder card; click-to-WhatsApp keeps working until the API is connected.
+
+### Blog authors (E-E-A-T)
+Google ranks advice better when it can see that real, experienced people wrote it ("experience, expertise, authoritativeness and trust"). To use it:
+1. **Website content > Blog authors > Add**: name, page address, job title, a one-or-two-sentence bio, a longer profile, a square photo, topics, and LinkedIn/X/website links.
+2. In each blog post, choose that author in the **Author** field (names are suggested).
+3. The article then shows the author's photo and a link to **/blog/author/their-address** (a profile page listing their articles), an author box at the end, and tells Google who wrote it (schema.org Person). Author pages are in the sitemap.
+A team account ("Yenetch Editorial Team") is included for articles written together.
+
+### Speed and images
+- Uploaded JPG/PNG images are turned upright, stripped of camera/GPS data, limited to 2000px and re-compressed; copies at 480, 960 and 1600px are made, plus **WebP** copies made by the admin's browser (about a third smaller). Pages use them with `srcset`, so phones download small files. Images below the first screen load lazily, including images inside articles.
+- The content the scripts need (chatbot, finder, builder) is now one cached file, `/api/site-data?v=…`, instead of ~60 KB repeated inside every page.
+
+### Security
+- **Contact details:** email addresses, phone numbers and WhatsApp links are encoded or broken up with hidden decoy text in the page HTML, and turned back into normal clickable links by the site script, so visitors see nothing different while address-harvesting bots read nothing useful. Structured data keeps the phone number (Google uses it for local results) but no longer lists the email.
+- **Spam:** hidden honeypot fields, a minimum fill time, rate limits per visitor on every form, the chat and the APIs, cross-site request checks, and optional **Cloudflare Turnstile** or **reCAPTCHA v3**.
+- **Content:** blog and rich-text HTML is cleaned with an allow-list (no scripts, event handlers or javascript: links; YouTube/Vimeo/Maps embeds allowed). All database queries use parameters.
+- **Headers and cookies:** Content-Security-Policy baseline (no framing by other sites, no plugins, forms post only to this site), HttpOnly + SameSite cookies (HTTPS-only in Release builds), no server version headers, TRACE blocked, `.sql/.log/.bak` never served.
+- Secrets (API keys, Razorpay secret, webhook and CAPTCHA secrets, SMTP password) are encrypted with the machine key. **If you move the site to a new server, set a fixed `<machineKey>` in Web.config first or re-enter those keys.**
+
+### Language versions (recommendation, not built yet)
+The approach large companies use: a separate address per language (`/hi/…`), each with human-reviewed translations stored as content, `hreflang` links between versions, translated titles and descriptions, and a language switcher that never redirects automatically. Avoid auto-translate widgets: Google does not index them and quality suffers. This touches every page template, so it is best done as its own step once you choose the languages.
+
+### Testing locally
+`tools/csproj_sync.py` adds new files to the Visual Studio project. A GitHub Actions workflow (`.github/workflows/build.yml`) compiles the solution on Windows on every push.
 
 ## Editing content
 All business content lives in the SQL database and is edited in **/admin → Website content** (Admins and Managers). Changes show on the site straight away, with no rebuild or file edits.

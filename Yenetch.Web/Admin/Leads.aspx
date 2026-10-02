@@ -40,6 +40,7 @@
             <th><%= Sort("status", "Status") %></th>
             <th class="hide-md"><%= Sort("type", "Type") %></th>
             <th class="hide-sm"><%= Sort("source", "Source") %></th>
+            <th><%= Sort("score", "Score") %></th>
             <th><%= Sort("priority", "Priority") %></th>
             <th class="hide-md"><%= Sort("value", "Value") %></th>
             <th class="hide-sm"><%= Sort("owner", "Owner") %></th>
@@ -54,6 +55,7 @@
             <td><%= StatusBadge(l.Status) %></td>
             <td class="hide-md"><%: l.LeadType %></td>
             <td class="hide-sm"><%: l.Source %><span class="cell-sub"><%: l.Channel %></span></td>
+            <td><%= l.Score.HasValue ? "<span class=\"score score--" + Yenetch.Crm.LeadScoring.Band(l.Score) + "\">" + l.Score + "</span>" : "<span class=\"muted\">–</span>" %></td>
             <td><span class="prio prio--<%= l.Priority %>"><%: l.Priority %></span></td>
             <td class="hide-md num"><%: Money(l.EstValue) %></td>
             <td class="hide-sm nowrap"><%: l.AssignedName ?? "—" %></td>

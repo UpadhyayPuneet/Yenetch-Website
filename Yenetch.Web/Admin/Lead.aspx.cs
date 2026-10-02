@@ -22,6 +22,15 @@ namespace Yenetch.Web.Admin
         protected Stats.VisitorRow Visitor;
         protected List<Stats.JourneyStep> PagesBefore = new List<Stats.JourneyStep>();
         protected string ContextText;
+        protected List<ScorePart> ScoreParts = new List<ScorePart>();
+        protected List<SavedQuote> LeadQuotes = new List<SavedQuote>();
+        protected List<Proposal> LeadProposals = new List<Proposal>();
+
+        protected static string ScorePill(int? score)
+        {
+            if (!score.HasValue) return "";
+            return "<span class=\"score score--" + LeadScoring.Band(score) + "\" title=\"Lead score\">" + score.Value + "</span>";
+        }
         protected static readonly string[] Stages = { "New", "Contacted", "Qualified", "Proposal", "Negotiation", "Won", "Lost" };
 
         protected void Page_Load(object sender, EventArgs e)
@@ -153,6 +162,10 @@ namespace Yenetch.Web.Admin
         {
             Timeline = LeadService.Activities(L.Id);
             Files = Attachments.ForLead(L.Id);
+            ScoreParts = LeadScoring.Parts(L.ScoreJson);
+            LeadQuotes = Quotes.ForLead(L.Id);
+            int total;
+            LeadProposals = Proposals.List(null, L.Id, null, 0, 20, out total);
             if (!string.IsNullOrEmpty(L.VisitorId))
             {
                 Visitor = Stats.Visitor(L.VisitorId);

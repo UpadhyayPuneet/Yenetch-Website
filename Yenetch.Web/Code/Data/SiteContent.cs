@@ -176,7 +176,8 @@ namespace Yenetch.Data
         public static string SrcSet(string key)
         {
             var src = Src(key);
-            // Uploaded images and full URLs have one size only.
+            // Uploaded images have the sizes made when they were uploaded (see Images); other full URLs have one size only.
+            if (!string.IsNullOrEmpty(src) && src.StartsWith("/uploads/", StringComparison.OrdinalIgnoreCase)) return Images.SrcSet(src);
             if (string.IsNullOrEmpty(src) || key.Contains("/")) return "";
             var photo = Field(key, "photo");
             var cdn = string.Equals(System.Configuration.ConfigurationManager.AppSettings["StockCdn"], "true", StringComparison.OrdinalIgnoreCase);

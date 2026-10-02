@@ -364,6 +364,7 @@ def service_detail(s=None):
 
 <section class="sec" id="pricing"><div class="wrap">
   <div class="head fx-up"><span class="kicker">Pricing and engagement</span><h2>Pay for outcomes you can plan around.</h2><p>Every engagement starts with a free consultation and a written proposal with scope, timeline and fees.</p></div>
+  {service_plans(s["slug"] if s else None)}
   <div class="pricing">
     <div class="models models--auto">{engage}</div>
     <aside class="ideal fx-up"><h3>A good fit if you are</h3><ul class="checks">{ideal}</ul>
@@ -671,6 +672,9 @@ def contact():
       <div class="cform__row"><label for="Interest">I'm interested in</label><asp:DropDownList ID="Interest" runat="server" CssClass="field"{topics} /></div>
       <div class="cform__row"><label for="Need">What do you want to achieve?</label><asp:TextBox ID="Need" runat="server" CssClass="field" TextMode="MultiLine" Rows="5" MaxLength="1000" /></div>
       <div class="cform__row"><label for="Attachment">Attach a brief (optional)</label><asp:FileUpload ID="Attachment" runat="server" CssClass="field" accept="{accept}" aria-describedby="AttachmentHint" />{hint}</div>
+      <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+      <div data-captcha></div>
+      <asp:Literal ID="FormError" runat="server" Visible="false" />
       <asp:Button ID="SendButton" runat="server" Text="Send enquiry" CssClass="btn btn--blue" OnClick="SendButton_Click" />
       <p class="cform__note">We reply within one working day. Your details are used only to respond to you. See our <a href="/privacy">privacy policy</a>.</p>
     </asp:PlaceHolder>
@@ -802,6 +806,13 @@ def blog_article(b=None):
         ld, faqld = "<%= ArticleLd %>", "<%= FaqLd %>"
         crumb = '<script type="application/ld+json"><%= CrumbLd %></script>'
     toc_items = each(toc, lambda t, i: f'<li><a href="#{t.id}">{t.text}</a></li>', "Yenetch.Models.TocItem")
+    if bind.MODE == "aspx":
+        m = '@"' + mark().replace('"', '""') + '"'
+        byline = f"<%= Yenetch.Data.Authors.Byline(Post.Author, {m}) %>"
+        author_box = f"<%= Yenetch.Data.Authors.Box(Post.Author, {m}) %>"
+    else:
+        byline = f'<span class="byline__av">{mark()}</span><span><b>{post.author}</b>'
+        author_box = f'<div class="author"><span class="byline__av">{mark()}</span><div><b>Written by the Yenetch team</b><p>Our articles are written and reviewed by the marketers, engineers and designers who run these projects for clients every day.</p></div></div>'
     share = f'''<div class="share" aria-label="Share this article">
   <a href="https://www.linkedin.com/sharing/share-offsite/?url={share_u}" target="_blank" rel="noopener" aria-label="Share on LinkedIn">{social_icon("linkedin")}</a>
   <a href="https://x.com/intent/post?url={share_u}&amp;text={share_t}" target="_blank" rel="noopener" aria-label="Share on X">{social_icon("x")}</a>
@@ -816,13 +827,13 @@ def blog_article(b=None):
   <div class="post__meta"><b>{post.category}</b><span>{post.readMinutes} min read</span></div>
   <h1>{post.title}</h1>
   <p class="article__lead">{post.excerpt}</p>
-  <div class="article__byline"><span class="byline__av">{mark()}</span><span><b>{post.author}</b><time datetime="{post.date}">{post.displayDate}</time></span>{share}</div>
+  <div class="article__byline">{byline}<time datetime="{post.date}">{post.displayDate}</time></span>{share}</div>
 </div></header>
 <figure class="article__cover"><div class="wrap">{img(post.coverImage, "", "(max-width: 1100px) 100vw, 1100px", eager=True)}</div></figure>
 <div class="wrap article__grid">
   <aside class="toc"><nav aria-label="In this article"><b>In this article</b><ol>{toc_items}</ol></nav></aside>
   <div class="prose">{body}
-    <div class="author"><span class="byline__av">{mark()}</span><div><b>Written by the Yenetch team</b><p>Our articles are written and reviewed by the marketers, engineers and designers who run these projects for clients every day.</p></div></div>
+    {author_box}
     <div class="article__share"><span>Share this article</span>{share}</div>
   </div>
 </div>
@@ -931,6 +942,7 @@ def book_page():
       <fieldset class="cform__row bk__modes"><legend>How should we talk?</legend><div data-bk-modes></div></fieldset>
       <div class="cform__row"><label for="bk-notes">Anything we should prepare? (optional)</label><textarea class="field" id="bk-notes" name="notes" rows="3" maxlength="2000"></textarea></div>
       <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+      <div data-captcha></div>
       <p class="apl__error" role="alert" hidden data-bk-error></p>
       <div class="bk__actions"><button class="btn btn--blue" type="submit">Confirm booking</button><button class="btn btn--line" type="button" data-bk-back>Change time</button></div>
       <p class="cform__note">You'll get a confirmation email with a calendar invite. We use your details only for this call. See our <a href="{L("/privacy")}">privacy policy</a>.</p>
@@ -982,6 +994,7 @@ def audit_page():
         <div class="cform__row"><label for="au-phone">Phone (optional)</label><input class="field" id="au-phone" name="phone" type="tel" maxlength="40" autocomplete="tel"></div>
       </div>
       <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+      <div data-captcha></div>
       <p class="apl__error" role="alert" hidden data-au-error></p>
       <div class="au__go"><button class="btn btn--blue" type="submit" data-au-btn>Audit my website</button><span class="cform__note">Free. Your report is also emailed to you. See our <a href="{L("/privacy")}">privacy policy</a>.</span></div>
     </form>
@@ -997,6 +1010,139 @@ def audit_page():
 {faq}
 {cta("Want us to fix it for you?", "Book a free call and a specialist will walk you through your audit and the fixes that matter most.")}
 '''
+
+
+# =================================================================== pricing and the plan builder (/pricing)
+PLANS_SEED = json.loads((WEB / "App_Data/seed/plans.json").read_text(encoding="utf-8"))
+ADDONS_SEED = json.loads((WEB / "App_Data/seed/addons.json").read_text(encoding="utf-8"))
+
+PRICING_FAQ = [
+    ("Are these prices final?", "They are honest estimates for typical projects. After a short call about your goals and scope, you get a written proposal with a fixed price. Items marked \"from\" depend on scope."),
+    ("Do prices include GST?", "No. Prices are before GST, which is added at 18% for clients in India. Clients outside India are usually not charged GST on exported services."),
+    ("Can I pay in my own currency?", "Yes. Choose your currency at the top of the page to see estimates in it. Proposals and payment links can be issued in major currencies."),
+    ("What is a minimum term?", "Monthly plans such as SEO or social media need a few months to show results, so some have a minimum of 3 or 6 months. After that, you can stop with 30 days' notice."),
+    ("Can I combine services?", "Yes. Add plans from several services and any extras to build one custom plan. You get a single estimate, one point of contact and one invoice."),
+    ("How do I pay?", "By bank transfer, UPI, card or net banking through a secure Razorpay payment link sent with your proposal."),
+]
+
+
+def _plan_cards_preview(slug, on_service=False):
+    """Plan cards for the static preview (the live site renders them from the database: Pricing.PlanCards)."""
+    plans = [p for p in PLANS_SEED if p["service"] == slug]
+    if not plans:
+        return ""
+    per = {"monthly": "/month", "yearly": "/year", "hourly": "/hour"}
+    out = '<div class="plans" data-plans>'
+    for p in plans:
+        feats = "".join(f"<li>{esc(f)}</li>" for f in p.get("features", [])[:6])
+        frm = "<small>From</small> " if p.get("priceType") == "From" else ""
+        setup = f'<p class="plan__setup">+ <span data-inr="{p["setupFee"]}">₹{p["setupFee"]:,}</span> one-time set-up</p>' if p.get("setupFee") else ""
+        cls = "btn--blue" if p.get("popular") else "btn--line"
+        btn = (f'<a class="btn {cls} btn--sm" href="{L("/pricing")}">Choose {esc(p["name"])}</a>' if on_service
+               else f'<button type="button" class="btn {cls} btn--sm" data-add-plan="{p["id"]}" aria-pressed="false">Add to my plan</button>')
+        flag = '<span class="plan__flag">Most popular</span>' if p.get("popular") else ""
+        out += (f'<article class="plan{" plan--popular" if p.get("popular") else ""}" data-plan="{p["id"]}">{flag}'
+                f'<h3>{esc(p["name"])}</h3><p class="plan__tag">{esc(p.get("tagline", ""))}</p>'
+                f'<span class="plan__price">{frm}<b data-inr="{p["price"]}">₹{p["price"]:,}</b><small>{per.get(p["billing"], "")}</small></span>{setup}'
+                f'<ul class="plan__list">{feats}</ul><p class="plan__time">{esc(p.get("timeline", ""))}</p><div class="plan__cta">{btn}</div></article>')
+    return out + "</div>"
+
+
+def currency_switch():
+    return ('<div class="cur" data-currency-switch><label for="cur-select">Show prices in</label>'
+            '<select class="field field--sm" id="cur-select" data-currency-select><option value="INR">₹ INR</option></select></div>')
+
+
+def service_plans(slug):
+    """Plan cards on a service page (only when the service has plans)."""
+    if bind.MODE == "aspx":
+        return "<%= Yenetch.Web.Pricing.ServicePlans(Svc.Slug) %>"
+    cards = _plan_cards_preview(slug, True)
+    if not cards:
+        return ""
+    return (f'<div class="svc-plans"><div class="svc-plans__bar"><h3>Plans</h3>{currency_switch()}</div>{cards}'
+            f'<p class="svc-plans__more"><a class="more" href="{L("/pricing")}#builder">Combine with other services in the plan builder</a></p></div>')
+
+
+def pricing_page():
+    heading = _x("Yenetch.Data.Pricing.Heading", "Simple plans. Or build your own.")
+    intro = _x("Yenetch.Data.Pricing.Intro", "Pick a plan for any service, or combine services and extras into one custom plan. You get an instant estimate, and a specialist confirms it with you.")
+    note = _x("Yenetch.Data.Pricing.Note", "Prices are estimates before GST. Your final quote is confirmed after a short call about your goals and scope.")
+    if bind.MODE == "aspx":
+        sections = "<%= Yenetch.Web.Pricing.Sections() %>"
+        tabs = "<%= Yenetch.Web.Pricing.Tabs() %>"
+        builder_data = '<script type="application/json" id="builder-data"><%= Yenetch.Data.Pricing.BuilderJson() %></script>'
+        preview_note = "<%= Yenetch.Web.Pricing.PreviewNote() %>"
+        ld = "<%= Yenetch.Data.Pricing.CatalogLd() %>"
+    else:
+        svcs = [s for s in D["services"] if any(p["service"] == s["slug"] for p in PLANS_SEED)]
+        tabs = '<nav class="ptabs" aria-label="Services">' + "".join(f'<a href="#plans-{s["slug"]}">{esc(s["name"].split(" (")[0])}</a>' for s in svcs) + "</nav>"
+        sections = "".join(f'<section class="psvc" id="plans-{s["slug"]}"><div class="psvc__head"><h2>{esc(s["name"])}</h2><p>{esc(s["summary"])}</p>'
+                           f'<a class="more" href="{L("/services/" + s["slug"])}">About this service</a></div>{_plan_cards_preview(s["slug"])}</section>' for s in svcs)
+        data = {"show": True, "tax": {"name": "GST", "pct": 18},
+                "plans": [{"id": p["id"], "service": p["service"], "serviceName": SVC[p["service"]]["name"], "name": p["name"], "price": p["price"], "billing": p["billing"],
+                           "setup": p.get("setupFee", 0), "from": p.get("priceType") == "From", "popular": p.get("popular", False)} for p in PLANS_SEED],
+                "addons": [{"id": a["id"], "service": a.get("service"), "group": a.get("group") or "Extras", "name": a["name"], "description": a.get("description", ""),
+                            "price": a["price"], "billing": a["billing"], "unit": a.get("unit"), "min": max(1, a.get("min", 1)), "max": a.get("max", 0)} for a in ADDONS_SEED]}
+        builder_data = f'<script type="application/json" id="builder-data">{safe(json.dumps(data, ensure_ascii=False))}</script>'
+        preview_note, ld = "", ""
+    faq = faq_static(PRICING_FAQ, "Pricing questions, answered.")
+    done = (f'<div class="cform__done" data-pb-done hidden>{icon("check")}<h2>Your quote is on its way.</h2>'
+            f'<p data-pb-done-text>We have emailed your estimate. A specialist will call you within one working day.</p><a class="btn btn--line" href="{L("/book")}">Book a call now</a></div>')
+    return f"""
+<section class="phero"><div class="wrap">
+  {crumbs([("Home", "/"), ("Pricing", None)])}
+  <span class="kicker">Pricing &amp; plans</span>
+  <h1>{heading}</h1>
+  <p class="phero__lead">{intro}</p>
+  <div class="phero__tools">{currency_switch()}<a class="btn btn--blue btn--sm" href="#builder">Build a custom plan</a></div>
+  {preview_note}
+</div></section>
+<section class="sec--tight pricing-page" style="padding-top:0"><div class="wrap">
+  {tabs}
+  <div class="psvcs">{sections}</div>
+</div></section>
+<section class="sec paper" id="builder"><div class="wrap">
+  <div class="head fx-up"><span class="kicker">Plan builder</span><h2>Build your custom plan.</h2><p>Add plans from any service above, then the extras you need. Your estimate updates as you go.</p></div>
+  <div class="pb" data-builder>
+    {builder_data}
+    <div class="pb__main">
+      <div class="pb__empty" data-pb-empty><p>Your plan is empty. Choose <b>Add to my plan</b> on any plan above, or start with an extra below.</p></div>
+      <div class="pb__extras" data-pb-extras></div>
+    </div>
+    <aside class="pb__side"><div class="pb__card" data-pb-summary aria-live="polite">
+      <h3>Your plan</h3>
+      <ul class="pb__lines" data-pb-lines></ul>
+      <form class="pb__code" data-pb-code><label for="pb-code" class="sr-only">Offer code</label><input class="field field--sm" id="pb-code" name="code" placeholder="Offer code" maxlength="40" autocomplete="off"><button class="btn btn--line btn--sm" type="submit">Apply</button></form>
+      <p class="pb__offer" data-pb-offer hidden></p>
+      <dl class="pb__totals" data-pb-totals></dl>
+      <p class="pb__note">{note}</p>
+      <button class="btn btn--blue pb__go" type="button" data-pb-go disabled>Get my quote</button>
+    </div></aside>
+  </div>
+  <div class="pb__form-wrap" data-pb-form-wrap hidden>
+    <form class="cform pb__form" data-pb-form novalidate>
+      <h3>Where should we send your quote?</h3>
+      <div class="bk__grid">
+        <div class="cform__row"><label for="pb-name">Your name *</label><input class="field" id="pb-name" name="name" required maxlength="120" autocomplete="name"></div>
+        <div class="cform__row"><label for="pb-email">Email *</label><input class="field" id="pb-email" name="email" type="email" required maxlength="160" autocomplete="email"></div>
+        <div class="cform__row"><label for="pb-phone">Phone *</label><input class="field" id="pb-phone" name="phone" type="tel" required maxlength="40" autocomplete="tel"></div>
+        <div class="cform__row"><label for="pb-company">Company</label><input class="field" id="pb-company" name="company" maxlength="160" autocomplete="organization"></div>
+      </div>
+      <div class="cform__row"><label for="pb-notes">Anything we should know? (optional)</label><textarea class="field" id="pb-notes" name="notes" rows="3" maxlength="2000"></textarea></div>
+      <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+      <div data-captcha></div>
+      <p class="apl__error" role="alert" hidden data-pb-error></p>
+      <div class="bk__actions"><button class="btn btn--blue" type="submit">Email me this quote</button></div>
+      <p class="cform__note">A specialist will call you within one working day. We use your details only for this enquiry. See our <a href="{L("/privacy")}">privacy policy</a>.</p>
+    </form>
+    {done}
+  </div>
+</div></section>
+{faq}
+{cta("Not sure what you need?", "Book a free call and we will recommend the right plan for your goals and budget.", "Help me choose a plan")}
+{ld}
+"""
 
 
 # =================================================================== files the site reads at runtime

@@ -38,6 +38,7 @@ namespace Yenetch.Web
             if (path.StartsWith("/case-studies")) return "work";
             if (path.StartsWith("/about") || path.StartsWith("/careers")) return "company";
             if (path.StartsWith("/blog")) return "insights";
+            if (path.StartsWith("/pricing")) return "pricing";
             return "";
         }
 
@@ -59,6 +60,17 @@ namespace Yenetch.Web
             // Every page exposes its data as fields set in its own Page_Load (which runs before this one);
             // binding once here resolves all <%# %> expressions in the page, including Repeaters.
             Page.DataBind();
+        }
+
+        /// <summary>Email addresses and phone numbers in the finished page are protected from harvesting bots (see Data/Protect.cs).</summary>
+        protected override void Render(System.Web.UI.HtmlTextWriter writer)
+        {
+            var sw = new System.IO.StringWriter();
+            using (var hw = new System.Web.UI.HtmlTextWriter(sw)) base.Render(hw);
+            string html = sw.ToString();
+            try { html = Yenetch.Data.Protect.Html(html); }
+            catch (Exception ex) { Yenetch.Crm.Mailer.Log("contact protection", ex); }
+            writer.Write(html);
         }
     }
 }

@@ -1,4 +1,4 @@
-<?xml version="1.0" encoding="utf-8"?>
+﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="15.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <Import Project="$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props" Condition="Exists('$(MSBuildExtensionsPath)\$(MSBuildToolsVersion)\Microsoft.Common.props')" />
   <PropertyGroup>
@@ -748,6 +748,121 @@
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>
     <VSToolsPath Condition="'$(VSToolsPath)' == ''">$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v$(VisualStudioVersion)</VSToolsPath>
   </PropertyGroup>
+  <ItemGroup>
+    <Content Include="App_Data\seed\addons.json" />
+    <Content Include="App_Data\seed\authors.json" />
+    <Content Include="App_Data\seed\offers.json" />
+    <Content Include="App_Data\seed\plans.json" />
+    <Content Include="App_Data\sql\sales.sqlite.sql" />
+    <Content Include="App_Data\sql\sales.sqlserver.sql" />
+    <Compile Include="Code\Data\Fx.cs" />
+    <Compile Include="Code\Data\Offers.cs" />
+    <Compile Include="Code\Data\Pricing.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Code\Crm\Ai.cs" />
+    <Compile Include="Code\Crm\Guard.cs" />
+    <Compile Include="Code\Data\Popups.cs" />
+    <Compile Include="Code\Data\Protect.cs" />
+    <Compile Include="Code\Data\SiteDataScript.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Code\Crm\LeadScoring.cs" />
+    <Compile Include="Code\Crm\Quotes.cs" />
+    <Compile Include="Code\Crm\Webhooks.cs" />
+    <Compile Include="Handlers\SalesHandlers.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Code\Crm\Proposals.cs" />
+    <Compile Include="Code\Crm\Razorpay.cs" />
+    <Compile Include="Handlers\ProposalHandlers.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Pricing.aspx" />
+    <Compile Include="Pricing.aspx.cs">
+      <DependentUpon>Pricing.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Pricing.aspx.designer.cs">
+      <DependentUpon>Pricing.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Admin\AiAdmin.aspx" />
+    <Content Include="Admin\Integrations.aspx" />
+    <Content Include="Admin\PricingAdmin.aspx" />
+    <Content Include="Admin\ProposalEdit.aspx" />
+    <Content Include="Admin\ProposalList.aspx" />
+    <Content Include="Admin\Scoring.aspx" />
+    <Content Include="Proposal.aspx" />
+    <Content Include="assets\admin\proposal.js" />
+    <Content Include="assets\js\proposal.js" />
+    <Content Include="assets\js\sales.js" />
+    <Compile Include="Admin\AiAdmin.aspx.cs">
+      <DependentUpon>AiAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\AiAdmin.aspx.designer.cs">
+      <DependentUpon>AiAdmin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Integrations.aspx.cs">
+      <DependentUpon>Integrations.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Integrations.aspx.designer.cs">
+      <DependentUpon>Integrations.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\PricingAdmin.aspx.cs">
+      <DependentUpon>PricingAdmin.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\PricingAdmin.aspx.designer.cs">
+      <DependentUpon>PricingAdmin.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ProposalEdit.aspx.cs">
+      <DependentUpon>ProposalEdit.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ProposalEdit.aspx.designer.cs">
+      <DependentUpon>ProposalEdit.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\ProposalList.aspx.cs">
+      <DependentUpon>ProposalList.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\ProposalList.aspx.designer.cs">
+      <DependentUpon>ProposalList.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Admin\Scoring.aspx.cs">
+      <DependentUpon>Scoring.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Admin\Scoring.aspx.designer.cs">
+      <DependentUpon>Scoring.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Proposal.aspx.cs">
+      <DependentUpon>Proposal.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Proposal.aspx.designer.cs">
+      <DependentUpon>Proposal.aspx</DependentUpon>
+    </Compile>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Author.aspx" />
+    <Compile Include="Author.aspx.cs">
+      <DependentUpon>Author.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Author.aspx.designer.cs">
+      <DependentUpon>Author.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="Code\Data\Authors.cs" />
+    <Compile Include="Code\Data\Images.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Code\Data\HtmlSanitizer.cs" />
+  </ItemGroup>
   <Import Project="$(MSBuildBinPath)\Microsoft.CSharp.targets" />
   <Import Project="$(VSToolsPath)\WebApplications\Microsoft.WebApplication.targets" Condition="'$(VSToolsPath)' != ''" />
   <Import Project="$(MSBuildExtensionsPath32)\Microsoft\VisualStudio\v10.0\WebApplications\Microsoft.WebApplication.targets" Condition="false" />

@@ -183,7 +183,7 @@ namespace Yenetch.Data
                 var ld = new Dictionary<string, object> {
                     { "@context", "https://schema.org" }, { "@type", "Organization" }, { "name", string.IsNullOrEmpty(c.Name) ? "Yenetch" : c.Name },
                     { "url", Seo.Root }, { "logo", Seo.Root + "/assets/img/logo.png" },
-                    { "foundingDate", c.Founded > 0 ? c.Founded.ToString() : "2019" }, { "email", c.Email ?? "" }, { "telephone", tel },
+                    { "foundingDate", c.Founded > 0 ? c.Founded.ToString() : "2019" }, { "telephone", tel },
                     { "sameAs", Social.Where(s => s.Id != "whatsapp" && !string.IsNullOrEmpty(s.Url)).Select(s => s.Url).ToList() },
                     { "address", Offices.Select(o => new Dictionary<string, object> {
                         { "@type", "PostalAddress" }, { "streetAddress", o.Address ?? "" }, { "addressLocality", o.City ?? "" }, { "addressCountry", "IN" } }).ToList() }

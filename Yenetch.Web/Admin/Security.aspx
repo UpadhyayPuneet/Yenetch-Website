@@ -1,4 +1,4 @@
-<%@ Page Title="Security & backups" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="Security.aspx.cs" Inherits="Yenetch.Web.Admin.SecurityPage" %>
+﻿<%@ Page Title="Security & backups" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="Security.aspx.cs" Inherits="Yenetch.Web.Admin.SecurityPage" %>
 <%@ Import Namespace="Yenetch.Crm" %>
 <asp:Content ContentPlaceHolderID="Main" runat="server">
 <form id="form1" runat="server">
@@ -55,6 +55,21 @@
         </section>
     </div>
     <div class="stack" style="gap:16px">
+        <section class="card" id="captcha">
+            <div class="card__head"><h2>Spam protection (CAPTCHA)</h2><span class="badge <%= Guard.CaptchaOn ? "badge--won" : "badge--open" %>"><%= Guard.CaptchaOn ? "On" : "Off" %></span></div>
+            <p class="muted small" style="margin:0 0 12px">Forms already block bots with a hidden trap field, a minimum fill time and a limit per visitor. A CAPTCHA adds a check on the contact form, booking, website audit, job applications and the plan builder.
+                <b>Cloudflare Turnstile</b> is recommended: free, private, and usually invisible to people.</p>
+            <div class="form-grid">
+                <div class="span-2"><label class="label" for="capProvider">Provider</label><select class="field" id="capProvider" name="capProvider">
+                    <option value=""<%= Guard.CaptchaProvider == "" ? " selected" : "" %>>Off</option>
+                    <option value="turnstile"<%= Guard.CaptchaProvider == "turnstile" ? " selected" : "" %>>Cloudflare Turnstile (recommended)</option>
+                    <option value="recaptcha"<%= Guard.CaptchaProvider == "recaptcha" ? " selected" : "" %>>Google reCAPTCHA v3</option></select></div>
+                <div class="span-2"><label class="label" for="capSite">Site key</label><input class="field mono" id="capSite" name="capSite" maxlength="200" value="<%: Guard.CaptchaSiteKey %>" /></div>
+                <div class="span-2"><label class="label" for="capSecret">Secret key</label><input class="field mono" id="capSecret" name="capSecret" type="password" autocomplete="new-password" maxlength="200" placeholder="<%= HasCaptchaSecret ? "Saved. Type to replace" : "" %>" /></div>
+            </div>
+            <p class="fld__help">Turnstile: Cloudflare dashboard &gt; Turnstile &gt; Add site (free, no Cloudflare hosting needed). reCAPTCHA: google.com/recaptcha/admin, choose v3. Add your domain in either.</p>
+            <div class="form-actions"><button class="btn btn--line" type="submit" name="act" value="captcha">Save spam protection</button></div>
+        </section>
         <section class="card">
             <div class="card__head"><h2>Good habits</h2></div>
             <ul class="tips">
@@ -72,6 +87,10 @@
                 <li>Five wrong passwords or codes lock an account for 15 minutes.</li>
                 <li>Uploaded CVs, attachments and backups are never served directly to the web.</li>
                 <li>Admin pages are hidden from search engines and protected against cross-site form posts.</li>
+                <li>Database queries use parameters, so typed text can never run as SQL.</li>
+                <li>Text people type is encoded before it is shown; blog and page HTML from the editors is cleaned of scripts.</li>
+                <li>Email addresses and phone numbers on the website are hidden from address-harvesting bots.</li>
+                <li>Forms and the chat are rate limited per visitor; API keys and passwords are stored encrypted.</li>
             </ul>
         </section>
     </div>

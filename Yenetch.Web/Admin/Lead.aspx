@@ -1,5 +1,6 @@
 ﻿<%@ Page Title="Lead" Language="C#" MasterPageFile="~/Admin/Admin.Master" AutoEventWireup="true" CodeBehind="Lead.aspx.cs" Inherits="Yenetch.Web.Admin.LeadPage" %>
 <%@ Import Namespace="Yenetch.Crm" %>
+<%@ Import Namespace="System.Linq" %>
 <asp:Content ContentPlaceHolderID="Main" runat="server">
 <form id="form1" runat="server">
 <a class="crumb" href="/admin/leads"><%= Icon("back") %>Leads</a>
@@ -13,7 +14,7 @@
         <div>
             <h1><%: L.Name %></h1>
             <div class="lead-head__meta">
-                <%= StatusBadge(L.Status) %><span class="prio prio--<%= L.Priority %>"><%: L.Priority %></span>
+                <%= StatusBadge(L.Status) %><span class="prio prio--<%= L.Priority %>"><%: L.Priority %></span><%= ScorePill(L.Score) %>
                 <span class="muted small">· <%: L.LeadType %> · <%: L.Source %><%: string.IsNullOrEmpty(L.Channel) ? "" : " (" + L.Channel + ")" %> · received <%: When(L.CreatedOn) %></span>
             </div>
         </div>
@@ -22,6 +23,7 @@
         <% if (!string.IsNullOrEmpty(L.Phone)) { %><a class="btn btn--line" href="tel:<%= Att(L.Phone) %>"><%= Icon("phone") %>Call</a><% } %>
         <% if (L.WhatsAppUrl != null) { %><a class="btn btn--line" href="<%= Att(L.WhatsAppUrl) %>" target="_blank" rel="noopener"><%= Icon("whatsapp") %>WhatsApp</a><% } %>
         <% if (!string.IsNullOrEmpty(L.Email)) { %><a class="btn btn--line" href="mailto:<%= Att(L.Email) %>"><%= Icon("mail") %>Email</a><% } %>
+        <a class="btn btn--line" href="/admin/proposals/new?lead=<%= L.Id %>"><%= Icon("note") %>Create proposal</a>
         <% if (L.Status == "Won" && !string.IsNullOrEmpty(L.Email)) { %><button class="btn btn--line" type="submit" name="askReview" value="1" data-confirm="Email <%: L.Name %> a request for a Google review now?"><%= Icon("star") %>Ask for a review</button><% } %>
     </div>
 </div>
@@ -113,6 +115,22 @@
                 <div><dt>Last updated</dt><b><%: Ago(L.UpdatedOn) %></b></div>
             </dl>
         </section>
+        <section class="card">
+            <div class="card__head"><h2>Lead score</h2><%= ScorePill(L.Score) %></div>
+            <% if (ScoreParts.Count == 0) { %><p class="muted small" style="margin:0">Not scored yet.</p><% } else { %>
+            <ul class="score-parts"><% foreach (var sp in ScoreParts) { %><li><span><%: sp.Label %></span><b class="<%= sp.Points < 0 ? "neg" : "" %>"><%= sp.Points > 0 ? "+" : "" %><%= sp.Points %></b></li><% } %></ul><% } %>
+            <p class="muted small" style="margin:10px 0 0"><a href="/admin/scoring">How scores work</a></p>
+        </section>
+        <% if (LeadQuotes.Count > 0 || LeadProposals.Count > 0) { %>
+        <section class="card">
+            <div class="card__head"><h2>Quotes &amp; proposals</h2></div>
+            <ul class="score-parts">
+            <% foreach (var pr in LeadProposals) { %><li><a href="/admin/proposals/<%= pr.Id %>"><%: pr.Number %> · <%: pr.Title %></a><span><%= Yenetch.Web.Admin.ProposalListPage.StatusBadgeFor(pr) %></span></li><% } %>
+            <% foreach (var q in LeadQuotes) { %><li><span>Plan builder quote, <%: Date(q.CreatedOn) %><span class="cell-sub"><%: string.Join(", ", q.Lines.Select(x => x.Name).Take(4)) %></span></span>
+                <a class="small" href="/admin/proposals/new?lead=<%= L.Id %>&amp;quote=<%= q.Id %>">Make proposal</a></li><% } %>
+            </ul>
+        </section>
+        <% } %>
         <% if (Files.Count > 0) { %>
         <section class="card">
             <div class="card__head"><h2>Attached files</h2></div>

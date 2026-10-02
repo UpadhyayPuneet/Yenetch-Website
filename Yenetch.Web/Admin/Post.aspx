@@ -84,7 +84,9 @@
                 <div><label class="label" for="Category">Category</label>
                     <asp:TextBox ID="Category" runat="server" CssClass="field" MaxLength="80" list="cats" autocomplete="off" />
                     <datalist id="cats"><% foreach (var c in Categories) { %><option value="<%= Att(c) %>"></option><% } %></datalist></div>
-                <div><label class="label" for="Author">Author</label><asp:TextBox ID="Author" runat="server" CssClass="field" MaxLength="120" placeholder="Team Yenetch" /></div>
+                <div><label class="label" for="Author">Author</label><asp:TextBox ID="Author" runat="server" CssClass="field" MaxLength="120" placeholder="Team Yenetch" list="author-list" />
+                    <datalist id="author-list"><% foreach (var a in Yenetch.Data.Authors.All) { %><option value="<%: a.Name %>"></option><% } %></datalist>
+                    <p class="fld__help">Pick a <a href="/admin/content/authors">blog author</a> so the article links to their profile.</p></div>
                 <div><label class="label" for="Tags">Tags</label><asp:TextBox ID="Tags" runat="server" CssClass="field" MaxLength="400" placeholder="seo, google, local business" /></div>
             </div>
         </section>

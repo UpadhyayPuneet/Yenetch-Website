@@ -58,7 +58,7 @@ namespace Yenetch.Data
                 { "@context", "https://schema.org" }, { "@type", "BlogPosting" }, { "headline", p.Title }, { "description", p.SeoDescription },
                 { "datePublished", p.Date }, { "dateModified", p.Date }, { "mainEntityOfPage", Root + p.Url },
                 { "image", Root + Photos.Src(p.CoverImage) },
-                { "author", new Dictionary<string, object> { { "@type", "Organization" }, { "name", p.Author ?? "Yenetch" } } },
+                { "author", Authors.Ld(p.Author) },
                 { "publisher", new Dictionary<string, object> { { "@type", "Organization" }, { "name", "Yenetch" },
                     { "logo", new Dictionary<string, object> { { "@type", "ImageObject" }, { "url", Root + "/assets/img/logo.png" } } } } } });
         }
@@ -71,7 +71,7 @@ namespace Yenetch.Data
             var d = new Dictionary<string, object> {
                 { "@context", "https://schema.org" }, { "@type", "ProfessionalService" }, { "name", name }, { "url", Root + (url ?? "") },
                 { "image", Root + "/assets/img/og-image.png" }, { "logo", Root + "/assets/img/logo.png" }, { "telephone", Site.PhoneTel.Replace("tel:", "") },
-                { "email", c.Email ?? "" }, { "priceRange", "₹₹" }, { "parentOrganization", new Dictionary<string, object> { { "@type", "Organization" }, { "name", string.IsNullOrEmpty(c.Name) ? "Yenetch" : c.Name }, { "url", Root } } },
+                { "priceRange", "₹₹" }, { "parentOrganization", new Dictionary<string, object> { { "@type", "Organization" }, { "name", string.IsNullOrEmpty(c.Name) ? "Yenetch" : c.Name }, { "url", Root } } },
                 { "openingHoursSpecification", new[] { new Dictionary<string, object> { { "@type", "OpeningHoursSpecification" }, { "dayOfWeek", new[] { "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday" } }, { "opens", "10:00" }, { "closes", "19:00" } } } }
             };
             if (!string.IsNullOrEmpty(description)) d["description"] = description;

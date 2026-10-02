@@ -75,7 +75,7 @@ namespace Yenetch.Data
             }
         }
 
-        public static void Invalidate() { HttpRuntime.Cache.Remove(CacheKey); BlogStore.Invalidate(); }
+        public static void Invalidate() { HttpRuntime.Cache.Remove(CacheKey); BlogStore.Invalidate(); SiteDataScript.Invalidate(); }
 
         // ---- Assembly -----------------------------------------------------------------------------------------
 
@@ -224,6 +224,12 @@ namespace Yenetch.Data
                     return "Another item already uses \"" + item.ItemKey + "\".";
             }
 
+            // Rich text (legal pages and other html fields) is cleaned of scripts before it is stored.
+            foreach (var f in c.Fields.Where(f => f.Type == "html"))
+            {
+                object v;
+                if (data.TryGetValue(f.Name, out v) && v is string) data[f.Name] = HtmlSanitizer.Clean((string)v);
+            }
             item.Collection = c.Key;
             item.Data = js.Serialize(data);
             item.Title = Util.Cut(TitleOf(c, data, item.ItemKey), 300);
@@ -248,7 +254,8 @@ namespace Yenetch.Data
         public static readonly HashSet<string> ReservedSlugs = new HashSet<string>(StringComparer.OrdinalIgnoreCase)
         {
             "admin", "api", "assets", "uploads", "handlers", "app_data", "bin", "r", "digital-marketing", "software-development", "talent-resourcing", "services", "solution-finder",
-            "products", "case-studies", "about", "careers", "blog", "contact", "privacy", "terms", "newsletter", "book", "website-audit", "sitemap", "robots", "404", "default", "notfound"
+            "products", "case-studies", "about", "careers", "blog", "contact", "privacy", "terms", "newsletter", "book", "website-audit", "sitemap", "robots", "404", "default", "notfound",
+            "pricing", "proposal", "quote", "data"
         };
 
         public static void Delete(int id) { Db.Exec("DELETE FROM CmsItems WHERE Id = @id", new { id }); Invalidate(); }
@@ -271,6 +278,13 @@ namespace Yenetch.Data
 
         public static string TitleOf(ContentCollection c, Dictionary<string, object> data, string key)
         {
+            // Plans of different services share names (Starter, Growth), so the list shows the service too.
+            if (c.Key == "plans" && !string.IsNullOrWhiteSpace(S(data, "name")))
+            {
+                var svc = S(data, "service");
+                var svcName = string.IsNullOrEmpty(svc) ? null : Db.Scalar<string>("SELECT Title FROM CmsItems WHERE Collection = 'services' AND ItemKey = @k", new { k = svc });
+                return (svcName ?? svc ?? "All services") + " · " + S(data, "name").Trim();
+            }
             foreach (var f in new[] { c.TitleField, "title", "name", "q", "role", "path", "headline" })
             {
                 var v = f == null ? null : S(data, f);
@@ -294,6 +308,9 @@ namespace Yenetch.Data
                 if (_seeded) return;
                 if (Settings.Get("content.seeded") == null) Seed();
                 if (Settings.Get("landing.seeded") == null) SeedLanding();
+                // v11: example plans, builder extras, an offer and the editorial author, added once to every site.
+                foreach (var k in new[] { "plans", "addons", "offers", "authors" })
+                    if (Settings.Get(k + ".seeded") == null) SeedFile(k);
                 _seeded = true;
             }
         }
@@ -365,6 +382,28 @@ namespace Yenetch.Data
             Settings.Set("landing.seeded", DateTime.UtcNow.ToString("o"));
         }
 
+        /// <summary>Adds the items in App_Data/seed/{collection}.json to an empty collection, once.</summary>
+        private static void SeedFile(string collection)
+        {
+            var file = Util.AppPath("App_Data/seed/" + collection + ".json");
+            var c = ContentSchema.Get(collection);
+            if (c != null && File.Exists(file) && Db.Scalar<int>("SELECT COUNT(*) FROM CmsItems WHERE Collection = @c", new { c = collection }) == 0)
+            {
+                var js = Json();
+                var sort = 0;
+                foreach (var x in (js.DeserializeObject(File.ReadAllText(file)) as IEnumerable) ?? new object[0])
+                {
+                    var d = x as Dictionary<string, object>;
+                    if (d == null) continue;
+                    var key = c.KeyField == null ? null : S(d, c.KeyField);
+                    sort += 10;
+                    Db.Exec("INSERT INTO CmsItems (Collection, ItemKey, Title, Sort, IsActive, Data, UpdatedOn) VALUES (@c, @k, @t, @s, @a, @d, @now)",
+                        new { c = c.Key, k = key, t = Util.Cut(TitleOf(c, d, key), 300), s = sort, a = true, d = js.Serialize(d), now = DateTime.UtcNow });
+                }
+            }
+            Settings.Set(collection + ".seeded", DateTime.UtcNow.ToString("o"));
+        }
+
         /// <summary>Copies the articles that ship with the site into the blog table (skips any already there).</summary>
         private static void SeedBlog(Dictionary<string, object> site)
         {
@@ -421,6 +460,8 @@ namespace Yenetch.Data
             else
                 Db.Exec("INSERT INTO CmsSettings (Name, Value, UpdatedOn) VALUES (@n, @v, @now)", new { n = name, v = value, now = DateTime.UtcNow });
             HttpRuntime.Cache.Remove("settings");
+            HttpRuntime.Cache.Remove("fx.rates");
+            SiteDataScript.Invalidate();
         }
 
         public static string GetSecret(string name)

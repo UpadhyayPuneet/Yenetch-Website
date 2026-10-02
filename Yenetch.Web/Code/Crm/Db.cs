@@ -188,6 +188,7 @@ namespace Yenetch.Crm
                 if (!TableExists("CrmApplications")) RunScript("careers");
                 if (!TableExists("NewsDeliveries")) RunScript("sending");
                 if (!TableExists("Bookings")) RunScript("growth");
+                if (!TableExists("Proposals")) RunScript("sales");
                 _ready = true;
             }
         }

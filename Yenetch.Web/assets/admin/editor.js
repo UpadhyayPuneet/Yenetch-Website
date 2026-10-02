@@ -8,17 +8,34 @@
 
   function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
   /* ---- Uploads ---- */
+  /* WebP copies (about a third smaller than JPG) made in this browser, because the server cannot write WebP.
+     The server makes the resized JPG/PNG copies itself; if this browser cannot make WebP, the upload works the same. */
+  var WIDTHS = [480, 960, 1600], MAX = 2000;
+  function webpCopies(file) {
+    if (!/^image\/(jpeg|png)$/.test(file.type) || !window.createImageBitmap || !document.createElement("canvas").toDataURL("image/webp").startsWith("data:image/webp")) return Promise.resolve([]);
+    return createImageBitmap(file, { imageOrientation: "from-image" }).then(function (bmp) {
+      var jobs = WIDTHS.filter(function (w) { return w < bmp.width; }).map(function (w) { return { name: "webp" + w, w: w }; });
+      jobs.push({ name: "webpFull", w: Math.min(bmp.width, MAX) });
+      return Promise.all(jobs.map(function (j) {
+        var c = document.createElement("canvas"); c.width = j.w; c.height = Math.round(bmp.height * j.w / bmp.width);
+        var g = c.getContext("2d"); g.imageSmoothingQuality = "high"; g.drawImage(bmp, 0, 0, c.width, c.height);
+        return new Promise(function (ok) { c.toBlob(function (b) { ok(b ? { name: j.name, blob: b } : null); }, "image/webp", 0.8); });
+      })).then(function (list) { return list.filter(Boolean); });
+    }).catch(function () { return []; });
+  }
   function upload(file, done, folder) {
     if (!file) return;
     if (file.size > 8 * 1024 * 1024) { window.alert("Images can be up to 8 MB."); return; }
+    document.body.classList.add("is-uploading");
+    webpCopies(file).then(function (copies) {
     var data = new FormData();
     data.append("file", file);
-    document.body.classList.add("is-uploading");
-    fetch("/Admin/Upload.ashx" + (folder ? "?to=" + folder : ""), { method: "POST", body: data, credentials: "same-origin", headers: { "X-Requested-With": "fetch" } })
+    copies.forEach(function (c) { data.append(c.name, c.blob, c.name + ".webp"); });
+    return fetch("/Admin/Upload.ashx" + (folder ? "?to=" + folder : ""), { method: "POST", body: data, credentials: "same-origin", headers: { "X-Requested-With": "fetch" } })
       .then(function (r) { return r.json().catch(function () { return { error: "Upload failed (" + r.status + ")." }; }); })
       .then(function (j) { if (j.url) done(j.url); else window.alert(j.error || "Upload failed."); })
       .catch(function () { window.alert("Upload failed. Check your connection and try again."); })
-      .then(function () { document.body.classList.remove("is-uploading"); });
+    }).then(function () { document.body.classList.remove("is-uploading"); });
   }
 
 

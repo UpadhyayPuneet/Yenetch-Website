@@ -32,6 +32,7 @@
       <fieldset class="cform__row bk__modes"><legend>How should we talk?</legend><div data-bk-modes></div></fieldset>
       <div class="cform__row"><label for="bk-notes">Anything we should prepare? (optional)</label><textarea class="field" id="bk-notes" name="notes" rows="3" maxlength="2000"></textarea></div>
       <input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">
+      <div data-captcha></div>
       <p class="apl__error" role="alert" hidden data-bk-error></p>
       <div class="bk__actions"><button class="btn btn--blue" type="submit">Confirm booking</button><button class="btn btn--line" type="button" data-bk-back>Change time</button></div>
       <p class="cform__note">You'll get a confirmation email with a calendar invite. We use your details only for this call. See our <a href="/privacy">privacy policy</a>.</p>

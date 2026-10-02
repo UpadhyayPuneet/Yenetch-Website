@@ -23,7 +23,7 @@ from sitegen import dock  # noqa: E402
 ROOT, WEB, D, C = ui.ROOT, ui.WEB, ui.D, ui.C
 esc, safe = bind.esc, ui.safe
 FONTS = "https://fonts.googleapis.com/css2?family=Inter+Tight:wght@500;600;700&family=Inter:wght@400;500;600&display=swap"
-VER = "10"
+VER = "11"
 
 # (class, route, nav key, title, description, template)
 STATIC = [
@@ -36,9 +36,10 @@ STATIC = [
     ("CaseStudies", "/case-studies", "work", "Case Studies | Results for Hospitals, Universities & Brands | Yenetch", "Case studies from CabYaari, SLP Quest, South Asia Education, Brkesiya, Sahara Evols, JMCH, NUYU and RUHS, with the numbers that moved.", pg.cases_index),
     ("About", "/about", "company", "About Yenetch | Team, Values & Offices in Gurugram and Jaipur", "Meet Yenetch: 30+ marketers, engineers and designers in Gurugram and Jaipur, building growth and technology for 100+ clients since 2019.", pg.about),
     ("Careers", "/careers", "company", "Careers at Yenetch | Jobs in Gurugram & Jaipur", "Join 30+ developers, designers and marketers in Gurugram and Jaipur. See open roles and how we hire.", pg.careers),
-    ("Contact", "/contact", "", "Contact Yenetch | Gurugram & Jaipur | +91 95873 65247", "Talk to Yenetch about marketing, software or dedicated teams. Call +91 95873 65247, WhatsApp, email hello@yenetch.com or visit our offices.", pg.contact),
+    ("Contact", "/contact", "", "Contact Yenetch | Gurugram & Jaipur | +91 95873 65247", "Talk to Yenetch about marketing, software or dedicated teams. Call +91 95873 65247, WhatsApp us, email us or visit our offices in Gurugram and Jaipur.", pg.contact),
     ("Book", "/book", "", "Book a Free Consultation Call | Yenetch", "Pick a time for a free 30-minute call with a Yenetch specialist in marketing, software or hiring. Confirmation and calendar invite by email.", pg.book_page),
     ("WebsiteAudit", "/website-audit", "", "Free Website Audit Tool: SEO, Speed & Mobile Check | Yenetch", "Free website audit in under a minute: check your SEO, page speed, mobile setup, security and social tags, with plain-English fixes and a score out of 100.", pg.audit_page),
+    ("Pricing", "/pricing", "pricing", "Pricing & Plans | Marketing, Software & Talent Packages | Yenetch", "Transparent plans and prices for SEO, ads, social media, websites, apps, CRM and dedicated teams. Build a custom plan and get an instant estimate in your currency.", pg.pricing_page),
     ("SolutionFinder", "/solution-finder", "", "Solution Finder | Find the Right Service in 4 Questions | Yenetch", "Answer four quick questions and get the marketing, software or talent services that fit your goal, stage and industry.", pg.finder_page),
     ("Blog", "/blog", "insights", "Insights | Marketing, Software & Growth Guides | Yenetch", "Practical guides on digital marketing, SEO, software, e-commerce and hiring from the Yenetch team.", pg.blog_index),
     ("Privacy", "/privacy", "", "Privacy Policy | Yenetch", "How Yenetch collects, uses and protects personal information shared through yenetch.com.", lambda: pg.legal("privacy")),
@@ -89,7 +90,7 @@ def build_preview():
 <main id="main">{body}</main>
 {ui.footer()}
 {dock.chrome()}
-<script src="assets/js/data.js"></script><script src="assets/js/site.js?v={VER}"></script><script src="assets/js/finder.js?v={VER}"></script><script src="assets/js/yenbot.js?v={VER}"></script><script src="assets/js/consent.js?v={VER}"></script><script src="assets/js/dock.js?v={VER}"></script><script src="assets/js/apply.js?v={VER}"></script><script src="assets/js/growth.js?v={VER}"></script>
+<script src="assets/js/data.js"></script><script src="assets/js/site.js?v={VER}"></script><script src="assets/js/finder.js?v={VER}"></script><script src="assets/js/yenbot.js?v={VER}"></script><script src="assets/js/consent.js?v={VER}"></script><script src="assets/js/dock.js?v={VER}"></script><script src="assets/js/apply.js?v={VER}"></script><script src="assets/js/growth.js?v={VER}"></script><script src="assets/js/sales.js?v={VER}"></script>
 </body></html>'''
         (out / name).write_text(html, encoding="utf-8")
         return name
@@ -172,7 +173,7 @@ def build_aspx():
         (WEB / f"{cls}.aspx").write_text(markup, encoding="utf-8-sig")
         (WEB / f"{cls}.aspx.designer.cs").write_text(designer(cls, markup), encoding="utf-8-sig")
         cb = WEB / f"{cls}.aspx.cs"
-        if cls not in ("Contact", "Blog", "NotFound"):
+        if cls not in ("Contact", "Blog", "NotFound", "Pricing"):
             cb.write_text(SIMPLE_CODEBEHIND.format(cls=cls, summary=f"{title.split(' | ')[0]} ({route})."), encoding="utf-8-sig")
         written.append(cls)
     for cls, items, route, fn, *_ in TEMPLATED:
@@ -222,11 +223,12 @@ def build_master():
     <a class="sr-only" href="#main">Skip to content</a>
     {ui.nav("")}
     <main id="main">
+        <%= Yenetch.Data.Offers.BannerHtml(Request.Url.AbsolutePath) %>
         <asp:ContentPlaceHolder ID="MainContent" runat="server" />
     </main>
     {ui.footer()}
     {dock.chrome()}
-    <script>window.YENETCH_DATA = <%= Yenetch.Data.SiteContent.RawJson %>; window.YENBOT_ENDPOINT = "/api/lead"; window.YENETCH_PULSE = "/api/pulse";</script>
+    <script src="/api/site-data?v=<%= Yenetch.Data.SiteDataScript.Version %>" defer></script>
     <script src="/assets/js/site.js?v={VER}" defer></script>
     <script src="/assets/js/finder.js?v={VER}" defer></script>
     <script src="/assets/js/yenbot.js?v={VER}" defer></script>
@@ -234,6 +236,7 @@ def build_master():
     <script src="/assets/js/dock.js?v={VER}" defer></script>
     <script src="/assets/js/apply.js?v={VER}" defer></script>
     <script src="/assets/js/growth.js?v={VER}" defer></script>
+    <script src="/assets/js/sales.js?v={VER}" defer></script>
     <asp:ContentPlaceHolder ID="Scripts" runat="server" />
     <%= Yenetch.Data.Tracking.BodyEnd(Request.Url.AbsolutePath) %>
 </body>

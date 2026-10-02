@@ -11,7 +11,7 @@
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Inter+Tight:wght@600;700&amp;display=swap" />
-    <link rel="stylesheet" href="/assets/admin/admin.css?v=10" />
+    <link rel="stylesheet" href="/assets/admin/admin.css?v=11" />
     <asp:ContentPlaceHolder ID="Head" runat="server" />
 </head>
 <body<%= RefreshAttr %>>
@@ -28,8 +28,10 @@
             <%= Link("leads", "/admin/leads", "leads", "Leads", NewLeads) %>
             <%= Link("followups", "/admin/follow-ups", "tasks", "Follow-ups", Overdue) %>
             <%= Link("bookings", "/admin/bookings", "calendar", "Booked calls", TodayCalls) %>
+            <%= Link("proposals", "/admin/proposals", "note", "Proposals", ViewedProposals) %>
             <% if (Me.CanUseMarketing) { %>
             <%= Link("reports", "/admin/reports", "reports", "Reports", 0) %>
+            <%= Link("scoring", "/admin/scoring", "gauge", "Lead scoring", 0) %>
             <div class="nav__label">Website</div>
             <%= Link("analytics", "/admin/analytics", "analytics", "Analytics", 0) %>
             <%= Link("visitors", "/admin/visitors", "visitors", "Visitors", 0) %>
@@ -38,6 +40,7 @@
             <%= Link("automations", "/admin/automations", "auto", "Automatic emails", 0) %>
             <%= Link("reviews", "/admin/reviews", "star", "Google reviews", 0) %>
             <%= Link("landing", "/admin/content/landing", "landing", "Landing pages", 0) %>
+            <%= Link("pricing", "/admin/pricing", "tasks", "Pricing & popups", 0) %>
             <div class="nav__label">Content</div>
             <%= Link("content", "/admin/content", "content", "Website content", 0) %>
             <%= Link("posts", "/admin/posts", "blog", "Blog", 0) %>
@@ -48,7 +51,7 @@
             <%= Link("campaigns", "/admin/campaigns", "campaigns", "Campaigns", 0) %>
             <% } %>
             <div class="nav__label">Settings</div>
-            <% if (Me.IsAdmin) { %><%= Link("team", "/admin/team", "team", "Team", 0) %><%= Link("email", "/admin/email", "mail", "Email settings", 0) %>
+            <% if (Me.IsAdmin) { %><%= Link("team", "/admin/team", "team", "Team", 0) %><%= Link("email", "/admin/email", "mail", "Email settings", 0) %><%= Link("ai", "/admin/ai", "robot", "AI assistant", 0) %><%= Link("integrations", "/admin/integrations", "code", "Integrations", 0) %>
             <div class="nav__label">SEO &amp; security</div>
             <%= Link("tracking", "/admin/tracking", "code", "Tracking & scripts", 0) %><%= Link("robots", "/admin/robots", "robot", "robots.txt", 0) %><%= Link("security", "/admin/security", "shield", "Security & backups", 0) %><% } %>
             <%= Link("account", "/admin/account", "account", "My account", 0) %>
@@ -65,7 +68,7 @@
     </main>
 </div>
 <% if (FlashMessage != null) { %><div class="toast" role="status"><%= Icon("check") %><%: FlashMessage %></div><% } %>
-<script src="/assets/admin/admin.js?v=10" defer></script>
+<script src="/assets/admin/admin.js?v=11" defer></script>
 <asp:ContentPlaceHolder ID="Scripts" runat="server" />
 </body>
 </html>

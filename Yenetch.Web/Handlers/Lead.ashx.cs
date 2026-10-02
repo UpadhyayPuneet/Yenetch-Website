@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Web;
@@ -16,6 +16,8 @@ namespace Yenetch.Web.Handlers
         {
             ctx.Response.ContentType = "application/json";
             if (ctx.Request.HttpMethod != "POST") { ctx.Response.StatusCode = 405; return; }
+            if (!Guard.SameOrigin(ctx.Request)) { ctx.Response.StatusCode = 403; return; }
+            if (!Guard.Allow(ctx.Request, "lead", 20, TimeSpan.FromHours(1))) { ctx.Response.StatusCode = 429; ctx.Response.Write("{\"ok\":false,\"error\":\"Too many requests. Please call or WhatsApp us.\"}"); return; }
 
             string body;
             using (var sr = new StreamReader(ctx.Request.InputStream)) body = sr.ReadToEnd();
@@ -53,8 +55,10 @@ namespace Yenetch.Web.Handlers
 
             try
             {
-                LeadService.CreateFromWebsite(name, contact, Get(lead, "need", 2000), Get(lead, "topic", 160), source, Get(lead, "page", 300),
+                var leadId = LeadService.CreateFromWebsite(name, contact, Get(lead, "need", 2000), Get(lead, "topic", 160), source, Get(lead, "page", 300),
                     Analytics.CookieId(ctx.Request, Analytics.VisitorCookie), context);
+                // The AI conversation that led to this enquiry is linked to the lead (Admin > AI assistant > Conversations).
+                Ai.LinkLead(Get(lead, "chat", 40), leadId);
             }
             catch (Exception ex)
             {

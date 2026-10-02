@@ -238,6 +238,7 @@ NAV = [("Marketing", "/digital-marketing", "marketing", "marketing"),
        ("Products", "/products", "products", None),
        ("Talent", "/talent-resourcing", "talent", "talent"),
        ("Work", "/case-studies", "work", None),
+       ("Pricing", "/pricing", "pricing", None),
        ("Company", "/about", "company", None),
        ("Insights", "/blog", "insights", None)]
 
@@ -307,7 +308,7 @@ def footer():
     <div class="footer__col"><h4>Software Development</h4><ul>{dv}</ul></div>
     <div class="footer__col"><h4>Products</h4><ul>{each(prod_list(), lambda p, i: f'<li><a href="{href(p.url)}">{p.name}</a></li>', "Yenetch.Models.Product")}</ul>
       <h4 class="footer__sub">Talent &amp; Resourcing</h4><ul>{tl}</ul></div>
-    {col("Company", [("About us", "/about"), ("Team", "/about#team"), ("Case studies", "/case-studies"), ("Careers", "/careers"), ("Insights", "/blog"), ("Solution finder", "/solution-finder"), ("Free website audit", "/website-audit"), ("Book a call", "/book"), ("Contact", "/contact")])}
+    {col("Company", [("About us", "/about"), ("Team", "/about#team"), ("Case studies", "/case-studies"), ("Careers", "/careers"), ("Insights", "/blog"), ("Solution finder", "/solution-finder"), ("Pricing & plans", "/pricing"), ("Free website audit", "/website-audit"), ("Book a call", "/book"), ("Contact", "/contact")])}
   </div>
   <div class="footer__word" aria-hidden="true">{mark()}<span>yenetch</span></div>
   <div class="footer__base"><span>© {"<%: System.DateTime.Now.Year %>" if bind.MODE == "aspx" else date.today().year} Yenetch. All rights reserved. {co("recognition")}.</span>

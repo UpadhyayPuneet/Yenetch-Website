@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Web;
 using System.Web.Caching;
 using System.Web.Script.Serialization;
@@ -30,6 +30,7 @@ namespace Yenetch.Web.Handlers
             ctx.Response.ContentType = "application/json";
             ctx.Response.Cache.SetCacheability(HttpCacheability.NoCache);
             if (ctx.Request.HttpMethod != "POST") { ctx.Response.StatusCode = 405; return; }
+            if (!Guard.SameOrigin(ctx.Request)) { ctx.Response.StatusCode = 403; return; }
             var f = ctx.Request.Unvalidated.Form;
             if (!string.IsNullOrEmpty(f["website"])) { ctx.Response.Write("{\"ok\":true}"); return; } // honeypot
 
@@ -38,6 +39,7 @@ namespace Yenetch.Web.Handlers
             var count = (ctx.Cache[key] as int?) ?? 0;
             if (count >= 6) { Write(ctx, 429, false, "Too many bookings from this connection. Please call us instead.", null); return; }
             ctx.Cache.Insert(key, count + 1, null, DateTime.UtcNow.AddHours(1), Cache.NoSlidingExpiration);
+            if (!Guard.CaptchaPassed(Guard.TokenFrom(f), ctx.Request)) { Write(ctx, 422, false, "Please confirm you are not a robot and try again.", null); return; }
 
             string error;
             Booking b;

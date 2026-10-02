@@ -4,8 +4,35 @@
 
   window.Yenetch = window.Yenetch || {};
 
-  // Content model: inlined by Site.Master (window.YENETCH_DATA) so there is no extra request.
-  Yenetch.data = function () { return window.YENETCH_DATA || {}; };
+  /* Contact details reach the browser encoded (so address-harvesting bots cannot read them) and are decoded here,
+     before anyone can see or click them: links become normal mailto:, tel: and WhatsApp links again. */
+  Yenetch.reveal = function (v) {
+    if (typeof v !== "string" || v.charAt(0) !== "~") return v;
+    try {
+      var b = atob(v.slice(1)), bytes = new Uint8Array(b.length);
+      for (var i = 0; i < b.length; i++) bytes[i] = b.charCodeAt(i) ^ 0x5A;
+      return new TextDecoder().decode(bytes);
+    } catch (e) { return ""; }
+  };
+  function revealLinks(root) {
+    Array.prototype.forEach.call((root || document).querySelectorAll('a[href^="#!"]'), function (a) {
+      var real = Yenetch.reveal("~" + a.getAttribute("href").slice(2));
+      if (/^(mailto:|tel:|https:\/\/(wa\.me|api\.whatsapp\.com|wa\.link)\/)/i.test(real)) a.setAttribute("href", real);
+      a.removeAttribute("data-yx");
+    });
+    // The hidden decoy text inside addresses and numbers goes, so copying them works normally.
+    Array.prototype.forEach.call((root || document).querySelectorAll(".yx-h"), function (x) { x.remove(); });
+  }
+  Yenetch.revealLinks = revealLinks;
+  revealLinks(document);
+
+  // Content model: /api/site-data (window.YENETCH_DATA), shared and cached by every page.
+  var decoded = false;
+  Yenetch.data = function () {
+    var d = window.YENETCH_DATA || {};
+    if (!decoded && d.company) { ["email", "phone", "whatsapp"].forEach(function (k) { d.company[k] = Yenetch.reveal(d.company[k]); }); decoded = true; }
+    return d;
+  };
   Yenetch.bySlug = function (list, slug) {
     return (Yenetch.data()[list] || []).filter(function (x) { return x.slug === slug; })[0] || null;
   };

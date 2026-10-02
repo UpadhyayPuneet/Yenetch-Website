@@ -47,6 +47,7 @@
       row('<label for="apl-note">Anything else we should know?</label>', '<textarea class="field" id="apl-note" name="note" rows="3" maxlength="2000"></textarea>') +
       '<input type="text" name="website" tabindex="-1" autocomplete="off" aria-hidden="true" style="position:absolute;left:-9999px">' +
       '<input type="hidden" name="team" id="apl-team">' +
+      '<div data-captcha></div>' +
       '<p class="apl__error" role="alert" hidden></p>' +
       '<button class="btn btn--blue" type="submit">Send application</button>' +
       '<p class="cform__note">We use your details only to consider you for roles at Yenetch. See our <a href="/privacy">privacy policy</a>.</p>' +
@@ -73,6 +74,7 @@
     if (!jobSel.value) jobSel.value = "General application";
     document.documentElement.classList.add("apl-open");
     if (dlg.showModal) dlg.showModal(); else dlg.setAttribute("open", "");
+    if (window.Yenetch && Yenetch.captcha) Yenetch.captcha.mount(form.querySelector("[data-captcha]"));
     setTimeout(function () { var f = dlg.querySelector("#apl-name"); if (f) f.focus(); }, 30);
   }
 

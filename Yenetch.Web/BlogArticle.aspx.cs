@@ -34,6 +34,8 @@ namespace Yenetch.Web
             }
             if (Post == null) { Server.Transfer("~/NotFound.aspx"); return; }
 
+            // Images in the article load lazily and in the right size for the screen.
+            Post.BodyHtml = Images.OptimiseHtml(Post.BodyHtml);
             Toc = BlogHtml.Toc(Post.BodyHtml);
             Related = repo.Latest(12).Where(p => p.Slug != Post.Slug)
                 .OrderByDescending(p => p.Category == Post.Category).Take(3).ToList();

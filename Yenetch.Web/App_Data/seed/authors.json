@@ -1,0 +1,23 @@
+[
+ {
+  "slug": "yenetch-editorial-team",
+  "name": "Yenetch Editorial Team",
+  "role": "Marketers, engineers and designers at Yenetch",
+  "bio": "Our articles are written and reviewed by the marketers, engineers and designers who run these projects for clients every day.",
+  "about": [
+   "The Yenetch editorial team brings together specialists in performance marketing, SEO, software development and design from our Gurugram and Jaipur offices.",
+   "Every article is based on work we do for real clients, and is reviewed by the lead of that practice before it is published."
+  ],
+  "photo": "",
+  "expertise": [
+   "Digital marketing",
+   "SEO",
+   "Software development",
+   "E-commerce"
+  ],
+  "linkedin": "",
+  "twitter": "",
+  "website": "",
+  "isTeam": true
+ }
+]

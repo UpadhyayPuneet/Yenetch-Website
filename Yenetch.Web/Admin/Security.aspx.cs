@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using System.Collections.Generic;
 using Yenetch.Crm;
 
@@ -13,12 +13,14 @@ namespace Yenetch.Web.Admin
         protected List<Row> People;
         protected List<BackupFile> Files;
         protected string Err;
+        protected bool HasCaptchaSecret;
 
         protected void Page_Load(object sender, EventArgs e)
         {
             if (IsPostBack) { Handle(); if (Response.IsRequestBeingRedirected) return; }
             People = Db.Rows("SELECT Id, Name, Email, Role, IsActive, TwoFactor, TwoFactorSecret, LastLoginOn, LastLoginIp FROM CrmUsers ORDER BY IsActive DESC, Name");
             Files = Backups.List();
+            HasCaptchaSecret = !string.IsNullOrEmpty(Yenetch.Data.Settings.Get("captcha.secret"));
             if (Backups.Running) ((AdminMaster)Master).RefreshAttr = " data-refresh=\"5\"";
         }
 
@@ -35,6 +37,16 @@ namespace Yenetch.Web.Admin
             if (!string.IsNullOrEmpty(f["del"])) { Backups.Delete(f["del"]); RedirectWith("/admin/security", "Backup deleted."); return; }
             switch (f["act"])
             {
+                case "captcha":
+                    var provider = f["capProvider"] == "turnstile" || f["capProvider"] == "recaptcha" ? f["capProvider"] : "";
+                    var site = (f["capSite"] ?? "").Trim();
+                    if (provider != "" && site.Length < 10) { Err = "Paste the site key from your CAPTCHA provider."; return; }
+                    if (provider != "" && string.IsNullOrWhiteSpace(f["capSecret"]) && string.IsNullOrEmpty(Yenetch.Data.Settings.Get("captcha.secret"))) { Err = "Paste the secret key too."; return; }
+                    Yenetch.Data.Settings.Set("captcha.provider", provider);
+                    Yenetch.Data.Settings.Set("captcha.siteKey", site.Length > 0 ? site : null);
+                    if (!string.IsNullOrWhiteSpace(f["capSecret"])) Yenetch.Data.Settings.SetSecret("captcha.secret", f["capSecret"].Trim());
+                    RedirectWith("/admin/security#captcha", provider == "" ? "Spam protection saved (CAPTCHA off)." : "CAPTCHA switched on. Test a form on the website to check it.");
+                    return;
                 case "security":
                     TwoFactor.RequiredForAll = f["require2fa"] == "1";
                     TwoFactor.Alerts = f["alerts"] == "1";
