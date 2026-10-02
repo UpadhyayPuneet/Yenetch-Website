@@ -18,7 +18,7 @@
 <section class="logos" aria-label="Clients"><p>Trusted by growing brands, hospitals, universities and the High Court of Delhi</p><div class="logos__track"><asp:Repeater runat="server" ItemType="System.String" DataSource='<%# Yenetch.Data.Site.Clients %>'><ItemTemplate><asp:PlaceHolder runat="server" Visible='<%# Yenetch.Data.Site.ClientLogo(Item) != "" %>'><span class="logos__img"><img src="<%#: Yenetch.Data.Site.ClientLogo(Item) %>" alt="<%#: Item %>" loading="lazy" decoding="async"></span></asp:PlaceHolder><asp:PlaceHolder runat="server" Visible='<%# Yenetch.Data.Site.ClientLogo(Item) == "" %>'><span><%#: Item %></span></asp:PlaceHolder></ItemTemplate></asp:Repeater><asp:Repeater runat="server" ItemType="System.String" DataSource='<%# Yenetch.Data.Site.Clients %>'><ItemTemplate><asp:PlaceHolder runat="server" Visible='<%# Yenetch.Data.Site.ClientLogo(Item) != "" %>'><span class="logos__img"><img src="<%#: Yenetch.Data.Site.ClientLogo(Item) %>" alt="<%#: Item %>" loading="lazy" decoding="async"></span></asp:PlaceHolder><asp:PlaceHolder runat="server" Visible='<%# Yenetch.Data.Site.ClientLogo(Item) == "" %>'><span><%#: Item %></span></asp:PlaceHolder></ItemTemplate></asp:Repeater></div></section>
 
 <section class="sec"><div class="wrap">
-  <p class="statement" data-find>Marketing that brings demand. Software that turns demand into revenue. Products that work from day one. Planned and measured by one team.</p>
+  <p class="statement" data-words>Marketing that brings demand. Software that turns demand into revenue. Products that work from day one. Planned and measured by one team.</p>
 </div></section>
 
 <section class="sec" style="padding-top:0" id="practices"><div class="wrap">

@@ -40,7 +40,7 @@ def home():
 {logos_marquee()}
 
 <section class="sec"><div class="wrap">
-  <p class="statement" data-find>Marketing that brings demand. Software that turns demand into revenue. Products that work from day one. Planned and measured by one team.</p>
+  <p class="statement" data-words>Marketing that brings demand. Software that turns demand into revenue. Products that work from day one. Planned and measured by one team.</p>
 </div></section>
 
 <section class="sec" style="padding-top:0" id="practices"><div class="wrap">
