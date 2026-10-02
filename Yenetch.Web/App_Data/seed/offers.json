@@ -1,0 +1,46 @@
+[
+ {
+  "id": "free-audit",
+  "title": "Free website audit, ready in 60 seconds",
+  "text": "See what is holding your website back on Google, with a score and plain-English fixes.",
+  "badge": "FREE",
+  "discountType": "none",
+  "discountValue": 0,
+  "code": "",
+  "minOrder": 0,
+  "starts": "",
+  "ends": "",
+  "pages": [
+   "/digital-marketing",
+   "/services/seo",
+   "/services/web-development"
+  ],
+  "services": [],
+  "showBanner": true,
+  "showPopup": false,
+  "showInChat": true,
+  "ctaText": "Run my free audit",
+  "ctaUrl": "/website-audit"
+ },
+ {
+  "id": "welcome10",
+  "title": "10% off your first plan",
+  "text": "Use code WELCOME10 in the plan builder. Valid on one-time and monthly plans for new clients.",
+  "badge": "10% OFF",
+  "discountType": "percent",
+  "discountValue": 10,
+  "code": "WELCOME10",
+  "minOrder": 20000,
+  "starts": "",
+  "ends": "",
+  "pages": [
+   "/pricing"
+  ],
+  "services": [],
+  "showBanner": true,
+  "showPopup": false,
+  "showInChat": true,
+  "ctaText": "Build my plan",
+  "ctaUrl": "/pricing"
+ }
+]

@@ -1,0 +1,23 @@
+{
+ "performance-marketing": ["lead-generation", "content-marketing", "seo"],
+ "seo": ["content-marketing", "web-development", "performance-marketing"],
+ "social-media-marketing": ["content-marketing", "influencer-marketing", "performance-marketing"],
+ "lead-generation": ["performance-marketing", "crm-erp", "web-development"],
+ "brand-orm": ["social-media-marketing", "content-marketing"],
+ "content-marketing": ["seo", "social-media-marketing"],
+ "influencer-marketing": ["social-media-marketing", "content-marketing"],
+ "media-buying": ["performance-marketing", "brand-orm"],
+ "web-development": ["seo", "maintenance", "ui-ux"],
+ "custom-software": ["ui-ux", "cloud-devops", "maintenance"],
+ "mobile-apps": ["ui-ux", "cloud-devops", "maintenance"],
+ "crm-erp": ["ai-solutions", "lead-generation", "maintenance"],
+ "ecommerce-development": ["performance-marketing", "seo", "maintenance"],
+ "ui-ux": ["web-development", "mobile-apps"],
+ "ai-solutions": ["crm-erp", "custom-software"],
+ "cloud-devops": ["maintenance", "it-infrastructure"],
+ "maintenance": ["cloud-devops", "seo"],
+ "dedicated-teams": ["cloud-devops", "ui-ux"],
+ "staff-augmentation": ["dedicated-teams"],
+ "marketing-team": ["performance-marketing", "content-marketing"],
+ "it-infrastructure": ["cloud-devops", "maintenance"]
+}

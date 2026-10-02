@@ -1,0 +1,98 @@
+[
+ {
+  "id": "extra-page",
+  "name": "Extra website page",
+  "service": "web-development",
+  "group": "Website extras",
+  "description": "A designed and built page beyond the plan.",
+  "price": 4000,
+  "billing": "one-time",
+  "unit": "page",
+  "min": 1,
+  "max": 50
+ },
+ {
+  "id": "blog-post",
+  "name": "SEO blog post",
+  "service": "content-marketing",
+  "group": "Content",
+  "description": "A researched, optimised article of about 1,200 words.",
+  "price": 3500,
+  "billing": "monthly",
+  "unit": "post",
+  "min": 1,
+  "max": 20
+ },
+ {
+  "id": "reel",
+  "name": "Short video / reel",
+  "service": "social-media-marketing",
+  "group": "Content",
+  "description": "Scripted, shot or edited reel for social media.",
+  "price": 4500,
+  "billing": "monthly",
+  "unit": "reel",
+  "min": 1,
+  "max": 20
+ },
+ {
+  "id": "language",
+  "name": "Extra language",
+  "service": "web-development",
+  "group": "Website extras",
+  "description": "Your website in one more language, with translation.",
+  "price": 15000,
+  "billing": "one-time",
+  "unit": "language",
+  "min": 1,
+  "max": 5
+ },
+ {
+  "id": "dev-hours",
+  "name": "Developer hours",
+  "service": "maintenance",
+  "group": "Support",
+  "description": "Changes, features or fixes by a senior developer.",
+  "price": 1500,
+  "billing": "one-time",
+  "unit": "hour",
+  "min": 5,
+  "max": 200
+ },
+ {
+  "id": "whatsapp-api",
+  "name": "WhatsApp Business API setup",
+  "service": "lead-generation",
+  "group": "Integrations",
+  "description": "Official WhatsApp API with templates and CRM alerts.",
+  "price": 15000,
+  "billing": "one-time",
+  "unit": "setup",
+  "min": 1,
+  "max": 1
+ },
+ {
+  "id": "payment-gateway",
+  "name": "Payment gateway integration",
+  "service": "web-development",
+  "group": "Integrations",
+  "description": "Razorpay, PayU or Stripe on your website or app.",
+  "price": 10000,
+  "billing": "one-time",
+  "unit": "gateway",
+  "min": 1,
+  "max": 3
+ },
+ {
+  "id": "crm-user",
+  "name": "Extra CRM user",
+  "service": "crm-erp",
+  "group": "Software",
+  "description": "Another user account with training.",
+  "price": 500,
+  "billing": "monthly",
+  "unit": "user",
+  "min": 1,
+  "max": 100
+ }
+]
