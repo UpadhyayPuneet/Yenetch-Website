@@ -1,0 +1,24 @@
+# Visual Studio / build output
+.vs/
+bin/
+obj/
+packages/
+*.user
+*.suo
+*.pdb
+
+# Local runtime data (databases, outgoing mail, uploads)
+Yenetch.Web/App_Data/*.mdf
+Yenetch.Web/App_Data/*.ldf
+Yenetch.Web/App_Data/*.db
+Yenetch.Web/App_Data/*.sqlite
+Yenetch.Web/App_Data/mail/
+
+# Python
+__pycache__/
+*.pyc
+
+# OS junk
+.DS_Store
+Thumbs.db
+__MACOSX/

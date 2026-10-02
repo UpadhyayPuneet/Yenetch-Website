@@ -1,0 +1,71 @@
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Admin.Master.cs" Inherits="Yenetch.Web.Admin.AdminMaster" %>
+<!doctype html>
+<html lang="en">
+<head runat="server">
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#FBFBFD" />
+    <title></title>
+    <link rel="icon" href="/assets/img/favicon.svg" type="image/svg+xml" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&amp;family=Inter+Tight:wght@600;700&amp;display=swap" />
+    <link rel="stylesheet" href="/assets/admin/admin.css?v=10" />
+    <asp:ContentPlaceHolder ID="Head" runat="server" />
+</head>
+<body<%= RefreshAttr %>>
+<div class="shell">
+    <header class="topbar">
+        <button type="button" data-menu aria-label="Open menu"><%= Icon("menu") %></button>
+        <a class="brand" href="/admin"><%= LogoSvg %>Yenetch</a>
+    </header>
+    <aside class="side" aria-label="Admin navigation">
+        <a class="brand" href="/admin"><%= LogoSvg %>Yenetch<small>Admin</small></a>
+        <nav class="nav">
+            <%= Link("dashboard", "/admin", "home", "Dashboard", 0) %>
+            <div class="nav__label">Sales</div>
+            <%= Link("leads", "/admin/leads", "leads", "Leads", NewLeads) %>
+            <%= Link("followups", "/admin/follow-ups", "tasks", "Follow-ups", Overdue) %>
+            <%= Link("bookings", "/admin/bookings", "calendar", "Booked calls", TodayCalls) %>
+            <% if (Me.CanUseMarketing) { %>
+            <%= Link("reports", "/admin/reports", "reports", "Reports", 0) %>
+            <div class="nav__label">Website</div>
+            <%= Link("analytics", "/admin/analytics", "analytics", "Analytics", 0) %>
+            <%= Link("visitors", "/admin/visitors", "visitors", "Visitors", 0) %>
+            <div class="nav__label">Growth</div>
+            <%= Link("audits", "/admin/audits", "gauge", "Website audits", 0) %>
+            <%= Link("automations", "/admin/automations", "auto", "Automatic emails", 0) %>
+            <%= Link("reviews", "/admin/reviews", "star", "Google reviews", 0) %>
+            <%= Link("landing", "/admin/content/landing", "landing", "Landing pages", 0) %>
+            <div class="nav__label">Content</div>
+            <%= Link("content", "/admin/content", "content", "Website content", 0) %>
+            <%= Link("posts", "/admin/posts", "blog", "Blog", 0) %>
+            <div class="nav__label">Hiring</div>
+            <%= Link("applications", "/admin/applications", "careers", "Applications", NewApplications) %>
+            <div class="nav__label">Newsletter</div>
+            <%= Link("subscribers", "/admin/subscribers", "subscribers", "Subscribers", 0) %>
+            <%= Link("campaigns", "/admin/campaigns", "campaigns", "Campaigns", 0) %>
+            <% } %>
+            <div class="nav__label">Settings</div>
+            <% if (Me.IsAdmin) { %><%= Link("team", "/admin/team", "team", "Team", 0) %><%= Link("email", "/admin/email", "mail", "Email settings", 0) %>
+            <div class="nav__label">SEO &amp; security</div>
+            <%= Link("tracking", "/admin/tracking", "code", "Tracking & scripts", 0) %><%= Link("robots", "/admin/robots", "robot", "robots.txt", 0) %><%= Link("security", "/admin/security", "shield", "Security & backups", 0) %><% } %>
+            <%= Link("account", "/admin/account", "account", "My account", 0) %>
+            <a href="/" target="_blank" rel="noopener"><%= Icon("external") %>View website</a>
+        </nav>
+        <div class="side__foot">
+            <span class="avatar"><%: Me.Initials %></span>
+            <span class="side__who"><b><%: Me.Name %></b><span><%: Me.Role %></span></span>
+            <a class="side__out" href="/admin/login?signout=1" title="Sign out" aria-label="Sign out"><%= Icon("logout") %></a>
+        </div>
+    </aside>
+    <main class="main" id="main">
+        <asp:ContentPlaceHolder ID="Main" runat="server" />
+    </main>
+</div>
+<% if (FlashMessage != null) { %><div class="toast" role="status"><%= Icon("check") %><%: FlashMessage %></div><% } %>
+<script src="/assets/admin/admin.js?v=10" defer></script>
+<asp:ContentPlaceHolder ID="Scripts" runat="server" />
+</body>
+</html>

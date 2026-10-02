@@ -1,0 +1,514 @@
+{
+  "website-cost-in-india": {
+    "words": 1343,
+    "readMinutes": 6,
+    "faq": [
+      {
+        "q": "Is WordPress cheaper than a custom-coded website?",
+        "a": "Usually yes for the initial build, because themes and plugins cover common features. Costs can rise later if the site depends on many paid plugins or needs heavy customisation. For content-heavy sites WordPress is often a sensible choice; for complex workflows a custom build can be cheaper over three to five years."
+      },
+      {
+        "q": "How long does it take to build a business website?",
+        "a": "A template site can go live in one to three weeks. A custom-designed site with a CMS typically takes four to eight weeks, and most delays come from content and feedback rather than development."
+      },
+      {
+        "q": "Should I pay the full amount upfront?",
+        "a": "Milestone payments are more common and safer for both sides, for example a portion at kickoff, another at design approval and the balance at launch. Avoid paying everything before you have seen a working site."
+      },
+      {
+        "q": "What does annual website maintenance cost in India?",
+        "a": "Typical market ranges are ₹24,000 to ₹1.8 lakh a year depending on the site's size, the number of plugins or integrations, and how many content changes you need each month."
+      }
+    ],
+    "toc": [
+      {
+        "id": "what-drives-the-price",
+        "text": "What actually drives the price"
+      },
+      {
+        "id": "price-bands",
+        "text": "Typical price bands in 2026"
+      },
+      {
+        "id": "hidden-costs",
+        "text": "Hidden and recurring costs to ask about"
+      },
+      {
+        "id": "questions-before-signing",
+        "text": "Questions to ask before you sign"
+      },
+      {
+        "id": "choosing-the-right-budget",
+        "text": "How to choose the right budget for your business"
+      },
+      {
+        "id": "faq",
+        "text": "Frequently asked questions"
+      }
+    ]
+  },
+  "custom-crm-vs-off-the-shelf": {
+    "words": 1215,
+    "readMinutes": 6,
+    "faq": [
+      {
+        "q": "How long does it take to build a custom CRM?",
+        "a": "A focused first version with leads, contacts, pipeline and basic reports usually takes two to three months. Systems with operations modules, customer portals and finance features take four to six months or more, typically released in phases."
+      },
+      {
+        "q": "Can we migrate our existing spreadsheet data?",
+        "a": "Yes. Both off-the-shelf and custom CRMs can import spreadsheet data. Expect to spend time cleaning duplicates and standardising fields such as phone numbers and lead sources before import."
+      },
+      {
+        "q": "Is a custom CRM harder for staff to learn?",
+        "a": "Often it is easier, because it only contains the screens and fields your team needs and uses your own terms. Generic CRMs can overwhelm staff with features they never use."
+      },
+      {
+        "q": "What happens if the developer who built our CRM is no longer available?",
+        "a": "This is why code ownership, documentation and standard technology choices matter. Insist on access to the source code repository and basic technical documentation so another team can take over if needed."
+      }
+    ],
+    "toc": [
+      {
+        "id": "signs-you-have-outgrown-spreadsheets",
+        "text": "Signs you have outgrown spreadsheets"
+      },
+      {
+        "id": "off-the-shelf-crm",
+        "text": "What an off-the-shelf CRM does well"
+      },
+      {
+        "id": "when-custom-makes-sense",
+        "text": "When a custom CRM makes sense"
+      },
+      {
+        "id": "costs-and-timelines",
+        "text": "Costs and timelines compared"
+      },
+      {
+        "id": "middle-path",
+        "text": "The middle path: configure first, customise later"
+      },
+      {
+        "id": "choosing-a-partner",
+        "text": "What to check before commissioning a custom CRM"
+      },
+      {
+        "id": "faq",
+        "text": "Frequently asked questions"
+      }
+    ]
+  },
+  "meta-ads-vs-google-ads-for-leads": {
+    "words": 1176,
+    "readMinutes": 5,
+    "faq": [
+      {
+        "q": "What is the minimum budget to run Google or Meta ads?",
+        "a": "There is no strict minimum, but very small budgets produce too little data to optimise. For a local business, ₹15,000 to ₹30,000 a month per platform is a practical starting point for a meaningful test."
+      },
+      {
+        "q": "Should I use Meta instant forms or a landing page?",
+        "a": "Instant forms give more leads at lower cost; landing pages give fewer but better leads. If your team struggles to reach Meta leads on the phone, switch to a landing page or a higher-intent form."
+      },
+      {
+        "q": "How soon should I see results?",
+        "a": "Leads usually start within days, but give each platform at least two to four weeks before judging, because both need conversion data to optimise delivery."
+      },
+      {
+        "q": "Do Google Display and YouTube ads work for lead generation?",
+        "a": "They are better for awareness and remarketing than for direct lead capture. Use them to re-engage people who visited your site, and keep search as the main lead source on Google."
+      }
+    ],
+    "toc": [
+      {
+        "id": "intent-vs-interruption",
+        "text": "Intent versus interruption: the core difference"
+      },
+      {
+        "id": "cost-per-lead",
+        "text": "Cost per lead: what to expect"
+      },
+      {
+        "id": "lead-quality",
+        "text": "Why lead quality differs, and how to improve it"
+      },
+      {
+        "id": "which-businesses-suit-which",
+        "text": "Which businesses suit which platform"
+      },
+      {
+        "id": "starting-split",
+        "text": "A simple split to start testing this month"
+      },
+      {
+        "id": "common-mistakes",
+        "text": "Common mistakes that waste budget"
+      },
+      {
+        "id": "faq",
+        "text": "Frequently asked questions"
+      }
+    ]
+  },
+  "local-seo-checklist": {
+    "words": 1134,
+    "readMinutes": 5,
+    "faq": [
+      {
+        "q": "How long does it take to rank on Google Maps?",
+        "a": "Fixes to the profile can show effects within a few weeks. In competitive categories such as clinics or real estate in large cities, steady gains usually take three to six months of consistent reviews, content and citation work."
+      },
+      {
+        "q": "Can I rank in a city where I do not have an office?",
+        "a": "In the map pack it is difficult, because distance and a verified address matter. You can still rank in organic results with a strong, genuinely useful location page for that city."
+      },
+      {
+        "q": "Does posting on Google Business Profile help rankings?",
+        "a": "Regular posts keep the profile looking active and can improve engagement from searchers. Their direct ranking effect is modest, so treat them as a conversion tool rather than a ranking lever."
+      },
+      {
+        "q": "What should I do if my listing is suspended?",
+        "a": "Fix whatever breaks the guidelines, such as keywords in the name or a wrong address, then submit a reinstatement request with proof like a utility bill, shop registration or signage photos."
+      }
+    ],
+    "toc": [
+      {
+        "id": "how-local-rankings-work",
+        "text": "How local rankings work"
+      },
+      {
+        "id": "google-business-profile",
+        "text": "Steps 1 to 7: Google Business Profile"
+      },
+      {
+        "id": "reviews",
+        "text": "Steps 8 to 11: Reviews"
+      },
+      {
+        "id": "citations",
+        "text": "Steps 12 to 15: Citations and NAP consistency"
+      },
+      {
+        "id": "location-pages",
+        "text": "Steps 16 to 20: Website and location pages"
+      },
+      {
+        "id": "multi-city-businesses",
+        "text": "Tips for businesses in more than one city"
+      },
+      {
+        "id": "faq",
+        "text": "Frequently asked questions"
+      }
+    ]
+  },
+  "ai-product-photography-guide": {
+    "words": 1014,
+    "readMinutes": 5,
+    "faq": [
+      {
+        "q": "Are AI product images allowed on Amazon and Flipkart?",
+        "a": "Yes, as long as the image accurately represents the real product and follows each marketplace's image rules. Main images usually need a plain white background and must not include items that are not part of the listing."
+      },
+      {
+        "q": "Can I use a phone camera for the base photos?",
+        "a": "A recent mid-range or flagship phone is sufficient for most products if the lighting is soft and even and the phone is on a tripod. Lighting matters more than the camera."
+      },
+      {
+        "q": "Will AI images increase returns?",
+        "a": "They can if colour, size or texture is misrepresented. Checking each image against the physical product and keeping colour-critical items for studio shoots keeps that risk low."
+      }
+    ],
+    "toc": [
+      {
+        "id": "how-ai-photoshoots-work",
+        "text": "How an AI photoshoot works"
+      },
+      {
+        "id": "where-ai-matches-a-studio",
+        "text": "Where AI matches a studio"
+      },
+      {
+        "id": "where-it-does-not",
+        "text": "Where it does not, yet"
+      },
+      {
+        "id": "cost-comparison",
+        "text": "Cost and time compared"
+      },
+      {
+        "id": "workflow",
+        "text": "A workflow for marketplace-ready images"
+      },
+      {
+        "id": "getting-started",
+        "text": "Getting started"
+      },
+      {
+        "id": "faq",
+        "text": "Frequently asked questions"
+      }
+    ]
+  },
+  "gst-billing-software-features": {
+    "words": 1074,
+    "readMinutes": 5,
+    "faq": [
+      {
+        "q": "Is GST billing software mandatory for retailers?",
+        "a": "GST law requires proper tax invoices, not a particular software. However, software makes compliance far easier, and businesses covered by e-invoicing rules effectively need a system that connects to the invoice registration portal."
+      },
+      {
+        "q": "Can I use billing software on a tablet or phone?",
+        "a": "Many cloud POS systems run on Android tablets with Bluetooth printers. This works well for small stores and cafés; high-volume counters usually still prefer a desktop with a wired scanner."
+      },
+      {
+        "q": "What happens to my data if I switch software?",
+        "a": "Ask the vendor before buying whether you can export item masters, customer lists and invoice history in standard formats such as Excel or CSV. Without this, switching becomes expensive."
+      }
+    ],
+    "toc": [
+      {
+        "id": "billing-and-compliance",
+        "text": "Billing and GST compliance"
+      },
+      {
+        "id": "speed-at-the-counter",
+        "text": "Speed at the counter"
+      },
+      {
+        "id": "inventory-and-control",
+        "text": "Inventory and business control"
+      },
+      {
+        "id": "growth-features",
+        "text": "Features for growth"
+      },
+      {
+        "id": "feature-checklist",
+        "text": "Quick checklist by store type"
+      },
+      {
+        "id": "costs",
+        "text": "What billing software typically costs"
+      },
+      {
+        "id": "implementation",
+        "text": "Getting the setup right"
+      },
+      {
+        "id": "evaluation-steps",
+        "text": "How to evaluate before buying"
+      },
+      {
+        "id": "faq",
+        "text": "Frequently asked questions"
+      }
+    ]
+  },
+  "staff-augmentation-vs-dedicated-team": {
+    "words": 1056,
+    "readMinutes": 5,
+    "faq": [
+      {
+        "q": "What is the minimum engagement period?",
+        "a": "Most providers ask for a minimum of one to three months for augmentation and three to six months for a dedicated team, because ramp-up time makes very short engagements inefficient."
+      },
+      {
+        "q": "Can augmented staff work from our office?",
+        "a": "Often yes, on-site or hybrid, depending on location and agreement. Remote work is more common and usually cheaper, since it avoids travel and relocation costs."
+      },
+      {
+        "q": "How do we protect our code and data?",
+        "a": "Use NDAs, give access through your own accounts with role-based permissions, keep code in repositories you own, and include IP assignment clauses in the contract. Revoke access on the day an engagement ends."
+      },
+      {
+        "q": "Can we hire an augmented engineer permanently?",
+        "a": "Many partners allow this after a set period, sometimes with a conversion fee. Agree the terms upfront so there are no surprises."
+      }
+    ],
+    "toc": [
+      {
+        "id": "how-each-model-works",
+        "text": "How each model works"
+      },
+      {
+        "id": "comparison",
+        "text": "Costs, control and speed compared"
+      },
+      {
+        "id": "when-to-choose-augmentation",
+        "text": "When staff augmentation is the better fit"
+      },
+      {
+        "id": "when-to-choose-dedicated",
+        "text": "When a dedicated team is the better fit"
+      },
+      {
+        "id": "questions-to-ask",
+        "text": "Questions to ask any outsourcing partner"
+      },
+      {
+        "id": "hybrid-approach",
+        "text": "A hybrid approach many SMEs use"
+      },
+      {
+        "id": "faq",
+        "text": "Frequently asked questions"
+      }
+    ]
+  },
+  "event-registration-funnel": {
+    "words": 1054,
+    "readMinutes": 5,
+    "faq": [
+      {
+        "q": "How early should we start promoting an event?",
+        "a": "For a local professional event, four to six weeks is usually enough. Larger conferences or events that need travel should start eight to twelve weeks ahead, with an early-bird offer to create an initial push."
+      },
+      {
+        "q": "Should registration be free or paid?",
+        "a": "Free events get more registrations but lower attendance. Even a small fee or a refundable deposit tends to improve turn-up rates. If you keep it free, invest more in reminders."
+      },
+      {
+        "q": "Which ad platform works best for event registrations?",
+        "a": "Meta usually delivers the most registrations for consumer and many professional events. LinkedIn suits senior B2B audiences but costs more per registration. Search ads help when people actively look for workshops in your topic."
+      }
+    ],
+    "toc": [
+      {
+        "id": "the-challenge",
+        "text": "The challenge with niche events"
+      },
+      {
+        "id": "landing-page",
+        "text": "The landing page: one page, one action"
+      },
+      {
+        "id": "targeting",
+        "text": "Targeting: reach only the right people"
+      },
+      {
+        "id": "follow-up",
+        "text": "Follow-up: turn registrations into attendance"
+      },
+      {
+        "id": "timeline",
+        "text": "A practical campaign timeline"
+      },
+      {
+        "id": "metrics",
+        "text": "Metrics to watch during the campaign"
+      },
+      {
+        "id": "faq",
+        "text": "Frequently asked questions"
+      }
+    ]
+  },
+  "start-online-store-india": {
+    "words": 1049,
+    "readMinutes": 5,
+    "faq": [
+      {
+        "q": "Do I need GST registration to start an online store in India?",
+        "a": "In most cases, yes. Sellers supplying goods through e-commerce generally need GST registration regardless of turnover, although rules have been relaxed for some small sellers in specific cases. Confirm your situation with a CA before launch."
+      },
+      {
+        "q": "Can I move from Shopify to another platform later?",
+        "a": "Yes. Products, customers and orders can usually be exported as CSV files and imported elsewhere. Plan URL redirects carefully so you do not lose search rankings."
+      },
+      {
+        "q": "Should I sell on marketplaces or my own store first?",
+        "a": "Marketplaces bring ready traffic but charge commissions and control the customer relationship. Many brands use both: marketplaces for reach and their own store for margin and repeat customers."
+      }
+    ],
+    "toc": [
+      {
+        "id": "three-routes",
+        "text": "The three routes at a glance"
+      },
+      {
+        "id": "comparison",
+        "text": "Fees, flexibility and time to launch compared"
+      },
+      {
+        "id": "first-time-sellers",
+        "text": "What first-time sellers should prioritise"
+      },
+      {
+        "id": "growing-brands",
+        "text": "What growing D2C brands should prioritise"
+      },
+      {
+        "id": "when-to-go-custom",
+        "text": "When a custom build is worth it"
+      },
+      {
+        "id": "costs-beyond-the-platform",
+        "text": "Costs beyond the platform"
+      },
+      {
+        "id": "launch-checklist",
+        "text": "A simple launch checklist"
+      },
+      {
+        "id": "faq",
+        "text": "Frequently asked questions"
+      }
+    ]
+  },
+  "handle-negative-google-reviews": {
+    "words": 1020,
+    "readMinutes": 5,
+    "faq": [
+      {
+        "q": "Can I delete a negative Google review myself?",
+        "a": "No. Business owners cannot delete reviews. You can reply to them and flag those that violate Google's policies for review by Google."
+      },
+      {
+        "q": "Should I ask the customer to update their review after resolving the issue?",
+        "a": "You can politely let them know the issue is resolved and that they are welcome to update their review if they wish. Do not make any remedy conditional on changing it."
+      },
+      {
+        "q": "How quickly should I respond to a negative review?",
+        "a": "Within 24 to 48 hours is a good standard. A quick, calm reply shows future customers that you take problems seriously."
+      },
+      {
+        "q": "Do replies to reviews help local SEO?",
+        "a": "Replies signal an active, engaged business and improve how customers perceive you. Their direct ranking effect is modest, but the reviews themselves and their frequency matter for local visibility."
+      }
+    ],
+    "toc": [
+      {
+        "id": "first-24-hours",
+        "text": "What to do in the first 24 hours"
+      },
+      {
+        "id": "escalation-rules",
+        "text": "Escalation rules: which reviews need what"
+      },
+      {
+        "id": "response-templates",
+        "text": "Response templates you can adapt"
+      },
+      {
+        "id": "removing-reviews",
+        "text": "When a review can be removed"
+      },
+      {
+        "id": "earning-genuine-reviews",
+        "text": "How to earn more genuine reviews"
+      },
+      {
+        "id": "learning-from-reviews",
+        "text": "Use reviews as operational feedback"
+      },
+      {
+        "id": "faq",
+        "text": "Frequently asked questions"
+      }
+    ]
+  }
+}

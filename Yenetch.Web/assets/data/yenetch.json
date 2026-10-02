@@ -1,0 +1,1787 @@
+{
+  "company": {
+    "name": "Yenetch",
+    "tagline": "Your desires, our innovation.",
+    "founded": 2019,
+    "team": "30+",
+    "phone": "+91 95873 65247",
+    "email": "hello@yenetch.com",
+    "offices": [
+      {
+        "city": "Gurugram",
+        "label": "Head office",
+        "address": "A-402, 4th Floor, VentureX, Landmark Cyber Park, Sector 67, Gurugram, Haryana",
+        "photo": "city-gurugram",
+        "map": "https://www.google.com/maps/search/?api=1&query=A-402%2C+4th+Floor%2C+VentureX%2C+Landmark+Cyber+Park%2C+Sector+67%2C+Gurugram%2C+Haryana"
+      },
+      {
+        "city": "Jaipur",
+        "label": "Delivery centre",
+        "address": "133, Chitrakoot, Mahadev Nagar, Vaishali Nagar, Jaipur, Rajasthan",
+        "photo": "city-jaipur",
+        "map": "https://www.google.com/maps/search/?api=1&query=133%2C+Chitrakoot%2C+Mahadev+Nagar%2C+Vaishali+Nagar%2C+Jaipur%2C+Rajasthan"
+      }
+    ],
+    "recognition": "DPIIT-recognised startup (Startup India)",
+    "stats": [
+      {
+        "value": "2019",
+        "label": "Building since"
+      },
+      {
+        "value": "100+",
+        "label": "Clients served"
+      },
+      {
+        "value": "30+",
+        "label": "In-house specialists"
+      },
+      {
+        "value": "98%",
+        "label": "Client satisfaction"
+      },
+      {
+        "value": "89%",
+        "label": "Client retention"
+      }
+    ],
+    "values": [
+      {
+        "name": "Integration",
+        "text": "We connect people, processes and software so the whole system works, not just one campaign."
+      },
+      {
+        "name": "Innovation",
+        "text": "We test new tools and ideas early and keep what moves your numbers."
+      },
+      {
+        "name": "Excellence",
+        "text": "One standard for every project: reviewed, measured and delivered on time."
+      },
+      {
+        "name": "Transparency",
+        "text": "Shared dashboards, clear pricing and plain answers, from the first call to the hundredth report."
+      }
+    ],
+    "whatsapp": "https://wa.me/919587365247",
+    "social": [
+      {
+        "id": "linkedin",
+        "name": "LinkedIn",
+        "url": "https://www.linkedin.com/in/yenetch/"
+      },
+      {
+        "id": "instagram",
+        "name": "Instagram",
+        "url": "https://www.instagram.com/yenetch/"
+      },
+      {
+        "id": "facebook",
+        "name": "Facebook",
+        "url": "https://www.facebook.com/yenetch/"
+      },
+      {
+        "id": "youtube",
+        "name": "YouTube",
+        "url": "https://www.youtube.com/@yenetch"
+      },
+      {
+        "id": "whatsapp",
+        "name": "WhatsApp",
+        "url": "https://wa.me/919587365247"
+      }
+    ]
+  },
+  "pillars": [
+    {
+      "id": "marketing",
+      "name": "Digital Marketing",
+      "short": "Growth",
+      "summary": "Performance campaigns, search, social and brand that turn attention into qualified leads and revenue.",
+      "url": "/digital-marketing",
+      "photo": "mk-analytics"
+    },
+    {
+      "id": "engineering",
+      "name": "Software Development",
+      "short": "Build",
+      "summary": "Websites, apps, CRMs and AI tools engineered for speed, security and scale.",
+      "url": "/software-development",
+      "photo": "dev-code"
+    },
+    {
+      "id": "talent",
+      "name": "Talent & Resourcing",
+      "short": "Scale",
+      "summary": "Vetted developers, designers and marketers who join your team in days, not months.",
+      "url": "/talent-resourcing",
+      "photo": "talent-team"
+    }
+  ],
+  "services": [
+    {
+      "slug": "performance-marketing",
+      "pillar": "marketing",
+      "name": "Performance Marketing & Paid Media",
+      "summary": "Google, Meta and LinkedIn campaigns tuned to cost per lead and return on ad spend.",
+      "includes": [
+        "Google Search, Display & YouTube Ads",
+        "Meta (Facebook & Instagram) Ads",
+        "LinkedIn B2B campaigns",
+        "Retargeting & lookalike audiences",
+        "Conversion tracking & GA4 setup"
+      ],
+      "keywords": [
+        "ads",
+        "ppc",
+        "google ads",
+        "meta ads",
+        "facebook ads",
+        "instagram ads",
+        "paid",
+        "roas",
+        "cpl",
+        "campaign"
+      ],
+      "photo": "mk-analytics",
+      "visual": "dashboard",
+      "timeline": "Campaigns usually go live within a week once tracking, account access and creatives are ready. Expect a learning phase of 2 to 4 weeks, with results reported from day one.",
+      "pricing": "A monthly management fee, separate from your ad spend (billed at actuals), or a fixed-fee campaign sprint for launches."
+    },
+    {
+      "slug": "seo",
+      "pillar": "marketing",
+      "name": "Search Engine Optimisation (SEO)",
+      "summary": "Technical, local and content SEO that brings buyers who are already searching for you.",
+      "includes": [
+        "Technical SEO audit & fixes",
+        "Local SEO & Google Business Profile",
+        "Keyword research & content plan",
+        "On-page optimisation",
+        "Monthly ranking & traffic reports"
+      ],
+      "keywords": [
+        "seo",
+        "rank",
+        "google ranking",
+        "organic",
+        "search",
+        "local seo",
+        "google maps",
+        "gmb",
+        "traffic"
+      ],
+      "photo": "mk-seo",
+      "visual": "serp",
+      "timeline": "Technical and local fixes usually show movement in 4 to 8 weeks. Competitive keywords take 3 to 6 months to climb, and we set expectations per keyword after the audit.",
+      "pricing": "A monthly SEO retainer with a report every month, or a one-time audit and fix project if you want a clean start."
+    },
+    {
+      "slug": "social-media-marketing",
+      "pillar": "marketing",
+      "name": "Social Media Marketing & Community",
+      "summary": "Always-on content and community management that builds a following that buys.",
+      "includes": [
+        "Content calendar & creatives",
+        "Reels & short video",
+        "Community management",
+        "Social listening",
+        "Monthly growth reports"
+      ],
+      "keywords": [
+        "social",
+        "instagram",
+        "facebook",
+        "linkedin",
+        "reels",
+        "followers",
+        "engagement",
+        "smm",
+        "posts"
+      ],
+      "photo": "mk-social",
+      "visual": "social",
+      "timeline": "Onboarding and a content calendar take about 1 to 2 weeks, then posting starts. A consistent presence usually shows engagement growth within 2 to 3 months.",
+      "pricing": "A monthly retainer with a fixed number of posts, reels and community hours, or a one-off launch campaign."
+    },
+    {
+      "slug": "lead-generation",
+      "pillar": "marketing",
+      "name": "Lead Generation & Funnel Marketing",
+      "summary": "Landing pages, funnels and campaigns designed around one goal: qualified leads at a lower cost.",
+      "includes": [
+        "High-conversion landing pages",
+        "Event & registration funnels",
+        "Lead magnets & forms",
+        "CRO and A/B testing",
+        "CRM & WhatsApp lead routing"
+      ],
+      "keywords": [
+        "leads",
+        "lead generation",
+        "funnel",
+        "landing page",
+        "registrations",
+        "enquiries",
+        "conversion",
+        "cro",
+        "event registration"
+      ],
+      "photo": "prod-leads",
+      "visual": "crm",
+      "timeline": "A landing page takes about 1 to 2 weeks to design and build, and campaigns can go live within a week of that. Event funnels are planned backwards from the event date.",
+      "pricing": "A one-time funnel build followed by a monthly optimisation retainer, or a fixed-fee event campaign."
+    },
+    {
+      "slug": "brand-orm",
+      "pillar": "marketing",
+      "name": "Brand Strategy & Online Reputation Management",
+      "summary": "Brand identity, positioning and review management that make people trust you before they call.",
+      "includes": [
+        "Brand identity & logo systems",
+        "Positioning & messaging",
+        "Review & rating management",
+        "Crisis response",
+        "Brand guidelines"
+      ],
+      "keywords": [
+        "brand",
+        "branding",
+        "logo",
+        "reputation",
+        "orm",
+        "reviews",
+        "negative review",
+        "identity",
+        "rebrand"
+      ],
+      "photo": "mk-brand",
+      "visual": "reviews",
+      "timeline": "A brand identity project usually takes 3 to 6 weeks. Review and reputation work starts within a week, with visible change over 2 to 3 months.",
+      "pricing": "A fixed-scope brand project, or a monthly ORM retainer for reviews and listings."
+    },
+    {
+      "slug": "content-marketing",
+      "pillar": "marketing",
+      "name": "Content & Creative Studio",
+      "summary": "Copy, design, video and email that explain what you do and why it matters.",
+      "includes": [
+        "Website & ad copywriting",
+        "Graphic design & infographics",
+        "Video production & editing",
+        "Email marketing & automation",
+        "Webinars & thought leadership"
+      ],
+      "keywords": [
+        "content",
+        "blog writing",
+        "copywriting",
+        "video",
+        "creative",
+        "email marketing",
+        "newsletter",
+        "design",
+        "graphics"
+      ],
+      "photo": "whiteboard",
+      "visual": "social",
+      "timeline": "Content production starts within 1 to 2 weeks of the brief, then runs on a monthly calendar.",
+      "pricing": "A monthly content retainer with a fixed volume, or per-project pricing for one-off shoots and campaigns."
+    },
+    {
+      "slug": "influencer-marketing",
+      "pillar": "marketing",
+      "name": "Influencer Marketing",
+      "summary": "Campaigns with creators across fashion, lifestyle, fitness, food, travel and tech.",
+      "includes": [
+        "Creator discovery & vetting",
+        "Campaign planning",
+        "Contracting & deliverables",
+        "Content usage rights",
+        "Performance tracking"
+      ],
+      "keywords": [
+        "influencer",
+        "creator",
+        "ugc",
+        "collaboration",
+        "instagram influencer"
+      ],
+      "photo": "mk-content",
+      "visual": "social",
+      "timeline": "A campaign usually takes 2 to 4 weeks from brief to going live, including creator shortlisting and approvals.",
+      "pricing": "Priced per campaign (creator fees plus management), or as a monthly always-on creator programme."
+    },
+    {
+      "slug": "media-buying",
+      "pillar": "marketing",
+      "name": "Media Acquisition & Event Branding",
+      "summary": "Localised media buying, print and on-ground branding for launches and events.",
+      "includes": [
+        "Outdoor, print & radio buying",
+        "Event branding & production",
+        "Print design & fabrication",
+        "On-ground execution",
+        "Exhibition marketing"
+      ],
+      "keywords": [
+        "media buying",
+        "outdoor",
+        "hoarding",
+        "print",
+        "event",
+        "exhibition",
+        "branding material",
+        "offline",
+        "radio"
+      ],
+      "photo": "mk-ads",
+      "visual": "dashboard",
+      "timeline": "Event branding needs about 2 to 4 weeks for design and production. Outdoor and print bookings depend on media availability, so we plan 3 to 6 weeks ahead.",
+      "pricing": "A fixed package per event, or campaign pricing based on the media you book."
+    },
+    {
+      "slug": "web-development",
+      "pillar": "engineering",
+      "name": "Website & Web Application Development",
+      "summary": "Fast, secure, SEO-ready websites and portals with a CMS your team can run.",
+      "includes": [
+        "Corporate & institutional websites",
+        "Custom CMS & admin panels",
+        "Web portals & dashboards",
+        "Performance & Core Web Vitals",
+        "Accessibility & security hardening"
+      ],
+      "keywords": [
+        "website",
+        "web development",
+        "web app",
+        "portal",
+        "cms",
+        "wordpress",
+        "redesign",
+        "landing site",
+        "asp.net"
+      ],
+      "photo": "dev-code",
+      "visual": "dev",
+      "timeline": "A landing page takes about 1 to 2 weeks and a business website 3 to 6 weeks, depending on scope and how quickly content is ready. Portals with custom features take longer.",
+      "pricing": "A written, fixed quote after a free 20-minute consultation, based on pages, features and integrations."
+    },
+    {
+      "slug": "custom-software",
+      "pillar": "engineering",
+      "name": "Custom Software Development",
+      "summary": "Software built around how your business actually works, from MVP to enterprise scale.",
+      "includes": [
+        "Discovery & solution architecture",
+        "MVP development",
+        "Enterprise applications",
+        "API & third-party integrations",
+        "Legacy modernisation"
+      ],
+      "keywords": [
+        "software",
+        "custom software",
+        "application",
+        "mvp",
+        "saas",
+        "platform",
+        "integration",
+        "api",
+        "system"
+      ],
+      "photo": "office-workspace",
+      "visual": "dev",
+      "timeline": "Discovery takes 1 to 2 weeks, then a first release usually lands in 6 to 16 weeks depending on scope. Larger systems ship in phases.",
+      "pricing": "A fixed price for a clear scope, or a phased MVP with monthly pricing. Changes are estimated and agreed before they are built."
+    },
+    {
+      "slug": "mobile-apps",
+      "pillar": "engineering",
+      "name": "Mobile App Development",
+      "summary": "Android and iOS apps, native or cross-platform, built for real-world usage.",
+      "includes": [
+        "Android & iOS apps",
+        "Flutter & React Native",
+        "Booking & ordering apps",
+        "Push notifications & payments",
+        "App store launch"
+      ],
+      "keywords": [
+        "app",
+        "mobile app",
+        "android",
+        "ios",
+        "flutter",
+        "react native",
+        "play store"
+      ],
+      "photo": "dev-mobile",
+      "visual": "dev",
+      "timeline": "A first release of an Android and iOS app usually takes 8 to 16 weeks, including design, build, testing and store approval.",
+      "pricing": "A fixed-scope price for the first release, with an optional maintenance plan after launch."
+    },
+    {
+      "slug": "crm-erp",
+      "pillar": "engineering",
+      "name": "CRM, ERP & Business Automation",
+      "summary": "Custom CRMs and workflow automation that remove manual work and show you real-time numbers.",
+      "includes": [
+        "Custom CRM development",
+        "Booking & dispatch systems",
+        "Finance & reporting consoles",
+        "WhatsApp & email automation",
+        "ERP modules & integrations"
+      ],
+      "keywords": [
+        "crm",
+        "erp",
+        "automation",
+        "workflow",
+        "booking system",
+        "dispatch",
+        "manual process",
+        "dashboard",
+        "operations",
+        "admin panel"
+      ],
+      "photo": "office-meeting",
+      "visual": "crm",
+      "timeline": "A focused CRM or automation module usually takes 4 to 10 weeks. Wider ERP rollouts go live module by module.",
+      "pricing": "A fixed-scope build for a defined set of modules, or a phased rollout priced per module."
+    },
+    {
+      "slug": "ecommerce-development",
+      "pillar": "engineering",
+      "name": "E-commerce Development",
+      "summary": "Online stores and marketplaces with payments, shipping and inventory that just work.",
+      "includes": [
+        "Custom & platform stores",
+        "Payment gateway (Razorpay, PayPal)",
+        "Multi-carrier shipping",
+        "Inventory & order management",
+        "Marketplace integrations"
+      ],
+      "keywords": [
+        "ecommerce",
+        "e-commerce",
+        "online store",
+        "shop",
+        "shopping website",
+        "sell online",
+        "shopify",
+        "d2c",
+        "store"
+      ],
+      "photo": "prod-ecomm",
+      "visual": "store",
+      "timeline": "A store on Yenetch Ecomm can be live in about a week. A custom store usually takes 6 to 12 weeks.",
+      "pricing": "Yenetch Ecomm starts from ₹1,499 a month. Custom stores get a fixed quote after scoping."
+    },
+    {
+      "slug": "ui-ux",
+      "pillar": "engineering",
+      "name": "UI/UX & Product Design",
+      "summary": "Research-led interfaces that make products easy to learn and hard to leave.",
+      "includes": [
+        "User research & journeys",
+        "Wireframes & prototypes",
+        "Design systems",
+        "Usability testing",
+        "Conversion-focused redesigns"
+      ],
+      "keywords": [
+        "ui",
+        "ux",
+        "design",
+        "figma",
+        "prototype",
+        "user experience",
+        "interface"
+      ],
+      "photo": "dev-ux",
+      "visual": "design",
+      "timeline": "A design sprint takes 1 to 2 weeks. A full product design or redesign usually takes 4 to 8 weeks.",
+      "pricing": "A fixed-scope design project, or a short design sprint for a single flow."
+    },
+    {
+      "slug": "ai-solutions",
+      "pillar": "engineering",
+      "name": "AI Solutions & Automation",
+      "summary": "Practical AI: chatbots, kiosks, document processing and generative tools that save hours.",
+      "includes": [
+        "AI chatbots & assistants",
+        "AI kiosks (e.g. RSRTC AI Kiosk)",
+        "Generative product imagery",
+        "Document & data extraction",
+        "AI reporting & insights"
+      ],
+      "keywords": [
+        "ai",
+        "artificial intelligence",
+        "chatbot",
+        "gpt",
+        "machine learning",
+        "kiosk",
+        "automation",
+        "genai",
+        "llm"
+      ],
+      "photo": "dev-ai",
+      "visual": "ai",
+      "timeline": "A pilot on one use case usually takes 3 to 6 weeks. A production rollout follows once the pilot proves its value.",
+      "pricing": "A fixed-price pilot first, then a full build priced on the agreed scope."
+    },
+    {
+      "slug": "cloud-devops",
+      "pillar": "engineering",
+      "name": "Cloud, Hosting & DevOps",
+      "summary": "Managed hosting, cloud migration and CI/CD that keep your systems up and fast.",
+      "includes": [
+        "AWS & Azure setup",
+        "Managed hosting & SSL",
+        "CI/CD pipelines",
+        "Backups & monitoring",
+        "Cost optimisation"
+      ],
+      "keywords": [
+        "cloud",
+        "hosting",
+        "aws",
+        "azure",
+        "server",
+        "devops",
+        "deployment",
+        "uptime"
+      ],
+      "photo": "dev-cloud",
+      "visual": "cloud",
+      "timeline": "Hosting setup takes a few days. A migration usually takes 1 to 4 weeks depending on how many systems are involved.",
+      "pricing": "A monthly managed hosting plan, or a fixed-price migration project."
+    },
+    {
+      "slug": "maintenance",
+      "pillar": "engineering",
+      "name": "Website & Application Maintenance",
+      "summary": "Annual maintenance with updates, security patches and a team that answers.",
+      "includes": [
+        "Annual maintenance contracts (AMC)",
+        "Security updates & patches",
+        "Content updates",
+        "Uptime monitoring",
+        "Priority support SLAs"
+      ],
+      "keywords": [
+        "maintenance",
+        "amc",
+        "support",
+        "update",
+        "bug",
+        "fix",
+        "website down",
+        "security"
+      ],
+      "photo": "dev-qa",
+      "visual": "cloud",
+      "timeline": "Support starts as soon as the plan is signed. Response times are set in the support terms, with faster handling when a site is down.",
+      "pricing": "An annual maintenance contract with a defined scope, or pay-per-request support."
+    },
+    {
+      "slug": "dedicated-teams",
+      "pillar": "talent",
+      "name": "Dedicated Development Teams",
+      "summary": "A full product team (developers, QA, designer, PM) working only on your roadmap.",
+      "includes": [
+        "Team assembled to your stack",
+        "Your processes and tools",
+        "Daily stand-ups & sprint reports",
+        "Scale up or down monthly",
+        "IP and code fully yours"
+      ],
+      "keywords": [
+        "dedicated team",
+        "offshore team",
+        "outsourcing",
+        "development team",
+        "odc",
+        "outsource"
+      ],
+      "photo": "talent-team",
+      "visual": "talent",
+      "timeline": "We usually share profiles within a week, and a team can start 1 to 3 weeks after you approve them.",
+      "pricing": "A monthly fee for a full-time team working only on your product. A short pilot sprint is available first."
+    },
+    {
+      "slug": "staff-augmentation",
+      "pillar": "talent",
+      "name": "IT Staff Augmentation",
+      "summary": "Vetted developers, testers and designers who join your existing team on contract.",
+      "includes": [
+        ".NET, Java, PHP, Node & Python developers",
+        "React, Angular & Flutter developers",
+        "QA & automation testers",
+        "UI/UX designers",
+        "Hourly, monthly or project contracts"
+      ],
+      "keywords": [
+        "hire developer",
+        "staff augmentation",
+        "resource",
+        "contract developer",
+        "hire",
+        "outsourcing",
+        "manpower",
+        "resources",
+        "freelancer",
+        "dotnet developer"
+      ],
+      "photo": "remote-engineer",
+      "visual": "talent",
+      "timeline": "Screened profiles usually arrive within 48 hours, and a specialist can start as soon as you finish interviews and pick someone.",
+      "pricing": "Monthly for full-time specialists, or hourly for variable work."
+    },
+    {
+      "slug": "marketing-team",
+      "pillar": "talent",
+      "name": "Marketing Team as a Service",
+      "summary": "A strategist, designer, ad specialist and writer working as your in-house marketing team.",
+      "includes": [
+        "Dedicated marketing lead",
+        "Designers & content writers",
+        "Ads & SEO specialists",
+        "Monthly strategy reviews",
+        "No hiring or training overhead"
+      ],
+      "keywords": [
+        "marketing team",
+        "outsource marketing",
+        "virtual cmo",
+        "marketing department",
+        "digital marketing team"
+      ],
+      "photo": "culture-casual",
+      "visual": "talent",
+      "timeline": "A managed marketing team is usually set up and working within 1 to 2 weeks.",
+      "pricing": "A fixed monthly fee for the agreed team and scope."
+    },
+    {
+      "slug": "it-infrastructure",
+      "pillar": "talent",
+      "name": "IT Infrastructure on Rent",
+      "summary": "Laptops, desktops and office equipment on a monthly plan through our group company, Reliable IT.",
+      "includes": [
+        "Laptops & desktops on rent",
+        "Printers & office equipment",
+        "Maintenance & replacement included",
+        "Rapid deployment for new teams",
+        "OpEx instead of CapEx"
+      ],
+      "keywords": [
+        "laptop rental",
+        "rent",
+        "hardware",
+        "infrastructure",
+        "desktop",
+        "printer",
+        "it equipment",
+        "laptops"
+      ],
+      "photo": "dev-cloud",
+      "visual": "cloud",
+      "timeline": "Devices are usually delivered and set up within a few working days, depending on quantity.",
+      "pricing": "Monthly rental with maintenance included, or a fixed rental for a project period."
+    }
+  ],
+  "products": [
+    {
+      "slug": "ecomm",
+      "name": "Yenetch Ecomm",
+      "category": "Shopping website platform",
+      "status": "Live",
+      "summary": "Launch a full online store with AI product intelligence, fast checkout and zero transaction fees.",
+      "features": [
+        "0% transaction fee",
+        "Guest checkout",
+        "Mobile-first admin",
+        "Razorpay & PayPal setup",
+        "Multi-carrier shipping",
+        "Managed hosting & SSL",
+        "AI report builder"
+      ],
+      "price": "From ₹1,499/month",
+      "priceNote": "Launch offer. Regular ₹1,999/month.",
+      "keywords": [
+        "ecomm",
+        "shopping website",
+        "online store",
+        "store builder",
+        "sell online",
+        "shop"
+      ],
+      "photo": "prod-ecomm",
+      "timeline": "Your store can be live in about a week: add products, connect payments and shipping, and start selling."
+    },
+    {
+      "slug": "leads",
+      "name": "Yenetch Leads",
+      "category": "Lead management system",
+      "status": "Live",
+      "summary": "One pipeline for every enquiry, with auto-assignment, reminders and WhatsApp built in.",
+      "features": [
+        "Pipeline view",
+        "Auto-assignment rules",
+        "Follow-up alerts",
+        "WhatsApp integration",
+        "Conversion reports"
+      ],
+      "price": "Book a demo",
+      "priceNote": "Priced by team size.",
+      "keywords": [
+        "lead management",
+        "leads",
+        "pipeline",
+        "crm",
+        "follow up",
+        "sales team"
+      ],
+      "photo": "prod-leads",
+      "timeline": "Most teams are set up within a few days, including importing existing leads and connecting your forms and WhatsApp."
+    },
+    {
+      "slug": "studio-ai",
+      "name": "Yenetch Studio AI",
+      "category": "AI product photoshoot",
+      "status": "Early access",
+      "summary": "Turn phone photos into catalogue-ready product images with AI backgrounds, models and lifestyle scenes.",
+      "features": [
+        "Background removal & studio lighting",
+        "AI lifestyle scenes",
+        "Virtual model try-on",
+        "Marketplace-ready sizes",
+        "Bulk processing"
+      ],
+      "price": "Request early access",
+      "priceNote": "",
+      "keywords": [
+        "photoshoot",
+        "product photo",
+        "ai photo",
+        "catalog",
+        "catalogue",
+        "product images",
+        "photography",
+        "studio"
+      ],
+      "photo": "prod-studio",
+      "timeline": "It's in early access. Once you're in, you can create product photos the same day."
+    },
+    {
+      "slug": "billing-pos",
+      "name": "Yenetch Billing & POS",
+      "category": "Billing and point of sale",
+      "status": "Coming soon",
+      "summary": "GST billing, inventory and POS for retail stores, restaurants and service businesses.",
+      "features": [
+        "GST billing",
+        "Inventory management",
+        "Barcode scanning",
+        "Offline mode",
+        "Multi-store",
+        "Loyalty & WhatsApp receipts"
+      ],
+      "price": "Join the waitlist",
+      "priceNote": "",
+      "keywords": [
+        "billing",
+        "pos",
+        "gst",
+        "invoice",
+        "inventory",
+        "point of sale",
+        "restaurant billing",
+        "retail billing"
+      ],
+      "photo": "prod-billing",
+      "timeline": "It's on the waitlist. We'll share the launch date and setup time when you join."
+    },
+    {
+      "slug": "office",
+      "name": "Yenetch Office",
+      "category": "Office management suite",
+      "status": "Coming soon",
+      "summary": "HR, payroll, attendance, projects, client portal and accounts in one workspace.",
+      "features": [
+        "HR & payroll",
+        "Attendance & leave",
+        "Project & task management",
+        "Client portal",
+        "Accounts & GST",
+        "Performance reviews"
+      ],
+      "price": "Join the waitlist",
+      "priceNote": "",
+      "keywords": [
+        "hrms",
+        "payroll",
+        "attendance",
+        "office management",
+        "hr software",
+        "project management"
+      ],
+      "photo": "prod-office",
+      "timeline": "It's on the waitlist. We'll share the launch date and setup time when you join."
+    }
+  ],
+  "caseStudies": [
+    {
+      "slug": "cabyaari-crm",
+      "client": "CabYaari",
+      "industry": "Mobility & travel",
+      "services": [
+        "crm-erp",
+        "web-development"
+      ],
+      "title": "A custom CRM that took cab bookings from manual to 24/7",
+      "challenge": "Manual processes caused booking errors, gave no real-time view of active trips, and customers could not book without calling an agent. Finance and staff performance were impossible to track.",
+      "solution": "A custom web application with a full CRM, a self-service customer booking panel, automated driver dispatch with live tracking, a finance console for revenue and expense forecasting, and staff and lead dashboards.",
+      "metrics": [
+        {
+          "value": "60%",
+          "label": "more customer bookings"
+        },
+        {
+          "value": "50%",
+          "label": "less booking time"
+        },
+        {
+          "value": "80%",
+          "label": "gain in work efficiency"
+        }
+      ],
+      "quote": {
+        "text": "Outstanding work on our app. Operations are far smoother than before.",
+        "name": "Ravi Verma",
+        "role": "CabYaari"
+      },
+      "url": "https://www.cabyaari.com",
+      "photo": "case-cabyaari-crm"
+    },
+    {
+      "slug": "slp-quest-event-funnel",
+      "client": "SLP Quest",
+      "industry": "Healthcare education",
+      "services": [
+        "lead-generation",
+        "performance-marketing"
+      ],
+      "title": "Filling a niche professional event in an unfamiliar city",
+      "challenge": "SLP Quest, a division of Insight Rehabilitation, wanted to host an event for speech-language pathologists in Jaipur, where the audience was small, spread out and unaware of the organisation.",
+      "solution": "One high-trust funnel landing page to capture registrations fast, backed by precisely targeted social campaigns aimed at SLP professionals to keep cost per acquisition low.",
+      "metrics": [
+        {
+          "value": "95%",
+          "label": "registration rate"
+        },
+        {
+          "value": "500",
+          "label": "qualified leads"
+        },
+        {
+          "value": "1.5x",
+          "label": "footfall vs previous event"
+        }
+      ],
+      "url": "https://register.slpquest.com",
+      "photo": "case-slp-quest-event-funnel"
+    },
+    {
+      "slug": "south-asia-education",
+      "client": "South Asia Education",
+      "industry": "Education consultancy",
+      "services": [
+        "brand-orm",
+        "crm-erp",
+        "social-media-marketing"
+      ],
+      "title": "Building trust and a lead engine for a new study-abroad brand",
+      "challenge": "A newly launched consultancy for admissions to French colleges had zero awareness, low lead volume and few admissions, in a sector often associated with scams.",
+      "solution": "A trust-first campaign with student testimonials and useful content, social lead magnets, and a custom CRM with a self-serve course finder that manages students, partner universities, leads and courses.",
+      "metrics": [
+        {
+          "value": "65%",
+          "label": "increase in leads"
+        },
+        {
+          "value": "50+",
+          "label": "partner institutions onboarded"
+        },
+        {
+          "value": "100%",
+          "label": "seat occupancy"
+        }
+      ],
+      "url": "https://www.southasiaeducation.fr",
+      "photo": "case-south-asia-education"
+    },
+    {
+      "slug": "brkesiya-exhibition",
+      "client": "Brkesiya Ethnics",
+      "industry": "Fashion retail",
+      "services": [
+        "lead-generation",
+        "performance-marketing",
+        "social-media-marketing"
+      ],
+      "title": "Turning social ads into record exhibition sales",
+      "challenge": "A Jaipur ethnic-wear label needed to fill its twice-yearly exhibitions with qualified buyers, but website traffic was low and its lead funnel was unoptimised.",
+      "solution": "A dedicated funnel landing page with precise targeting, plus PPC and data-driven social branding campaigns aimed at high-value buyers in the region.",
+      "metrics": [
+        {
+          "value": "2x",
+          "label": "sales in a 3-day exhibition"
+        },
+        {
+          "value": "4x",
+          "label": "higher footfall"
+        }
+      ],
+      "url": "https://brkesiya.com",
+      "photo": "case-brkesiya-exhibition"
+    },
+    {
+      "slug": "sahara-evols",
+      "client": "Sahara Evols",
+      "industry": "Electric vehicles",
+      "services": [
+        "social-media-marketing",
+        "content-marketing"
+      ],
+      "title": "Selling electric scooters as an income opportunity",
+      "challenge": "During the pandemic, generic messaging had worn audiences out and buyers were wary of large purchases.",
+      "solution": "A three-pillar social strategy: contextual storytelling around moments like Ozone Day, bold product showcases, and reframing the scooter as an income-generating asset through franchise stories.",
+      "metrics": [
+        {
+          "value": "2.4M",
+          "label": "impressions"
+        },
+        {
+          "value": "45%",
+          "label": "lead conversion growth"
+        },
+        {
+          "value": "32%",
+          "label": "more engagement"
+        }
+      ],
+      "photo": "case-sahara-evols"
+    },
+    {
+      "slug": "jmch-website-cms",
+      "client": "Jaipur Medical College & Hospital",
+      "industry": "Healthcare & education",
+      "services": [
+        "web-development"
+      ],
+      "title": "A scalable website and CMS for a medical college",
+      "challenge": "JMCH needed a fast, secure website that staff could keep current across courses, departments, faculty and notices.",
+      "solution": "A fully custom responsive website on a role-based CMS for pages, courses, departments, faculty profiles, notices, galleries and downloads, built for performance, security and SEO.",
+      "metrics": [
+        {
+          "value": "Role-based",
+          "label": "CMS for every department"
+        },
+        {
+          "value": "Mobile-first",
+          "label": "across all pages"
+        }
+      ],
+      "url": "https://www.jmchjaipur.com",
+      "photo": "case-jmch-website-cms"
+    },
+    {
+      "slug": "nuyu-health-club",
+      "client": "NUYU Health Club",
+      "industry": "Fitness",
+      "services": [
+        "social-media-marketing",
+        "brand-orm"
+      ],
+      "title": "Launching a luxury gym in a crowded local market",
+      "challenge": "A new luxury health club in Vaishali Nagar, Jaipur needed visibility fast to hit aggressive first-month membership targets.",
+      "solution": "A high-reach social awareness campaign that positioned NUYU as the premier club in the area from launch week.",
+      "metrics": [
+        {
+          "value": "800+",
+          "label": "active members and growing"
+        },
+        {
+          "value": "250+",
+          "label": "first-month registrations"
+        },
+        {
+          "value": "1.9k",
+          "label": "people showed interest"
+        }
+      ],
+      "url": "http://nuyuhealthclub.com",
+      "photo": "case-nuyu-health-club"
+    },
+    {
+      "slug": "ruhs-arena-26",
+      "client": "Rajasthan University of Health Sciences",
+      "industry": "Government & institutions",
+      "services": [
+        "media-buying"
+      ],
+      "title": "End-to-end branding for Arena '26 university sports event",
+      "challenge": "RUHS needed event management, print production and flawless on-ground execution for its annual sports event.",
+      "solution": "Custom-designed branding elements, large-format print production and coordinated setup across every venue.",
+      "metrics": [
+        {
+          "value": "35+",
+          "label": "print materials delivered"
+        },
+        {
+          "value": "4k sq ft",
+          "label": "of custom branding"
+        },
+        {
+          "value": "100%",
+          "label": "on-time setup"
+        }
+      ],
+      "photo": "case-ruhs-arena-26"
+    }
+  ],
+  "clients": [
+    "South Asia Education",
+    "CabYaari",
+    "High Court of Delhi",
+    "Aurionpro",
+    "Rajasthan University of Health Sciences",
+    "Jaipur Medical College & Hospital",
+    "Exillien Softech",
+    "Grand Sud Formation",
+    "Sporbit",
+    "Brkesiya Ethnics",
+    "Divyang Rasoi",
+    "Yogashray Sewayatan",
+    "Sanjeevni Buildhome",
+    "La Meal",
+    "RightUNI",
+    "NUYU Health Club",
+    "SLP Quest",
+    "Jomiso",
+    "Sahara Evols",
+    "Inscape India"
+  ],
+  "testimonials": [
+    {
+      "text": "A professional and reliable IT company. They delivered customised software exactly to our requirements.",
+      "name": "Anuj Kumawat",
+      "company": "Inscape India"
+    },
+    {
+      "text": "Impressed with the service quality. Our website is user-friendly and secure.",
+      "name": "Zafar Ahmed",
+      "company": "RK Enterprise"
+    },
+    {
+      "text": "Outstanding. The mobile app they built has made our operations much smoother.",
+      "name": "Ravi Verma",
+      "company": "CabYaari"
+    },
+    {
+      "text": "They created and maintain a robust, scalable cloud platform for us.",
+      "name": "Sadhana Sharma",
+      "company": "4YoFitness"
+    }
+  ],
+  "process": [
+    {
+      "name": "Discover",
+      "text": "A free consultation and audit to understand your goals, users and numbers."
+    },
+    {
+      "name": "Plan",
+      "text": "A written scope with timeline, team and fixed or monthly pricing."
+    },
+    {
+      "name": "Build",
+      "text": "Two-week sprints or campaign cycles with a demo or report every time."
+    },
+    {
+      "name": "Launch",
+      "text": "QA, go-live checklist, tracking and training for your team."
+    },
+    {
+      "name": "Scale",
+      "text": "Monthly reviews, optimisation and support under a clear SLA."
+    }
+  ],
+  "faqs": [
+    {
+      "q": "How much does a website cost?",
+      "a": "It depends on pages, features and integrations. Business websites usually start with a fixed quote after a free 20-minute consultation, and online stores can start on Yenetch Ecomm from ₹1,499/month.",
+      "keywords": [
+        "cost",
+        "price",
+        "pricing",
+        "how much",
+        "budget",
+        "quote",
+        "charges",
+        "rate",
+        "fees"
+      ]
+    },
+    {
+      "q": "How long does a project take?",
+      "a": "A landing page takes about 1 to 2 weeks, a business website 3 to 6 weeks, and custom software or apps 6 to 16 weeks depending on scope. Marketing campaigns can go live within a week.",
+      "keywords": [
+        "how long",
+        "timeline",
+        "time",
+        "duration",
+        "deadline",
+        "weeks",
+        "fast",
+        "urgent"
+      ]
+    },
+    {
+      "q": "Where are you located?",
+      "a": "Our head office is at Landmark Cyber Park, Sector 67, Gurugram, and our delivery centre is in Vaishali Nagar, Jaipur. We work with clients across India and abroad.",
+      "keywords": [
+        "where",
+        "location",
+        "office",
+        "address",
+        "gurgaon",
+        "gurugram",
+        "jaipur",
+        "visit"
+      ]
+    },
+    {
+      "q": "Do you work with international clients?",
+      "a": "Yes. We work with clients in France and other countries, with overlapping hours for calls and English-first communication.",
+      "keywords": [
+        "international",
+        "abroad",
+        "usa",
+        "uk",
+        "france",
+        "overseas",
+        "global",
+        "outside india"
+      ]
+    },
+    {
+      "q": "Which technologies do you use?",
+      "a": "ASP.NET and .NET Core, Node.js, PHP, Python, React, Angular, Flutter, React Native, SQL Server, MySQL, MongoDB, AWS and Azure, chosen to fit your project.",
+      "keywords": [
+        "technology",
+        "tech stack",
+        "stack",
+        "dotnet",
+        ".net",
+        "react",
+        "php",
+        "node",
+        "python",
+        "flutter",
+        "language"
+      ]
+    },
+    {
+      "q": "Who owns the code and data?",
+      "a": "You do. Source code, designs and data are transferred to you, and we sign an NDA before any discussion if you need one.",
+      "keywords": [
+        "ownership",
+        "own the code",
+        "ip",
+        "nda",
+        "confidential",
+        "source code",
+        "data"
+      ]
+    },
+    {
+      "q": "Do you provide support after launch?",
+      "a": "Yes. Every project includes a free support window, and annual maintenance plans cover updates, security patches and priority fixes.",
+      "keywords": [
+        "after launch",
+        "support",
+        "maintenance",
+        "warranty",
+        "help later"
+      ]
+    },
+    {
+      "q": "Are you hiring?",
+      "a": "We are growing and regularly hire developers, designers and marketers in Gurugram and Jaipur. See the Careers page or send your CV to hello@yenetch.com.",
+      "keywords": [
+        "job",
+        "career",
+        "careers",
+        "hiring",
+        "vacancy",
+        "internship",
+        "work at",
+        "join"
+      ]
+    },
+    {
+      "q": "How do we get started?",
+      "a": "Share a few details and a specialist will call you within one working day for a free consultation. You can also use the service finder on this page.",
+      "keywords": [
+        "start",
+        "get started",
+        "contact",
+        "call",
+        "meeting",
+        "consultation",
+        "talk",
+        "expert",
+        "demo"
+      ]
+    }
+  ],
+  "finder": {
+    "steps": [
+      {
+        "id": "goal",
+        "question": "What do you want to achieve?",
+        "options": [
+          {
+            "id": "leads",
+            "label": "Get more leads and sales"
+          },
+          {
+            "id": "sell-online",
+            "label": "Start selling online"
+          },
+          {
+            "id": "build",
+            "label": "Build a website, app or software"
+          },
+          {
+            "id": "automate",
+            "label": "Automate operations and reporting"
+          },
+          {
+            "id": "brand",
+            "label": "Build brand and reputation"
+          },
+          {
+            "id": "team",
+            "label": "Add developers or marketers to my team"
+          }
+        ]
+      },
+      {
+        "id": "stage",
+        "question": "Where is your business today?",
+        "options": [
+          {
+            "id": "new",
+            "label": "New or launching soon"
+          },
+          {
+            "id": "growing",
+            "label": "Growing small or mid-sized business"
+          },
+          {
+            "id": "enterprise",
+            "label": "Established enterprise"
+          },
+          {
+            "id": "institution",
+            "label": "Government or institution"
+          }
+        ]
+      },
+      {
+        "id": "industry",
+        "question": "Which industry are you in?",
+        "options": [
+          {
+            "id": "retail",
+            "label": "Retail, fashion or D2C"
+          },
+          {
+            "id": "education",
+            "label": "Education"
+          },
+          {
+            "id": "health",
+            "label": "Healthcare or fitness"
+          },
+          {
+            "id": "services",
+            "label": "Travel, mobility or services"
+          },
+          {
+            "id": "realestate",
+            "label": "Real estate or construction"
+          },
+          {
+            "id": "other",
+            "label": "Something else"
+          }
+        ]
+      },
+      {
+        "id": "timeline",
+        "question": "When do you want to start?",
+        "options": [
+          {
+            "id": "now",
+            "label": "Right away"
+          },
+          {
+            "id": "month",
+            "label": "Within a month"
+          },
+          {
+            "id": "exploring",
+            "label": "Just exploring"
+          }
+        ]
+      }
+    ],
+    "rules": {
+      "goal": {
+        "leads": {
+          "primary": "lead-generation",
+          "support": [
+            "performance-marketing",
+            "seo"
+          ],
+          "product": "leads"
+        },
+        "sell-online": {
+          "primary": "ecommerce-development",
+          "support": [
+            "performance-marketing",
+            "social-media-marketing"
+          ],
+          "product": "ecomm"
+        },
+        "build": {
+          "primary": "web-development",
+          "support": [
+            "custom-software",
+            "mobile-apps"
+          ],
+          "product": null
+        },
+        "automate": {
+          "primary": "crm-erp",
+          "support": [
+            "ai-solutions",
+            "custom-software"
+          ],
+          "product": "leads"
+        },
+        "brand": {
+          "primary": "brand-orm",
+          "support": [
+            "social-media-marketing",
+            "content-marketing"
+          ],
+          "product": null
+        },
+        "team": {
+          "primary": "dedicated-teams",
+          "support": [
+            "staff-augmentation",
+            "marketing-team"
+          ],
+          "product": null
+        }
+      },
+      "industry": {
+        "retail": {
+          "case": "brkesiya-exhibition",
+          "product": "studio-ai"
+        },
+        "education": {
+          "case": "south-asia-education"
+        },
+        "health": {
+          "case": "slp-quest-event-funnel"
+        },
+        "services": {
+          "case": "cabyaari-crm"
+        },
+        "realestate": {
+          "case": "sahara-evols"
+        },
+        "other": {
+          "case": "cabyaari-crm"
+        }
+      },
+      "stage": {
+        "new": {
+          "note": "We usually start new businesses with a lean launch package so you are live and collecting leads within weeks."
+        },
+        "growing": {
+          "note": "For growing businesses we pair a quick-win campaign with a system that removes manual work."
+        },
+        "enterprise": {
+          "note": "For enterprises we begin with a discovery sprint, security review and a dedicated delivery manager."
+        },
+        "institution": {
+          "note": "We have delivered for institutions such as RUHS and JMCH and follow formal documentation and approval cycles."
+        }
+      }
+    }
+  },
+  "blog": [
+    {
+      "slug": "website-cost-in-india",
+      "title": "How Much Does a Website Cost in India in 2026? A Transparent Pricing Guide",
+      "category": "Web Development",
+      "excerpt": "What actually drives the price of a business website, what you should expect at each budget, and the hidden costs to ask about before you sign.",
+      "readMinutes": 6,
+      "date": "2026-09-18",
+      "coverImage": "blog-website-cost-in-india",
+      "author": "Yenetch Editorial Team"
+    },
+    {
+      "slug": "custom-crm-vs-off-the-shelf",
+      "title": "Custom CRM vs Off-the-Shelf CRM: Which Is Right for Your Growing Business?",
+      "category": "Software",
+      "excerpt": "A decision framework with real costs, timelines and the signs you have outgrown spreadsheets and generic tools.",
+      "readMinutes": 6,
+      "date": "2026-09-10",
+      "coverImage": "blog-custom-crm-vs-off-the-shelf",
+      "author": "Yenetch Editorial Team"
+    },
+    {
+      "slug": "meta-ads-vs-google-ads-for-leads",
+      "title": "Meta Ads vs Google Ads for Lead Generation: Where Should Indian SMEs Spend?",
+      "category": "Performance Marketing",
+      "excerpt": "Intent, cost per lead and lead quality compared, with a simple split to start testing this month.",
+      "readMinutes": 5,
+      "date": "2026-09-02",
+      "coverImage": "blog-meta-ads-vs-google-ads-for-leads",
+      "author": "Yenetch Editorial Team"
+    },
+    {
+      "slug": "local-seo-checklist",
+      "title": "Local SEO Checklist 2026: Rank on Google Maps in Jaipur, Gurugram and Beyond",
+      "category": "SEO",
+      "excerpt": "Twenty practical steps for Google Business Profile, reviews, citations and location pages.",
+      "readMinutes": 5,
+      "date": "2026-08-25",
+      "coverImage": "blog-local-seo-checklist",
+      "author": "Yenetch Editorial Team"
+    },
+    {
+      "slug": "ai-product-photography-guide",
+      "title": "AI Product Photography: How D2C Brands Create Catalogue Images Without a Studio",
+      "category": "AI",
+      "excerpt": "Where AI photoshoots match a studio, where they do not, and a workflow for marketplace-ready images.",
+      "readMinutes": 5,
+      "date": "2026-08-18",
+      "coverImage": "blog-ai-product-photography-guide",
+      "author": "Yenetch Editorial Team"
+    },
+    {
+      "slug": "gst-billing-software-features",
+      "title": "GST Billing Software for Retail Stores: 12 Features That Actually Matter",
+      "category": "Products",
+      "excerpt": "From offline mode to WhatsApp receipts, what to look for before choosing a billing and POS system.",
+      "readMinutes": 5,
+      "date": "2026-08-11",
+      "coverImage": "blog-gst-billing-software-features",
+      "author": "Yenetch Editorial Team"
+    },
+    {
+      "slug": "staff-augmentation-vs-dedicated-team",
+      "title": "Staff Augmentation vs Dedicated Team: How to Scale Tech Without Hiring Risk",
+      "category": "Outsourcing",
+      "excerpt": "Costs, control and speed compared, with the questions to ask any outsourcing partner.",
+      "readMinutes": 5,
+      "date": "2026-08-04",
+      "coverImage": "blog-staff-augmentation-vs-dedicated-team",
+      "author": "Yenetch Editorial Team"
+    },
+    {
+      "slug": "event-registration-funnel",
+      "title": "How to Build an Event Registration Funnel That Fills Every Seat",
+      "category": "Lead Generation",
+      "excerpt": "The landing page, targeting and follow-up structure behind a 95% registration rate for a niche medical event.",
+      "readMinutes": 5,
+      "date": "2026-07-28",
+      "coverImage": "blog-event-registration-funnel",
+      "author": "Yenetch Editorial Team"
+    },
+    {
+      "slug": "start-online-store-india",
+      "title": "Starting an Online Store in India: Shopify vs Custom Build vs Yenetch Ecomm",
+      "category": "E-commerce",
+      "excerpt": "Fees, flexibility and time-to-launch compared for first-time sellers and growing D2C brands.",
+      "readMinutes": 5,
+      "date": "2026-07-21",
+      "coverImage": "blog-start-online-store-india",
+      "author": "Yenetch Editorial Team"
+    },
+    {
+      "slug": "handle-negative-google-reviews",
+      "title": "Online Reputation Management: How to Handle Negative Google Reviews",
+      "category": "Branding & ORM",
+      "excerpt": "Response templates, escalation rules and how to earn more genuine reviews from happy customers.",
+      "readMinutes": 5,
+      "date": "2026-07-14",
+      "coverImage": "blog-handle-negative-google-reviews",
+      "author": "Yenetch Editorial Team"
+    }
+  ],
+  "team": {
+    "leadership": [
+      {
+        "role": "Founder & CEO",
+        "remit": "Sets direction, owns key client relationships and partnerships.",
+        "name": "Aarav Mehta",
+        "photo": "team-aarav",
+        "linkedin": ""
+      },
+      {
+        "role": "Head of Digital Marketing",
+        "remit": "Leads performance, search and social, and answers for lead targets.",
+        "name": "Riya Sharma",
+        "photo": "team-riya",
+        "linkedin": ""
+      },
+      {
+        "role": "Head of Engineering",
+        "remit": "Owns architecture, code quality and delivery on every build.",
+        "name": "Karan Joshi",
+        "photo": "team-karan",
+        "linkedin": ""
+      },
+      {
+        "role": "Design Lead",
+        "remit": "Runs UX research, interface systems and brand design.",
+        "name": "Arjun Rathore",
+        "photo": "team-arjun",
+        "linkedin": ""
+      },
+      {
+        "role": "Delivery Manager",
+        "remit": "Plans sprints and campaigns, timelines and client reporting.",
+        "name": "Neha Kapoor",
+        "photo": "team-neha",
+        "linkedin": ""
+      },
+      {
+        "role": "Talent & People Lead",
+        "remit": "Hires, onboards and grows the team and the resourcing bench.",
+        "name": "Meera Iyer",
+        "photo": "team-meera",
+        "linkedin": ""
+      }
+    ],
+    "squads": [
+      {
+        "name": "Growth Marketing",
+        "text": "Paid media, SEO and analytics, run against cost per lead and revenue.",
+        "roles": [
+          "Performance marketers",
+          "SEO specialists",
+          "Marketing analysts"
+        ]
+      },
+      {
+        "name": "Content & Social",
+        "text": "The words, videos and posts that make people stop and act.",
+        "roles": [
+          "Copywriters",
+          "Social media managers",
+          "Video editors"
+        ]
+      },
+      {
+        "name": "Design",
+        "text": "Research, interfaces and brand systems that make products easy to love.",
+        "roles": [
+          "UX researchers",
+          "UI designers",
+          "Brand designers"
+        ]
+      },
+      {
+        "name": "Engineering",
+        "text": "Web, mobile and backend engineers who ship every two weeks.",
+        "roles": [
+          ".NET and Node developers",
+          "Frontend engineers",
+          "Mobile developers"
+        ]
+      },
+      {
+        "name": "Quality & Cloud",
+        "text": "Testing, deployment and uptime, so launches are calm.",
+        "roles": [
+          "QA engineers",
+          "DevOps engineers",
+          "Support engineers"
+        ]
+      },
+      {
+        "name": "Delivery & Talent",
+        "text": "The people who keep projects on track and teams fully staffed.",
+        "roles": [
+          "Project managers",
+          "Account managers",
+          "Talent partners"
+        ]
+      }
+    ]
+  },
+  "industries": [
+    {
+      "name": "Education",
+      "photo": "ind-education",
+      "clients": [
+        "South Asia Education",
+        "RightUNI",
+        "Grand Sud Formation"
+      ]
+    },
+    {
+      "name": "Healthcare",
+      "photo": "ind-healthcare",
+      "clients": [
+        "Jaipur Medical College & Hospital",
+        "Rajasthan University of Health Sciences",
+        "SLP Quest"
+      ]
+    },
+    {
+      "name": "Retail & D2C",
+      "photo": "ind-retail",
+      "clients": [
+        "Brkesiya Ethnics",
+        "La Meal",
+        "Divyang Rasoi"
+      ]
+    },
+    {
+      "name": "Mobility & EV",
+      "photo": "ind-ev",
+      "clients": [
+        "CabYaari",
+        "Sahara Evols"
+      ]
+    },
+    {
+      "name": "Fitness & wellness",
+      "photo": "ind-fitness",
+      "clients": [
+        "NUYU Health Club",
+        "Yogashray Sewayatan"
+      ]
+    },
+    {
+      "name": "Real estate",
+      "photo": "ind-realestate",
+      "clients": [
+        "Sanjeevni Buildhome"
+      ]
+    },
+    {
+      "name": "Events & exhibitions",
+      "photo": "ind-events",
+      "clients": [
+        "SLP Quest",
+        "Brkesiya Ethnics"
+      ]
+    },
+    {
+      "name": "Enterprise & public sector",
+      "photo": "office-meeting",
+      "clients": [
+        "High Court of Delhi",
+        "Aurionpro",
+        "Exillien Softech",
+        "Inscape India"
+      ]
+    }
+  ],
+  "careers": {
+    "perks": [
+      {
+        "title": "Real work from week one",
+        "text": "You join live client projects with a mentor, not a sandbox."
+      },
+      {
+        "title": "Two practices, one roof",
+        "text": "Marketers and engineers sit together, so you learn how growth and software connect."
+      },
+      {
+        "title": "Learning time",
+        "text": "Certifications, internal talks and time to try new tools on real problems."
+      },
+      {
+        "title": "Gurugram and Jaipur",
+        "text": "Work from either office, with flexibility when the work allows."
+      }
+    ],
+    "roles": [
+      {
+        "title": "Senior .NET Developer",
+        "team": "Engineering",
+        "location": "Jaipur",
+        "type": "Full-time · 4+ years"
+      },
+      {
+        "title": "React / Next.js Developer",
+        "team": "Engineering",
+        "location": "Jaipur",
+        "type": "Full-time · 2+ years"
+      },
+      {
+        "title": "Performance Marketing Manager",
+        "team": "Marketing",
+        "location": "Gurugram",
+        "type": "Full-time · 3+ years"
+      },
+      {
+        "title": "SEO Specialist",
+        "team": "Marketing",
+        "location": "Gurugram or Jaipur",
+        "type": "Full-time · 2+ years"
+      },
+      {
+        "title": "UI/UX Designer",
+        "team": "Design",
+        "location": "Jaipur",
+        "type": "Full-time · 2+ years"
+      }
+    ],
+    "steps": [
+      {
+        "name": "Apply",
+        "text": "Send your CV or portfolio. A person reads every application."
+      },
+      {
+        "name": "Intro call",
+        "text": "Thirty minutes about you, the role and the team."
+      },
+      {
+        "name": "Practical task",
+        "text": "A short task close to the real work, never more than a few hours."
+      },
+      {
+        "name": "Meet the team",
+        "text": "Talk to the people you'll work with, then get an answer within a week."
+      }
+    ]
+  }
+}
